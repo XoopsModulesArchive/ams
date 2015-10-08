@@ -1,0 +1,10 @@
+<{include file="db:ams_header.html"}>
+<div class="outer">
+<{foreachq item=audience from=$audience}>
+    <div class = "<{cycle values = "even,odd"}>">
+<{$audience.id}><br />
+	<{$audience.audience}><br />
+	</div>    
+<{/foreach}>
+</div>
+<{include file="db:ams_footer.html"}>

@@ -1,0 +1,139 @@
+<div class="breadcrumb"><{$breadcrumb}></div>
+<div><{$articlebanner}></div>
+
+<div style="text-align: left; margin: 10px;"><{if $pagenav}>Page <{$pagenav}><{/if}></div>
+<div>
+    <div class="itemHead">
+        <div class="itemTitle" style="float:left;">
+			<{if $story.friendlyurl_enable != 1}>
+            <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$story.id}>"><{$story.title}></a>
+			<{else}>
+            <a href="<{$story.friendlyurl}>"><{$story.title}></a>
+			<{/if}>
+        </div>
+        <div style="text-align: right;">&nbsp;
+        </div>
+    </div>
+    <div class="itemInfo">
+        <div class="itemPoster" style="float:left;"><{if $story.poster != ''}><{$lang_postedby}> : <{$story.poster}><{/if}></div>
+        <div class="itemPoster" style="text-align: right;"><{$smarty.const._AMS_NW_STORYID}> : <{$story.id}></div>
+    
+        <div class="itemPoster" style="float:left;"><{$smarty.const._AMS_NW_AUDIENCE}> : <{$story.audience}></div>
+        <div class="itemPoster" style="text-align: right;"><{$smarty.const._AMS_NW_VERSION}>&nbsp;<{$story.version}>.<{$story.revision}><{$story.revisionminor}></div>
+    
+        <div class="itemPostDate" style="float:left;"><{$lang_on}> <{$story.posttime}></div>
+        <div class="itemStats" style="text-align: right;"><{$lang_reads}> : <{$story.hits}></div>
+    </div>
+    <{if $related && $related.top}>
+        <div class="itemHead">
+                <{$smarty.const._AMS_NW_PREREQUISITEARTICLES}>
+        </div>
+        <div>
+            <table>
+                <{foreach item=link from=$related.top}>
+                    <tr>
+                        <td class="head" width="20%"><{$link.link_module}></td>
+                        <td class="<{cycle values="odd, even"}>">
+                            <a href='<{$xoops_url}>/modules/AMS/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>
+                            ' target="<{$link.target}>"><{$link.link_title}></a>
+                            <{if $admin}>
+                                (<{$link.hits}>)
+                            <{/if}>
+                        </td>
+                    </tr>
+                <{/foreach}>
+            </table>
+        </div>
+    <{/if}>
+    <div class="itemBody">
+        <{$story.imglink}>
+        <p class="itemText">
+            <{if $page == 0}>
+                <{$story.hometext}>
+            <{/if}>
+            <{if $page == 0}>
+                <br />
+            <{/if}>
+            <{$story.bodytext}>
+        </p>
+    </div>
+    <div class="itemFoot" style="clear: both;">
+        <{if $story.ratingimage != ""}>
+            <div style="float: left;">
+                <img src='<{$story.ratingimage}>' alt="<{$story.rating}>" />
+                <{if $allow_rating == 1}>
+                    | <a href="<{$xoops_url}>/modules/AMS/ratefile.php?storyid=<{$story.id}>"><{$smarty.const._AMS_NW_RATEARTICLE}></a>&nbsp;
+                <{/if}>
+            </div>
+        <{/if}>
+        <div style="text-align:right;">
+            <{if $admin}>
+                <span class="itemAdminLink">
+                    &nbsp;<a href='<{$xoops_url}>/modules/AMS/submit.php?op=edit&amp;storyid=<{$story.id}>'><{$smarty.const._EDIT}></a>
+                    <{if ($story.hasversions == 1)}>&nbsp&nbsp|
+                       &nbsp&nbsp<a href='<{$xoops_url}>/modules/AMS/versions.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_VERSION}></a>
+                    <{/if}>
+                    &nbsp&nbsp;
+                </span>
+            <{/if}>
+            <{if ($story.posterid == $xoops_userid || $admin)}>
+                <span class="itemPermaLink">|&nbsp&nbsp;<a href='<{$xoops_url}>/modules/AMS/link.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_MANAGELINK}></a>&nbsp;</span>
+            <{/if}>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: left; margin: 10px;"><{if $pagenav}>Page <{$pagenav}><{/if}></div>
+
+<{if $related && $related.bottom}>
+    <div class="itemHead">
+        <{$smarty.const._AMS_NW_RELATEDARTICLES}>
+    </div>
+    <table>
+        <{foreach item=link from=$related.bottom}>
+            <tr>
+                <td class="head" width="20%"><{$link.link_module}></td>
+                <td class="<{cycle values="odd, even"}>">
+                    <a href='<{$xoops_url}>/modules/AMS/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>' target="<{$link.target}>"><{$link.link_title}></a>
+                    <{if $admin}>
+                        (<{$link.hits}>)
+                    <{/if}>
+                </td>
+            </tr>
+        <{/foreach}>
+    </table>
+<{/if}>
+
+<{if $attached_files_count>0}>
+	<div class="itemInfo"><{$lang_attached_files}>
+		<{foreach item=onefile from=$attached_files}>
+			<a href='<{$onefile.visitlink}>' target='_blank'><{$onefile.file_realname}></a>&nbsp;
+			<br>
+		<{/foreach}>
+	</div>
+<{/if}>
+
+<div style="padding: 5px; text-align: right; margin-right:3px;">
+<{if $story.forum}>
+                <a href="<{$xoops_url}>/modules/newbb/viewforum.php?forum=<{$story.forum}>"><img src="<{$xoops_url}>/modules/AMS/images/discuss.png" /></a>
+            <{/if}>	
+<a href="<{$xoops_url}>/modules/AMS/print.php?storyid=<{$story.id}>"><img src="<{$xoops_url}>/modules/AMS/images/print.png" border="0" alt="<{$lang_printerpage}>" /></a> <a target="_top" href="<{$mail_link}>"><img src="<{$xoops_url}>/modules/AMS/images/email.png" border="0" alt="<{$lang_sendstory}>" /></a> <a target="_top" href="<{$xoops_url}>/modules/AMS/"><img src="<{$xoops_url}>/modules/AMS/images/home.png" border="0" alt="<{$lang_home}>" /></a>
+</div>
+
+<div style="text-align: center; padding: 3px; margin:3px;">
+	<{$commentsnav}>
+	<{$lang_notice}>
+</div>
+
+<div style="margin:3px; padding: 3px;">
+<!-- start comments loop -->
+<{if $comment_mode == "flat"}>
+	<{include file="db:system_comments_flat.html"}>
+<{elseif $comment_mode == "thread"}>
+	<{include file="db:system_comments_thread.html"}>
+<{elseif $comment_mode == "nest"}>
+	<{include file="db:system_comments_nest.html"}>
+<{/if}>
+<!-- end comments loop -->
+</div>
+<{include file='db:system_notification_select.html'}>

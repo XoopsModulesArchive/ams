@@ -1,0 +1,16 @@
+<{include file="db:ams_header.html"}>
+<div class="outer">
+<{foreachq item=topics from=$topics}>
+    <div class = "<{cycle values = "even,odd"}>">
+<{$topics.id}><br />
+	<{$topics.pid}><br />
+	<{$topics.imgurl}><br />
+	<{$topics.title}><br />
+	<{$topics.banner}><br />
+	<{$topics.banner_inherit}><br />
+	<{$topics.forum_id}><br />
+	<{$topics.weight}><br />
+	</div>    
+<{/foreach}>
+</div>
+<{include file="db:ams_footer.html"}>

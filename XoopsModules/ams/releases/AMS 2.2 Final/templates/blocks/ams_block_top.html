@@ -1,0 +1,26 @@
+<table>
+    <tr>
+        <{if $block.spotlight}>
+            <{if $block.onecolumn}>
+                <td>
+            <{else}>
+                <td width="60%">
+            <{/if}>
+                <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$block.spotlight.id}>"><{$block.spotlight.title}></a> (<{$block.spotlight.hits}>)<br />
+                <{$block.spotlight.image}>
+                <{$block.spotlight.text}>
+            </td>
+            <{if $block.onecolumn}>
+                </tr>
+                <tr>
+            <{/if}>
+        <{/if}>
+        <td>
+            <ul>
+                <{foreach item=news from=$block.stories}>
+                    <li><a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$news.id}>"><{$news.title}></a> (<{$news.hits}>)<br /><{$news.teaser}></li>
+                <{/foreach}>
+            </ul>
+        </td>
+    </tr>
+</table>

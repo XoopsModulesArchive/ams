@@ -1,0 +1,45 @@
+<div class="item">
+<table width=100% border=0>
+    <tr>
+        <td><{$topicbanner}></td>
+    </tr>
+    <tr>
+        <{counter start=0 print=false assign=topicnum}>
+        <{foreach item=topic from=$topics}>
+            <td width="<{$columnwidth}>%" valign="top">
+                <!-- start topic loop -->
+                    <div class="itemBody">
+                    <div class="itemInfo"><span class="itemText"><a href="<{$xoops_url}>/modules/AMS/index.php?storytopic=<{$topic.id}>"><{$topic.title}></a></span></div>
+                    <!-- start news item loop -->
+                    <{assign var="storycount" value=0}>
+                    <{section name=i loop=$topic.stories}>
+                      <{if $storycount == 0}>
+                        <{include file="db:ams_item.html" story=$topic.stories[i]}>
+                        <br />
+                        <{assign var="storycount" value=1}>
+                      <{else}>
+                        <{if $storycount == 1}>
+                            <ul>
+                            <{assign var="storycount" value=2}>
+                        <{/if}>
+                        <li><a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$topic.stories[i].id}>"><{$topic.stories[i].title}></a> (<{$topic.stories[i].posttime}>)</li>
+                      <{/if}>
+                      <{counter}>
+                    <{/section}>
+                    <{if $storycount > 1}>
+                        </ul>
+                        <a href="<{$xoops_url}>/modules/AMS/index.php?storytopic=<{$topic.id}>"><{$lang_morereleases}><{$topic.title}></a>                        
+                    <{/if}>
+                    </div>
+                    <!-- end news item loop -->
+            </td>
+            <{if $topicnum mod $columns == 0}>
+                </tr>
+                <tr>
+            <{/if}>
+        <{/foreach}>
+    </tr>
+</table>
+<!-- end topic loop -->
+</div>
+<{include file='db:system_notification_select.html'}>

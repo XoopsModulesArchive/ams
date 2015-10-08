@@ -1,0 +1,14 @@
+<{include file="db:ams_header.html"}>
+<div class="outer">
+<{foreachq item=rating from=$rating}>
+    <div class = "<{cycle values = "even,odd"}>">
+<{$rating.id}><br />
+	<{$rating.storyid}><br />
+	<{$rating.user}><br />
+	<{$rating.rating}><br />
+	<{$rating.hostname}><br />
+	<{$rating.timestamp}><br />
+	</div>    
+<{/foreach}>
+</div>
+<{include file="db:ams_footer.html"}>

@@ -1,0 +1,10 @@
+	
+<table class="outer">
+	<{foreachq item=audience from=$audience}>
+		<tr class = "<{cycle values = "even,odd"}>">
+			<td><{$audience.audience_id}></td>
+					
+		</tr>
+	<{/foreach}>
+</table>
+	

@@ -1,0 +1,17 @@
+UPGRADING INSTRUCTIONS:
+
+In order to upgrade from an existing News module
+1) Upload all files in this package, overwriting the existing files.
+2) Log in to the site
+3) Go to www.yoursite.com/modules/AMS/upgrade
+4) Press "Upgrade"
+
+Thank you
+
+Jan Keller Pedersen A.K.A Mithrandir
+
+JKP SoftwareUdvikling
+tel: +45 35 81 10 23
+mob. +45 27 39 35 17
+email: jkp@web-udvikling.dk
+web: www.web-udvikling.dk

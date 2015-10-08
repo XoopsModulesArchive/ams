@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule op([0-9]+)id([0-9]+)pg([0-9]+)\.htm$ ./modules/AMS/seo.php?novaseo_op=$1&novaseo_id=$2&novaseo_pg=$3 [L,QSA]
+</IfModule>

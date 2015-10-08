@@ -1,0 +1,58 @@
+Changelog
+************
+v2.1
+************
+> Changed name to AMS - Article Management System
+> Minor tweaks
+
+************
+v2.06.2
+************
+> Added Versioning - articles cannot be edited, but new versions are created instead. Versions can be pruned by approvers
+> Added Audience Level - articles can only be read in full by users allowed to read the article's audience level
+> Added Linking - Articles can be linked to any item searchable through XOOPS or directly to external links
+> Added Article Ratings (anonymous users' ability to rate articles is toggled in module preferences)
+> Added Author blocks - For listing most productive, most read and highest rated authors of articles
+> Changed Admin interface to be more useful with filtering options
+> Removed edit/delete and similar non-public links from index page
+> Added Upgrade script from News 1.1 - found in news/upgrade
+> Added HTML Banner area for topics that can be inherited by subtopics and overridden by individual articles
+> Added Topic linking to forum (requires Newbb 2) which if enabled will add a link to the specified forum from the topic's articles
+
+************
+v1.2 Final
+************
+> Added Spotlight Feature to Recent/Top News block
+
+************
+v1.2 RC2
+************
+> Fixed topic image alignment not saving
+> Fixed NewsStory::getAllPublished to work with backend.php
+> Fixed new topics navigation block to work properly with restricting topics
+
+
+************
+v1.2 RC1
+************
+> Added ALT+S as submit option (include/storyform.inc.php, admin/storyform.inc.php)
+> Fixed warning about invalid index "anonpost" in submit form (include/storyform.inc.php)
+> Changed $HTTP_GET_VARS to $_GET and $HTTP_POST_VARS to $_POST
+
+> Added per-usergroup permissions for viewing, submitting and approving newsstories per topic
+> Full articles only viewable to users with view permissions to that topic
+> Added moderation block for approving/editing submitted articles outside the administration area
+> Added toggle to show only news from view-permitted topics on main page view
+
+> Added By Topic view on main page
+> Added Column view on main page - for old (Classic) view and for By Topic view
+
+> Added block for viewing top-level topics listed - toggle for only view-permitted topics in block preferences
+> Added block with recent/top news for one or more topics
+
+> Changed submit form to depend on approve/submit permissions with both info and extended text areas available to approvers only
+> Changed submit form from administration area to use same form as from main menu
+> Added upload to submit form
+> Added upload to topic creation form
+
+v1.1 - Baseline
