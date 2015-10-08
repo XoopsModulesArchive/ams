@@ -1,0 +1,11 @@
+<{include file="db:ams_header.html"}>
+<div class="outer">
+<{foreachq item=setting from=$setting}>
+    <div class = "<{cycle values = "even,odd"}>">
+<{$setting.id}><br />
+	<{$setting.value}><br />
+	<{$setting.type}><br />
+	</div>    
+<{/foreach}>
+</div>
+<{include file="db:ams_footer.html"}>

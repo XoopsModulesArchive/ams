@@ -1,0 +1,15 @@
+<{include file="db:ams_header.html"}>
+<div class="outer">
+<{foreachq item=files from=$files}>
+    <div class = "<{cycle values = "even,odd"}>">
+<{$files.id}><br />
+	<{$files.realname}><br />
+	<{$files.storyid}><br />
+	<{$files.date}><br />
+	<{$files.mimetype}><br />
+	<{$files.downloadname}><br />
+	<{$files.counter}><br />
+	</div>    
+<{/foreach}>
+</div>
+<{include file="db:ams_footer.html"}>

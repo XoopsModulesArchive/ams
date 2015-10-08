@@ -1,0 +1,17 @@
+<{include file="db:ams_header.html"}>
+<div class="outer">
+<{foreachq item=text from=$text}>
+    <div class = "<{cycle values = "even,odd"}>">
+<{$text.storyid}><br />
+	<{$text.version}><br />
+	<{$text.revision}><br />
+	<{$text.revisionminor}><br />
+	<{$text.uid}><br />
+	<{$text.hometext}><br />
+	<{$text.bodytext}><br />
+	<{$text.current}><br />
+	<{$text.updated}><br />
+	</div>    
+<{/foreach}>
+</div>
+<{include file="db:ams_footer.html"}>

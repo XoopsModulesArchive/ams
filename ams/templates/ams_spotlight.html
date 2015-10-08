@@ -1,0 +1,19 @@
+<{include file="db:ams_header.html"}>
+<div class="outer">
+<{foreachq item=spotlight from=$spotlight}>
+    <div class = "<{cycle values = "even,odd"}>">
+<{$spotlight.id}><br />
+	<{$spotlight.showimage}><br />
+	<{$spotlight.image}><br />
+	<{$spotlight.teaser}><br />
+	<{$spotlight.autoteaser}><br />
+	<{$spotlight.maxlength}><br />
+	<{$spotlight.display}><br />
+	<{$spotlight.mode}><br />
+	<{$spotlight.storyid}><br />
+	<{$spotlight.topicid}><br />
+	<{$spotlight.weight}><br />
+	</div>    
+<{/foreach}>
+</div>
+<{include file="db:ams_footer.html"}>
