@@ -1,0 +1,159 @@
+<div class="breadcrumb"><{$breadcrumb}></div>
+<div><{$articlebanner}></div>
+
+<div style="text-align: left; margin: 10px;"><{if $pagenav}>Page <{$pagenav}><{/if}></div>
+<div>
+    <div class="itemHead">
+        <div class="itemTitle" style="float:left;">
+			<{if $story.friendlyurl_enable != 1}>
+            <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$story.id}>"><{$story.title}></a>
+			<{else}>
+            <a href="<{$story.friendlyurl}>"><{$story.title}></a>
+			<{/if}>
+        </div>
+        <div style="text-align: right;">&nbsp;
+        </div>
+    </div>
+    <div class="itemInfo">
+        <div class="itemPoster" style="float:left;"><{if $story.poster != ''}><{$lang_postedby}> : <{$story.poster}><{/if}></div>
+        <div class="itemPoster" style="text-align: right;"><{$smarty.const._AMS_NW_STORYID}> : <{$story.id}></div>
+    
+        <div class="itemPoster" style="float:left;"><{$smarty.const._AMS_NW_AUDIENCE}> : <{$story.audience}></div>
+        <div class="itemPoster" style="text-align: right;"><{$smarty.const._AMS_NW_VERSION}>&nbsp;<{$story.version}>.<{$story.revision}><{$story.revisionminor}></div>
+    
+        <div class="itemPostDate" style="float:left;"><{$lang_on}> <{$story.posttime}></div>
+        <div class="itemStats" style="text-align: right;"><{$lang_reads}> : <{$story.hits}></div>
+    </div>
+    <{if $related && $related.top}>
+        <div class="itemHead">
+                <{$smarty.const._AMS_NW_PREREQUISITEARTICLES}>
+        </div>
+        <div>
+            <table>
+                <{foreach item=link from=$related.top}>
+                    <tr>
+                        <td class="head" width="20%"><{$link.link_module}></td>
+                        <td class="<{cycle values="odd, even"}>">
+                            <a href='<{$xoops_url}>/modules/AMS/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>
+                            ' target="<{$link.target}>"><{$link.link_title}></a>
+                            <{if $admin}>
+                                (<{$link.hits}>)
+                            <{/if}>
+                        </td>
+                    </tr>
+                <{/foreach}>
+            </table>
+        </div>
+    <{/if}>
+    <div class="itemBody">
+        <{$story.imglink}>
+        <p class="itemText">
+            <{if $page == 0}>
+                <{$story.hometext}>
+            <{/if}>
+            <{if $page == 0}>
+                <br />
+            <{/if}>
+            <{$story.bodytext}>
+        </p>
+    </div>
+    <div class="itemFoot" style="clear: both;">
+        <{if $story.ratingimage != ""}>
+            <div style="float: left;">
+                <img src='<{$story.ratingimage}>' alt="<{$story.rating}>" />
+                <{if $allow_rating == 1}>
+                    | <a href="<{$xoops_url}>/modules/AMS/ratefile.php?storyid=<{$story.id}>"><{$smarty.const._AMS_NW_RATEARTICLE}></a>&nbsp;
+                <{/if}>
+            </div>
+        <{/if}>
+        <div style="text-align:right;">
+            <{if $admin}>
+                <span class="itemAdminLink">
+                    &nbsp;<a href='<{$xoops_url}>/modules/AMS/submit.php?op=edit&amp;storyid=<{$story.id}>'><{$smarty.const._EDIT}></a>
+                    <{if ($story.hasversions == 1)}>&nbsp&nbsp|
+                       &nbsp&nbsp<a href='<{$xoops_url}>/modules/AMS/versions.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_VERSION}></a>
+                    <{/if}>
+                    &nbsp&nbsp;
+                </span>
+            <{/if}>
+            <{if ($story.posterid == $xoops_userid || $admin)}>
+                <span class="itemPermaLink">|&nbsp&nbsp;<a href='<{$xoops_url}>/modules/AMS/link.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_MANAGELINK}></a>&nbsp;</span>
+            <{/if}>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: left; margin: 10px;"><{if $pagenav}>Page <{$pagenav}><{/if}></div>
+
+<{if $related && $related.bottom}>
+    <div class="itemHead">
+        <{$smarty.const._AMS_NW_RELATEDARTICLES}>
+    </div>
+    <table>
+        <{foreach item=link from=$related.bottom}>
+            <tr>
+                <td class="head" width="20%"><{$link.link_module}></td>
+                <td class="<{cycle values="odd, even"}>">
+                    <a href='<{$xoops_url}>/modules/AMS/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>' target="<{$link.target}>"><{$link.link_title}></a>
+                    <{if $admin}>
+                        (<{$link.hits}>)
+                    <{/if}>
+                </td>
+            </tr>
+        <{/foreach}>
+    </table>
+<{/if}>
+
+<div style="padding: 5px; text-align: right; margin-right:3px;">
+<a href="<{$xoops_url}>/modules/AMS/rss.php"><img src="<{$xoops_url}>/modules/AMS/images/rss.png" border="0" alt="<{$lang_printerpage}>" /></a>
+<{if $story.forum}>
+                <a href="<{$xoops_url}>/modules/newbb/viewforum.php?forum=<{$story.forum}>"><img src="<{$xoops_url}>/modules/AMS/images/discuss.png" /></a>
+            <{/if}>	
+<a href="<{$xoops_url}>/modules/AMS/print.php?storyid=<{$story.id}>"><img src="<{$xoops_url}>/modules/AMS/images/print.png" border="0" alt="<{$lang_printerpage}>" /></a> <a target="_top" href="<{$mail_link}>"><img src="<{$xoops_url}>/modules/AMS/images/email.png" border="0" alt="<{$lang_sendstory}>" /></a> <a target="_top" href="<{$xoops_url}>/modules/AMS/"><img src="<{$xoops_url}>/modules/AMS/images/home.png" border="0" alt="<{$lang_home}>" /></a>
+</div>
+
+<div align="center">
+<div class="head"><{$smarty.const._MD_AMS_BOOKMARK_ME}></div>
+		<div style="margin:3px; padding: 3px;">
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_BLINKLIST}>" href="http://www.blinklist.com/index.php?Action=Blink/addblink.php&Description=&Url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>&Title=<{$story.title}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_BLINKLIST}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/blinklist.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_DELICIOUS}>" href="http://del.icio.us/post?url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>&title=<{$story.title}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_DELICIOUS}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/delicious.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_DIGG}>" href="http://digg.com/submit?phase=2&url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_DIGG}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/diggman.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_FARK}>" href="http://cgi.fark.com/cgi/fark/edit.pl?new_url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>&new_comment=<{$story.title}>&new_link_other=<{$story.title}>&linktype=Misc" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_FARK}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/fark.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_FURL}>" href="http://www.furl.net/storeIt.jsp?t=<{$story.title}>&u=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_FURL}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/furl.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_NEWSVINE}>" href="http://www.nwvine.com/_tools/seed&save?u=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>&h=<{$story.title}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_NEWSVINE}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/newsvine.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_REDDIT}>" href="http://reddit.com/submit?url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>&title=<{$story.title}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_REDDIT}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/reddit.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_SIMPY}>" href="http://www.simpy.com/simpy/LinkAdd.do?href=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>&title=<{$story.title}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_SIMPY}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/simpy.png" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_SPURL}>" href="http://www.spurl.net/spurl.php?title=<{$story.title}>&url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_SPURL}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/spurl.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_YAHOO}>" href="http://myweb2.search.yahoo.com/myresults/bookmarklet?t=<{$story.title}>&u=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_YAHOO}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/yahoomyweb.gif" /></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_BALATARIN}>" href="http://balatarin.com/links/submit?phase=2&amp;url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img  alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_BALATARIN}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/balatarin.png"></a>
+			<a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_FACEBOOK}>" href="http://www.facebook.com/share.php?u=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_FACEBOOK}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/facebook_share_icon.gif" /></a>
+		   <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_TWITTER}>" href="http://twitter.com/home?status=Browsing:%20<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_TWITTER}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/twitter_share_icon.gif" /></a>
+		   <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_SCRIPSTYLE}>" href="http://scriptandstyle.com/submit?url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_SCRIPSTYLE}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/scriptandstyle.png" /></a>
+		   <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_STUMBLE}>" href="http://www.stumbleupon.com/submit?url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_STUMBLE}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/stumbleupon.png" /></a>
+		   <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_TECHNORATI}>" href="http://technorati.com/faves?add=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_TECHNORATI}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/technorati.png" /></a>
+		   <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_MIXX}>" href="http://www.mixx.com/submit?page_url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_MIXX}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/mixx.png" /></a>
+	      <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_MYSPACE}>" href="http://www.myspace.com/Modules/PostTo/Pages/?u=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_MYSPACE}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/myspace.jpg" /></a>
+	      <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_DESIGNFLOAT}>" href="http://www.designfloat.com/submit.php?url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_DESIGNFLOAT}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/designfloat.png" /></a>
+	      <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_GOOLGEBUZZ}>" href="http://www.google.com/buzz/post?url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_GOOLGEBUZZ}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/google_buzz_icon.png" /></a>
+	      <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_GOOLGEREADER}>" href="http://www.google.com/reader/link?url=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>%26title=<{$story.title}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_GOOLGEREADER}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/google-reader-icon.png" /></a>
+	      <a rel="nofollow external" title="<{$smarty.const._MD_AMS_BOOKMARK_TO_GOOLGEBOOKMARKS}>" href="https://www.google.com/bookmarks/mark?op=add&amp;bkmk=<{$xoops_url}>/modules/AMS/article.php?storyid%3D<{$story.id}>&title=<{$story.title}>" ><img alt="<{$smarty.const._MD_AMS_BOOKMARK_TO_GOOLGEBOOKMARKS}>" src="<{$xoops_url}>/modules/AMS/images/bookmarks/google-icon.png" /></a>
+		</div>
+	</div>
+
+<div style="text-align: center; padding: 3px; margin:3px;">
+	<{$commentsnav}>
+	<{$lang_notice}>
+</div>
+
+<div style="margin:3px; padding: 3px;">
+<!-- start comments loop -->
+<{if $comment_mode == "flat"}>
+	<{include file="db:system_comments_flat.html"}>
+<{elseif $comment_mode == "thread"}>
+	<{include file="db:system_comments_thread.html"}>
+<{elseif $comment_mode == "nest"}>
+	<{include file="db:system_comments_nest.html"}>
+<{/if}>
+<!-- end comments loop -->
+</div>
+<{include file='db:system_notification_select.html'}>
