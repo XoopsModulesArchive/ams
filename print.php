@@ -35,7 +35,7 @@ include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/class/class.n
 function PrintPage($storyid)
 {
 	global $xoopsConfig, $xoopsModule, $xoopsUser;
-	$myts =& MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 	$story = new AmsStory($storyid);
     $datetime = formatTimestamp($story->published());
     $gperm_handler =& xoops_gethandler('groupperm');

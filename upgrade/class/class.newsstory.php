@@ -32,7 +32,7 @@ class OldNewsStory extends XoopsStory
 {
 	function OldNewsStory($storyid=-1)
 	{
-		$this->db =& Database::getInstance();
+		$this->db = Database::getInstance();
 		if (is_array($storyid)) {
 			$this->makeStory($storyid);
 		}
@@ -40,7 +40,7 @@ class OldNewsStory extends XoopsStory
 	
 	function getAll() {
 	    $ret = array();
-	    $db =& Database::getInstance();
+	    $db = Database::getInstance();
 	    $sql = "SELECT * FROM ".$db->prefix("stories");
 	    $result = $db->query($sql);
 	    while ( $myrow = $db->fetchArray($result) ) {
@@ -51,7 +51,7 @@ class OldNewsStory extends XoopsStory
 
 	function upgrade()
 	{
-	    $myts =& MyTextSanitizer::getInstance();
+	    $myts = MyTextSanitizer::getInstance();
         $error = false;
 		$sql = "INSERT INTO ".$this->db->prefix('ams_article')."
 	            VALUES (".$this->storyid.", '".$this->title."', ".$this->created.", ".$this->published.",

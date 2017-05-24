@@ -26,7 +26,7 @@
 //  ------------------------------------------------------------------------ //
 
 function b_ams_top_show($options) {
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
     $block = array();
     if ( !isset($options[4]) || $options[4] == 0 || $options[4] == array(0)) {

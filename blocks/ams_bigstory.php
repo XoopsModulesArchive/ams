@@ -28,7 +28,7 @@
 function b_ams_bigstory_show() {
 	global $xoopsDB;
 	include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
-	$myts =& MyTextSanitizer::getInstance();
+	$myts = MyTextSanitizer::getInstance();
 	$block = array();
 	$tdate = mktime(0,0,0,date("n"),date("j"),date("Y"));
 	$result = $xoopsDB->query("SELECT storyid, title FROM ".$xoopsDB->prefix("ams_article")." WHERE published > ".$tdate." AND published < ".time()." AND (expired > ".time()." OR expired = 0) ORDER BY counter DESC",1,0);

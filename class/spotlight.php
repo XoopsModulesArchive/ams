@@ -117,7 +117,7 @@ class AmsSpotlight extends XoopsObject {
     }
 
     function getImage($article) {
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         if ($this->getVar('mode') == 4) {
             if ($this->getVar('image') == "") {
                 return "";
@@ -150,7 +150,7 @@ class AmsSpotlightHandler extends IdgObjectHandler {
     }
     
     function getSpotlightBlock($display_only = true) {
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
         $block = array();
     
@@ -161,7 +161,7 @@ class AmsSpotlightHandler extends IdgObjectHandler {
             $criteria = new Criteria('spotlightid', 0, ">");
         }
         $criteria->setSort('weight');
-        $spots =& $this->getObjects($criteria);
+        $spots = $this->getObjects($criteria);
         if (count($spots) == 0) {
             return $block;
         }

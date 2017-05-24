@@ -51,7 +51,7 @@ if (!$gperm_handler->checkRight("ams_submit", $perm_itemid, $groups, $module_id)
 }
 
 $op = 'form';
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 //If approve privileges
 $approveprivilege = 0;

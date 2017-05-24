@@ -57,7 +57,7 @@ else {
     $showclassic = 0;
 }
 
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 $pagetitle = $myts->htmlSpecialChars($xoopsModule->name());
 $column_count = $xoopsModuleConfig['columnmode'];
 if ($showclassic) {
