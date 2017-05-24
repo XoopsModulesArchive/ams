@@ -7,7 +7,7 @@ class OldNewsTopic {
     var $topic_title;
     function OldNewsTopic($id=-1)
 	{
-		$this->db =& Database::getInstance();
+		$this->db = Database::getInstance();
 		if (is_array($id)) {
 			$this->makeObject($id);
 		}
@@ -21,7 +21,7 @@ class OldNewsTopic {
     
     function getAllTopics() {
         $ret = array();
-        $db =& Database::getInstance();
+        $db = Database::getInstance();
 	    $sql = "SELECT * FROM ".$db->prefix('topics');
 	    $result = $db->query($sql);
 	    while ($row = $db->fetchArray($result)) {
@@ -31,7 +31,7 @@ class OldNewsTopic {
 	}
 	
 	function upgrade() {
-	    $myts =& MyTextSanitizer::getInstance();
+	    $myts = MyTextSanitizer::getInstance();
 	    $sql = "INSERT INTO ".$this->db->prefix('ams_topics')."
                 (topic_id, topic_pid, topic_imgurl, topic_title)
 	            VALUES (".$this->topic_id.", ".$this->topic_pid.", '".$this->topic_imgurl."', '".$myts->addSlashes($this->topic_title)."')";

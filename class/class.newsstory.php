@@ -59,7 +59,7 @@ class AmsStory extends XoopsStory
     
     function AmsStory($storyid=-1, $getRating = false)
     {
-        $this->db =& Database::getInstance();
+        $this->db = Database::getInstance();
         $this->table = $this->db->prefix("ams_article");
         $this->texttable = $this->db->prefix("ams_text");
         $this->topicstable = $this->db->prefix("ams_topics");
@@ -104,7 +104,7 @@ class AmsStory extends XoopsStory
 
     function hometext($format="Show")
     {
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $html = 1;
         $smiley = 1;
         $xcodes = 1;
@@ -136,7 +136,7 @@ class AmsStory extends XoopsStory
 
     function bodytext($format="Show")
     {
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $html = 1;
         $smiley = 1;
         $xcodes = 1;
@@ -168,8 +168,8 @@ class AmsStory extends XoopsStory
 
     function getAllPublished($limit=0, $start=0, $checkRight = false, $topic=0, $ihome=0, $asobject=true, $order = 'published', $ids = false)
     {
-        $db =& Database::getInstance();
-        $myts =& MyTextSanitizer::getInstance();
+        $db = Database::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $ret = array();
         $sql = "SELECT * FROM ".$db->prefix("ams_article")." n, ".$db->prefix("ams_text")." t, ".$db->prefix("ams_audience")." a WHERE t.storyid=n.storyid AND n.audienceid=a.audienceid AND published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
         if ( $topic != 0 ) {
@@ -224,8 +224,8 @@ class AmsStory extends XoopsStory
     */
     function getAllSubmitted($limit=0, $asobject=true, $checkRight = false)
     {
-        $db =& Database::getInstance();
-        $myts =& MyTextSanitizer::getInstance();
+        $db = Database::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $ret = array();
         $criteria = new CriteriaCompo(new Criteria('published', 0));
         if ($checkRight) {
@@ -269,7 +269,7 @@ class AmsStory extends XoopsStory
     function getByTopic($topicid, $limit=0)
     {
         $ret = array();
-        $db =& Database::getInstance();
+        $db = Database::getInstance();
         $sql = "SELECT * FROM ".$db->prefix("ams_article")." n, ".$db->prefix("ams_text")." t, ".$db->prefix("ams_audience")." a WHERE n.storyid=t.storyid AND n.audienceid=a.audienceid AND t.current=1 AND topicid=".intval($topicid)." AND published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().") ORDER BY published DESC";
         $result = $db->query($sql, intval($limit), 0);
         while( $myrow = $db->fetchArray($result) ){
@@ -280,7 +280,7 @@ class AmsStory extends XoopsStory
 
     function countByTopic($topicid=0)
     {
-        $db =& Database::getInstance();
+        $db = Database::getInstance();
         $sql = "SELECT COUNT(*) FROM ".$db->prefix("ams_article")."
 		WHERE expired >= ".time()."";
         if ( $topicid != 0 ) {
@@ -293,7 +293,7 @@ class AmsStory extends XoopsStory
 
     function countPublishedByTopic($topicid=0, $checkRight = false)
     {
-        $db =& Database::getInstance();
+        $db = Database::getInstance();
         $sql = "SELECT COUNT(*) FROM ".$db->prefix("ams_article")." WHERE published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
         if ( !empty($topicid) ) {
             $sql .= " AND topicid=".intval($topicid);
@@ -322,7 +322,7 @@ class AmsStory extends XoopsStory
 
     function countPublishedOrderedByTopic($topicid=0, $checkRight = false)
     {
-        $db =& Database::getInstance();
+        $db = Database::getInstance();
         $sql = "SELECT topicid, COUNT(*) FROM ".$db->prefix("ams_article")." WHERE published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
         if ( !empty($topicid) ) {
             $sql .= " AND topicid=".intval($topicid);
@@ -457,7 +457,7 @@ class AmsStory extends XoopsStory
     }
 
     function store()	{
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $title =$myts->censorString($this->title);
         $title = $myts->addSlashes($title);
         if ( !isset($this->nohtml) || $this->nohtml != 1 ) {
@@ -568,7 +568,7 @@ class AmsStory extends XoopsStory
     }
 
     function updateVersion() {
-        $myts =& MyTextSanitizer::getInstance();
+        $myts = MyTextSanitizer::getInstance();
         $hometext = $myts->censorString($this->hometext);
         $bodytext = $myts->censorString($this->bodytext);
         $hometext = addslashes($hometext);

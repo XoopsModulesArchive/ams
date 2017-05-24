@@ -51,7 +51,7 @@ if ($xoopsUser->getVar('uid') != $article->uid()) {
 }
 
 $op = (isset($_POST['op'])) ? $_POST['op'] : "default";
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 
 $xoopsConfigSearch =& $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching

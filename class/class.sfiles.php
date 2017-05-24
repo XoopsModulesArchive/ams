@@ -14,7 +14,7 @@ class sFiles {
 
     function sFiles($fileid=-1) 
     {
-		$this->db =& Database::getInstance();
+		$this->db = Database::getInstance();
         $this->table = $this->db->prefix("ams_files");
         $this->storyid = 0;
         $this->filerealname = "";
@@ -99,7 +99,7 @@ class sFiles {
 
     function getFileRealName($format="S") 
     {
-		$myts =& MyTextSanitizer::getInstance();
+		$myts = MyTextSanitizer::getInstance();
         $smiley = 0;
         switch($format)
         {
@@ -125,7 +125,7 @@ class sFiles {
 
     function getMimetype($format="S") 
     {
-       $myts =& MyTextSanitizer::getInstance();
+       $myts = MyTextSanitizer::getInstance();
        $smiley = 0;
        switch($format){
 			case "S":
@@ -150,7 +150,7 @@ class sFiles {
 
     function getDownloadname($format="S") 
     {
-       $myts =& MyTextSanitizer::getInstance();
+       $myts = MyTextSanitizer::getInstance();
        $smiley = 0;
        switch($format){
 			case "S":
@@ -190,7 +190,7 @@ class sFiles {
 
     function getAllbyStory($storyid) 
     {
-       $db =& Database::getInstance();
+       $db = Database::getInstance();
        $ret = array();
        $sql = "SELECT * FROM ".$this->table." WHERE storyid=".$storyid."";
        $result = $db->query($sql);
@@ -218,7 +218,7 @@ class sFiles {
 
     function store()
     {
-       $myts =& MyTextSanitizer::getInstance();
+       $myts = MyTextSanitizer::getInstance();
        $fileRealName = $myts->addSlashes($this->filerealname);
        $downloadname = $myts->addSlashes($this->downloadname);
        $date = time();

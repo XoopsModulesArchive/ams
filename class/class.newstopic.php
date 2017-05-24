@@ -40,7 +40,7 @@ class AmsTopic extends XoopsTopic
 
 	function AmsTopic($table, $topicid=0)
 	{
-		$this->db =& Database::getInstance();
+		$this->db = Database::getInstance();
 		$this->table = $table;
 		if ( is_array($topicid) ) {
 			$this->makeTopic($topicid);
@@ -79,7 +79,7 @@ class AmsTopic extends XoopsTopic
 
 	function store()
 	{
-		$myts =& MyTextSanitizer::getInstance();
+		$myts = MyTextSanitizer::getInstance();
 		$title = "";
 		$imgurl = "";
 		$insert=false;
@@ -122,7 +122,7 @@ class AmsTopic extends XoopsTopic
 	
 	function getAllTopics($checkRight = false, $permission = "ams_view") {
 	    static $topics_arr = array();
-	    $db =& Database::getInstance();
+	    $db = Database::getInstance();
 	    $table = $db->prefix('ams_topics');
 	    if ((!isset($topics_arr['checked']) && false != $checkRight) || (!isset($topics_arr['unchecked']) && false == $checkRight)){
 	        $sql = "SELECT * FROM ".$table;
@@ -163,7 +163,7 @@ class AmsTopic extends XoopsTopic
 	
 	function getAllAuthors($byName = false) {
 	    static $authors = array();
-	    $db =& Database::getInstance();
+	    $db = Database::getInstance();
 	    if (count($authors) == 0) {
 	        $sql = "SELECT DISTINCT u.uid, u.uname, u.name FROM ".$db->prefix('users')." u, ".$db->prefix('ams_text')." t
 	            WHERE u.uid = t.uid";
