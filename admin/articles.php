@@ -167,7 +167,7 @@ function lastStories()
     foreach ($storyarray as $eachstory) {
         $uids[] = $eachstory->uid();
     }
-    if (!(empty($uids))) {
+    if (!empty($uids)) {
         $member_handler = xoops_getHandler('member');
         $users = $member_handler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         $i = 0;
@@ -211,7 +211,7 @@ function topicsmanager()
     $uploadirectory= '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
     $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
 
-    include_once(XOOPS_ROOT_PATH . '/class/tree.php');
+    include_once XOOPS_ROOT_PATH . '/class/tree.php';
     $xt = new AmsTopic($xoopsDB -> prefix('ams_topics'));
     $allTopics = $xt->getAllTopics();
     $totaltopics = count($allTopics);
@@ -440,13 +440,13 @@ function modTopicS()
         $xt -> setTopicImgurl($_POST['topic_imgurl']);
     }
 
-    $xt->banner_inherit = (isset($_POST['banner_inherit'])) ? 1 : 0;
+    $xt->banner_inherit = isset($_POST['banner_inherit']) ? 1 : 0;
     $xt->banner = $_POST['banner'];
     $xt->forum_id = isset($_POST['forum_id']) ? intval($_POST['forum_id']) : 0;
 
     if (isset($_POST['xoops_upload_file'])) {
         $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
-        $fldname = (get_magic_quotes_gpc()) ? stripslashes($fldname['name']) : $fldname['name'];
+        $fldname = get_magic_quotes_gpc() ? stripslashes($fldname['name']) : $fldname['name'];
         if (trim('' != $fldname)) {
             $sfiles = new sFiles();
             $dstpath = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
@@ -567,7 +567,7 @@ function addTopic()
 
         if (isset($_POST['xoops_upload_file'])) {
             $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
-            $fldname = (get_magic_quotes_gpc()) ? stripslashes($fldname['name']) : $fldname['name'];
+            $fldname = get_magic_quotes_gpc() ? stripslashes($fldname['name']) : $fldname['name'];
             if (trim('' != $fldname)) {
                 $sfiles = new sFiles();
                 $dstpath = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
@@ -587,7 +587,7 @@ function addTopic()
             }
         }
 
-        $xt->banner_inherit = (isset($_POST['banner_inherit'])) ? 1 : 0;
+        $xt->banner_inherit = isset($_POST['banner_inherit']) ? 1 : 0;
         $xt->banner = $_POST['banner'];
         $xt->forum_id = isset($_POST['forum_id']) ? intval($_POST['forum_id']) : 0;
         if ($xt -> store()) {
@@ -605,7 +605,7 @@ function addTopic()
                 }
 
                 // Check audience, and set default value if not yet exist
-                if (!(ams_isaudiencesetup($amsModule->getVar('mid')))) {
+                if (!ams_isaudiencesetup($amsModule->getVar('mid'))) {
                     $gperm_handler = xoops_getHandler('groupperm');
                     $member_handler = xoops_getHandler('member');
                     $group_id_ref = $member_handler->getGroups(null, true);
@@ -786,7 +786,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        include('../submit.php');
+        include '../submit.php';
         break;
 
     case 'delaudience':

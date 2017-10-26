@@ -44,6 +44,6 @@ $AMSCookie['prefix'] = '';
 // set cookie name to avoid subsites confusion such as: domain.com, sub1.domain.com, sub2.domain.com, domain.com/xoopss, domain.com/xoops2
 if (empty($AMSCookie['prefix'])) {
     $cookie_prefix = preg_replace('/[^a-z_0-9]+/i', '_', preg_replace("/(http(s)?:\/\/)?(www.)?/i", '', XOOPS_URL));
-    $cookie_userid = (is_object($xoopsUser))?$xoopsUser->getVar('uid'):0;
+    $cookie_userid = is_object($xoopsUser) ?$xoopsUser->getVar('uid'):0;
     $AMSCookie['prefix'] = $cookie_prefix . '_' . $xoopsModule->dirname() . $cookie_userid . '_';
 }

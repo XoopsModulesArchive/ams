@@ -1,5 +1,5 @@
 <?php
-include('../../mainfile.php');
+include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 if (empty($_POST['submit'])) {
     $_POST['submit'] = '';
@@ -22,7 +22,7 @@ if ('' != $_POST['submit'] && $storyid > 0) {
 } else {
     $xoopsOption['template_main'] = 'ams_ratearticle.html';
     include XOOPS_ROOT_PATH . '/header.php';
-    include('include/ratingform.inc.php');
+    include 'include/ratingform.inc.php';
 }
 $xoopsTpl->assign('breadcrumb', $article->getPath(true) . ' > ' . _AMS_NW_RATE);
 include '../../footer.php';

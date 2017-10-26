@@ -25,7 +25,7 @@
 //  ------------------------------------------------------------------------ //
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-include_once(XOOPS_ROOT_PATH . '/class/tree.php');
+include_once XOOPS_ROOT_PATH . '/class/tree.php';
 
 $fform = new XoopsThemeForm(_AMS_AM_FILTER, 'filterform', 'articles.php');
 $fform->setExtra('enctype="multipart/form-data"');
@@ -58,7 +58,7 @@ $second_row->addElement($status_select);
 
 
 
-$order = (isset($order)) ? $order : 'DESC';
+$order = isset($order) ? $order : 'DESC';
 $order_select = new XoopsFormSelect(_AMS_AM_ORDER, 'order', $order);
 $order_select->addOption('DESC', _DESCENDING);
 $order_select->addOption('ASC', _ASCENDING);

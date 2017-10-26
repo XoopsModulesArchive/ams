@@ -38,7 +38,7 @@ if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'
 //Added AMS 2.50 for cookies manangement
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/vars.inc.php';
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.inc.php';
-include_once(XOOPS_ROOT_PATH . '/class/tree.php');
+include_once XOOPS_ROOT_PATH . '/class/tree.php';
 
 
 //Added AMS 2.50. Enable user selection Editor. Modify at AMS 3.0 to correctly detect XOOPS 2.3.x scheme
@@ -71,7 +71,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php
     }
 
     //ICMS 1.2 workaround. ICMS bugs not to include  formeditor.php in their xoopsformloader. Remove this when it fixed
-    if (!(class_exists('XoopsFormEditor'))) {
+    if (!class_exists('XoopsFormEditor')) {
         if (file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php')) {
             include_once XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php';
         }
@@ -182,7 +182,7 @@ if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['rows'], $editor_configs['cols'], 'hiddenHometext'));
 }
 
-$sform->addElement((new XoopsFormLabel('', '* '._MULTIPLE_PAGE_GUIDE)), false);
+$sform->addElement(new XoopsFormLabel('', '* ' . _MULTIPLE_PAGE_GUIDE), false);
 
 $editor_configs = array();
 //required configs
@@ -205,7 +205,7 @@ if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['rows'], $editor_configs['cols'], 'hiddenBodytext'));
 }
 
-$sform->addElement((new XoopsFormLabel('', '* '._MULTIPLE_PAGE_GUIDE)), false);
+$sform->addElement(new XoopsFormLabel('', '* ' . _MULTIPLE_PAGE_GUIDE), false);
 
 $sform->addElement(new XoopsFormTextArea(_AMS_NW_BANNER, 'banner', $myts->htmlSpecialChars($story->banner)));
 
@@ -317,7 +317,7 @@ if ($story->storyid() > 0) {
     $storyid_hidden = new XoopsFormHidden('storyid', $story->storyid());
     $sform->addElement($storyid_hidden);
 }
-if (!($story->type())) {
+if (!$story->type()) {
     if ($approveprivilege) {
         $type = 'admin';
     } else {

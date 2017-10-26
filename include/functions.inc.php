@@ -51,7 +51,7 @@ function AMS_getcookie($name, $isArray = false)
     global $AMSCookie;
     $value = !empty($_COOKIE[$AMSCookie['prefix'].$name]) ? $_COOKIE[$AMSCookie['prefix'].$name] : null;
     if ($isArray) {
-        $_value = ($value)?explode(',', $value):array();
+        $_value = $value ?explode(',', $value):array();
         $value = array();
         if (count($_value)>0) {
             foreach ($_value as $string) {
@@ -60,7 +60,7 @@ function AMS_getcookie($name, $isArray = false)
                     $value[]=$string;
                 } else {
                     $key = substr($string, 0, $sep);
-                    $val = substr($string, ($sep+1));
+                    $val = substr($string, $sep + 1);
                     $value[$key] = $val;
                 }
             }

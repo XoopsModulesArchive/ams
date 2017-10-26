@@ -26,7 +26,7 @@
 
 include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
-include_once(XOOPS_ROOT_PATH . '/class/template.php');
+include_once XOOPS_ROOT_PATH . '/class/template.php';
 $xoopsOption['theme_use_smarty'] = 1;
 $xoopsTpl = new XoopsTpl();
 $xoopsTpl->xoops_setCaching(0);
@@ -35,10 +35,10 @@ if (3 == $xoopsConfig['debug_mode']) {
 }
 $xoopsTpl->assign(array('xoops_theme' => $xoopsConfig['theme_set'], 'xoops_imageurl' => XOOPS_THEME_URL.'/'.$xoopsConfig['theme_set'].'/', 'xoops_themecss'=> xoops_getcss($xoopsConfig['theme_set']), 'xoops_requesturi' => htmlspecialchars($GLOBALS['xoopsRequestUri'], ENT_QUOTES), 'xoops_sitename' => htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES), 'xoops_slogan' => htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)));
 
-$storyid = (isset($_GET['storyid'])) ? intval($_GET['storyid']) : 0;
-$version = (isset($_GET['version'])) ? intval($_GET['version']) : 0;
-$revision = (isset($_GET['revision'])) ? intval($_GET['revision']) : 0;
-$revisionminor = (isset($_GET['revisionminor'])) ? intval($_GET['revisionminor']) : 0;
+$storyid = isset($_GET['storyid']) ? intval($_GET['storyid']) : 0;
+$version = isset($_GET['version']) ? intval($_GET['version']) : 0;
+$revision = isset($_GET['revision']) ? intval($_GET['revision']) : 0;
+$revisionminor = isset($_GET['revisionminor']) ? intval($_GET['revisionminor']) : 0;
 if (!$storyid || !$version) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();

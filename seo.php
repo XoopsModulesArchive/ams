@@ -48,7 +48,7 @@ if (! empty($novaseo_op)) {
             $_GET['page'] = $novaseo_pg;
     }
 
-    include($novaseo_op_map[$novaseo_op]);
+    include $novaseo_op_map[$novaseo_op];
 }
 
 exit;

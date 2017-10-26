@@ -223,7 +223,7 @@ class db_manager
 
     public function isError()
     {
-        return (isset($this->f_tables)) ? true : false;
+        return isset($this->f_tables) ? true : false;
     }
 
     public function deleteTables($tables)

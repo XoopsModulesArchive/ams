@@ -489,7 +489,7 @@ class AmsStory extends AmsXoopsStory
         if (!isset($this->storyid)) {
             $newstoryid = $this->db->genId($this->table . '_storyid_seq');
             $created = time();
-            $published = ($this->approved) ? $this->published : 0;
+            $published = $this->approved ? $this->published : 0;
             $this->isNew = true;
             $sql = sprintf("INSERT INTO %s (storyid, title, created, published, expired, hostname, nohtml, nosmiley, counter, topicid, ihome, notifypub, story_type, topicdisplay, topicalign, comments, banner, audienceid) VALUES (%u, '%s', %u, %u, %u, '%s', %u, %u, %u, %u, %u, %u, '%s', %u, '%s', %u, '%s', %u)", $this->table, $newstoryid, $title, $created, $published, $expired, $this->hostname, $this->nohtml, $this->nosmiley, 0, $this->topicid, $this->ihome, $this->notifypub, $this->type, $this->topicdisplay, $this->topicalign, $this->comments, $myts->addSlashes($this->banner), $this->audienceid);
             if (!$this->db->query($sql)) {

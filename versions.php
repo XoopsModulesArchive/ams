@@ -1,6 +1,6 @@
 <?php
 
-include('../../mainfile.php');
+include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
 if (!isset($_POST['submit'])) {
     if (!isset($_GET['storyid'])) {

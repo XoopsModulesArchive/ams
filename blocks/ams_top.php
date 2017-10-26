@@ -57,7 +57,7 @@ function b_ams_top_show($options)
         $news = array();
         $title = $story->title();
         if (strlen($title) >= $options[2]) {
-            $title = xoops_substr($title, 0, ($options[2]-1));
+            $title = xoops_substr($title, 0, $options[2] - 1);
         }
         $html = $story->nohtml ? 0 : 1;
         $news['title'] = $title;
@@ -79,7 +79,7 @@ function b_ams_top_show($options)
 function b_ams_top_edit($options)
 {
     global $xoopsDB;
-    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $form = new XoopsFormElementTray('', '<br/><br />');
 
     $order_select = new XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);

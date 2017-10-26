@@ -73,16 +73,16 @@ if (isset($_REQUEST['preview'])) {
     $op = 'preview';
 } elseif (isset($_REQUEST['post'])) {
     $op = 'post';
-} elseif ((isset($_REQUEST['op'])) && (isset($_REQUEST['storyid']))) {
-    if ($approveprivilege && (('edit' == $_REQUEST['op']))) {
+} elseif (isset($_REQUEST['op']) && isset($_REQUEST['storyid'])) {
+    if ($approveprivilege && 'edit' == $_REQUEST['op']) {
         $op = 'edit';
-    } elseif ($approveprivilege && (('delete' == $_REQUEST['op']))) {
+    } elseif ($approveprivilege && 'delete' == $_REQUEST['op']) {
         $op = 'delete';
-    } elseif ($approveprivilege && ((_AMS_NW_OVERRIDE == $_REQUEST['op']))) {
+    } elseif ($approveprivilege && _AMS_NW_OVERRIDE == $_REQUEST['op']) {
         $op = _AMS_NW_OVERRIDE;
-    } elseif ($approveprivilege && ((_AMS_NW_FINDVERSION == $_REQUEST['op']))) {
+    } elseif ($approveprivilege && _AMS_NW_FINDVERSION == $_REQUEST['op']) {
         $op = _AMS_NW_FINDVERSION;
-    } elseif ($approveprivilege && (('override_ok' == $_REQUEST['op']))) {
+    } elseif ($approveprivilege && 'override_ok' == $_REQUEST['op']) {
         $op = 'override_ok';
     } else {
         redirect_header(XOOPS_URL . '/modules/AMS/index.php', 0, _NOPERM);
@@ -363,7 +363,7 @@ case 'post':
 
         if (isset($_POST['xoops_upload_file'])&& isset($_FILES[$_POST['xoops_upload_file'][0]])) {
             $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
-            $fldname = (get_magic_quotes_gpc()) ? stripslashes($fldname['name']) : $fldname['name'];
+            $fldname = get_magic_quotes_gpc() ? stripslashes($fldname['name']) : $fldname['name'];
             if (trim('' != $fldname)) {
                 $sfiles = new sFiles();
                 $destname=$sfiles->createUploadName(XOOPS_UPLOAD_PATH, $fldname);
@@ -397,7 +397,7 @@ case 'post':
         }
     } else {
         if (true == $story->versionConflict) {
-            include('include/versionconflict.inc.php');
+            include 'include/versionconflict.inc.php';
             break;
         } else {
             $message = $story->renderErrors();

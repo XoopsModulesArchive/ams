@@ -73,8 +73,8 @@ if (1 == $xoopsModuleConfig['displaynav']) {
     $xoopsTpl->assign('displaynav', true);
     $xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
     $allTopics = $xt->getAllTopics(true);
-    include_once(XOOPS_ROOT_PATH . '/class/tree.php');
-    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
+    include_once XOOPS_ROOT_PATH . '/class/tree.php';
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $topic_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
     $topic_form = new XoopsThemeForm('', 'topic_form', 'index.php', 'get');
     $topic_form->addElement($topic_tree->makeSelectElement('storytopic', 'topic_title', '-', $xoopsOption['storytopic'], true));
@@ -144,7 +144,7 @@ if ($showclassic) {
         $xoopsTpl->assign('breadcrumb', false);
     }
 } else {
-    include_once(XOOPS_ROOT_PATH . '/class/tree.php');
+    include_once XOOPS_ROOT_PATH . '/class/tree.php';
     $xt = new AmsTopic($xoopsDB -> prefix('ams_topics'));
     $allTopics = $xt->getAllTopics($xoopsModuleConfig['restrictindex']);
     $topic_obj_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');

@@ -40,7 +40,7 @@ function b_ams_author_show($options)
 
 function b_ams_author_edit($options)
 {
-    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $form = new XoopsFormElementTray('', '<br/>');
 
     $sort_select = new XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);

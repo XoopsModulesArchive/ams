@@ -72,7 +72,7 @@ function b_ams_spotlight_show($options)
 
 function b_ams_spotlight_edit($options)
 {
-    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     include_once XOOPS_ROOT_PATH . '/modules/AMS/include/functions.inc.php';
 
     global $xoopsModule;

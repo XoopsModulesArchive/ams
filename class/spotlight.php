@@ -55,8 +55,8 @@ class AmsSpotlight extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         $title = _AMS_AM_SPOTLIGHT;
-        include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
-        include_once(XOOPS_ROOT_PATH . '/modules/AMS/class/formimageselect.php');
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+        include_once XOOPS_ROOT_PATH . '/modules/AMS/class/formimageselect.php';
         $form = new XoopsThemeForm($title, 'spotlightform', $action);
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('id', $this->getVar('spotlightid')));
@@ -67,9 +67,9 @@ class AmsSpotlight extends XoopsObject
         $mode_select->addOption(3, _AMS_AM_SPOT_SPECIFICARTICLE);
         $mode_select->addOption(4, _AMS_AM_SPOT_CUSTOM);
 
-        include_once(XOOPS_ROOT_PATH . '/class/tree.php');
-        include_once(XOOPS_ROOT_PATH . '/modules/AMS/class/class.newstopic.php');
-        include_once(XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php');
+        include_once XOOPS_ROOT_PATH . '/class/tree.php';
+        include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newstopic.php';
+        include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
         $xt = new AmsTopic($GLOBALS['xoopsDB'] -> prefix('ams_topics'));
         $allTopics = $xt->getAllTopics();
         $topic_obj_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');

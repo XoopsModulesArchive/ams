@@ -36,7 +36,7 @@ if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'
     ${$k} = $v;
 }
 */
-$storyid = (isset($_GET['storyid'])) ? $_GET['storyid'] : 0;
+$storyid = isset($_GET['storyid']) ? $_GET['storyid'] : 0;
 $storyid = intval($storyid);
 if (empty($storyid)) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);

@@ -35,7 +35,7 @@ if (!$xoopsUser) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
 }
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
-$storyid = (isset($_POST['storyid'])) ? intval($_POST['storyid']) : (isset($_GET['storyid']) ? intval($_GET['storyid']) : 0);
+$storyid = isset($_POST['storyid']) ? intval($_POST['storyid']) : (isset($_GET['storyid']) ? intval($_GET['storyid']) : 0);
 if (!$storyid) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();
@@ -50,7 +50,7 @@ if ($xoopsUser->getVar('uid') != $article->uid()) {
     }
 }
 
-$op = (isset($_POST['op'])) ? $_POST['op'] : 'default';
+$op = isset($_POST['op']) ? $_POST['op'] : 'default';
 $myts = MyTextSanitizer::getInstance();
 
 $xoopsConfigSearch = $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
