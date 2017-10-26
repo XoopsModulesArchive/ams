@@ -64,7 +64,7 @@ function newSubmissions()
             $newstory -> uname($users);
             echo '<tr class="' . ((++$i % 2) ? 'even' : 'odd') . '"><td>';
             $title = $newstory->title();
-            if (!isset($title) || ("" == $title)) {
+            if (!isset($title) || ('' == $title)) {
                 echo '<a href="articles.php?op=edit&amp;storyid=' . $newstory -> storyid() . '">' . _AD_NOSUBJECT . '</a>';
             } else {
                 echo '&nbsp;<a href="../submit.php?op=edit&amp;storyid=' . $newstory -> storyid() . '">' . $title . "</a>\n";
@@ -93,7 +93,7 @@ function lastStories()
 
     $criteria = new CriteriaCompo();
     $querystring = 'op=newarticle';
-    if (isset($title) && "" != $title) {
+    if (isset($title) && '' != $title) {
         $criteria->add(new Criteria('n.title', '%' . $title . '%', 'LIKE'));
         $querystring .= '&amp;title=' . $title;
     }
@@ -105,14 +105,14 @@ function lastStories()
     }
 
     if (isset($status) && 'none' !== $status) {
-        if ("published" === $status) {
+        if ('published' === $status) {
             $status_crit = new CriteriaCompo(new Criteria('n.published', 0, '>'));
             $status_crit->add(new Criteria('n.published', time(), '<='));
             $status_exp= new CriteriaCompo(new Criteria('n.expired', 0));
             $status_exp->add(new Criteria('n.expired', time(), '>='), 'OR');
             $status_crit->add($status_exp);
             $criteria->add($status_crit);
-        } elseif ("expired" === $status) {
+        } elseif ('expired' === $status) {
             $criteria->add(new Criteria('n.expired', 0, '!='));
             $criteria->add(new Criteria('n.expired', time(), '<'));
         }
@@ -436,7 +436,7 @@ function modTopicS()
         redirect_header('articles.php?op=topicsmanager', 2, _AMS_AM_ERRORTOPICNAME);
     }
     $xt -> setTopicTitle($_POST['topic_title']);
-    if (isset($_POST['topic_imgurl']) && "" != $_POST['topic_imgurl']) {
+    if (isset($_POST['topic_imgurl']) && '' != $_POST['topic_imgurl']) {
         $xt -> setTopicImgurl($_POST['topic_imgurl']);
     }
 
@@ -561,7 +561,7 @@ function addTopic()
             redirect_header('articles.php?op=topicsmanager', 2, _AMS_AM_ERRORTOPICNAME);
         }
         $xt -> setTopicTitle($_POST['topic_title']);
-        if (isset($_POST['topic_imgurl']) && "" != $_POST['topic_imgurl']) {
+        if (isset($_POST['topic_imgurl']) && '' != $_POST['topic_imgurl']) {
             $xt -> setTopicImgurl($_POST['topic_imgurl']);
         }
 
@@ -597,7 +597,7 @@ function addTopic()
             $totaltopics = count($allTopics);
             if ($totaltopics=1) {
                 //Make sure xoopsModule is AMS.
-                if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
+                if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
                     $mod_handler = xoops_getHandler('module');
                     $amsModule = $mod_handler->getByDirname('AMS');
                 } else {

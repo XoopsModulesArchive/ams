@@ -89,7 +89,7 @@ include_once XOOPS_ROOT_PATH.'/header.php';
 
 $xoopsTpl->assign('story', $article->toArray($admin, true, $storypage));
 $artbanner = $article->getBanner();
-if ("" == $artbanner) {
+if ('' == $artbanner) {
     $artbanner = ' ';
 }
 $xoopsTpl->assign('articlebanner', $myts->displayTarea($artbanner, 1));

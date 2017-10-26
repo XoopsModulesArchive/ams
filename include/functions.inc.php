@@ -80,7 +80,7 @@ function AMS_getcookie($name, $isArray = false)
 function AMS_updateCache()
 {
     global $xoopsModule;
-    if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
+    if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
         $mod_handler = xoops_getHandler('module');
         $amsModule = $mod_handler->getByDirname('AMS');
     } else {

@@ -123,7 +123,7 @@ class AmsSpotlight extends XoopsObject
     {
         $myts = MyTextSanitizer::getInstance();
         if (4 == $this->getVar('mode')) {
-            if ("" == $this->getVar('image')) {
+            if ('' == $this->getVar('image')) {
                 return '';
             }
             $this->setVar('showimage', 0);

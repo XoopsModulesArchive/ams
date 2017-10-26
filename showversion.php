@@ -66,7 +66,7 @@ $xoopsOption['template_main'] = 'ams_article.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray(true, false, -1));
 $banner = $myts->displayTarea($article->getBanner(), 1);
-if (!$banner || "" == $banner) {
+if (!$banner || '' == $banner) {
     $banner = ' ';
 }
 $xoopsTpl->assign('articlebanner', $banner);

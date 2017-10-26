@@ -215,7 +215,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $field = '';
          $groupby = false;
          if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-             if ("" != $criteria->groupby) {
+             if ('' != $criteria->groupby) {
                  $groupby = true;
                  $field = $criteria->groupby . ', '; //Not entirely secure unless you KNOW that no criteria's groupby clause is going to be mis-used
              }
@@ -223,7 +223,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $sql = 'SELECT '.$field.'COUNT(*) FROM '.$this->table;
          if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
              $sql .= ' '.$criteria->renderWhere();
-             if ("" != $criteria->groupby) {
+             if ('' != $criteria->groupby) {
                  $sql .= $criteria->getGroupby();
              }
          }

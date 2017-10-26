@@ -83,10 +83,10 @@ class AmsTopic extends AmsXoopsTopic
         $title = '';
         $imgurl = '';
         $insert=false;
-        if (isset($this->topic_title) && "" != $this->topic_title) {
+        if (isset($this->topic_title) && '' != $this->topic_title) {
             $title = $myts->addSlashes($this->topic_title);
         }
-        if (isset($this->topic_imgurl) && "" != $this->topic_imgurl) {
+        if (isset($this->topic_imgurl) && '' != $this->topic_imgurl) {
             $imgurl = $myts->addSlashes($this->topic_imgurl);
         }
         if (!isset($this->topic_pid) || !is_numeric($this->topic_pid)) {
@@ -113,7 +113,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public function getBanner()
     {
-        if ((!$this->banner_inherit && "" != $this->banner) || (!$this->topic_pid())) {
+        if ((!$this->banner_inherit && '' != $this->banner) || (!$this->topic_pid())) {
             return $this->banner;
         }
 
@@ -130,7 +130,7 @@ class AmsTopic extends AmsXoopsTopic
             $sql = 'SELECT * FROM ' . $table;
             if (false != $checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
+                if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
