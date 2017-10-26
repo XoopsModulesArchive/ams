@@ -70,7 +70,7 @@ switch ($op) {
 
     case 'results':
     $results = array();
-    if ("exact" != $andor) {
+    if ("exact" !== $andor) {
         $ignored_queries = array(); // holds kewords that are shorter than allowed minmum length
         $temp_queries = preg_split('/[\s,]+/', $_POST['query']);
         foreach ($temp_queries as $q) {

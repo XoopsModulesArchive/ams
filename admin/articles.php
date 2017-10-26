@@ -104,15 +104,15 @@ function lastStories()
         }
     }
 
-    if (isset($status) && 'none' != $status) {
-        if ("published" == $status) {
+    if (isset($status) && 'none' !== $status) {
+        if ("published" === $status) {
             $status_crit = new CriteriaCompo(new Criteria('n.published', 0, '>'));
             $status_crit->add(new Criteria('n.published', time(), '<='));
             $status_exp= new CriteriaCompo(new Criteria('n.expired', 0));
             $status_exp->add(new Criteria('n.expired', time(), '>='), 'OR');
             $status_crit->add($status_exp);
             $criteria->add($status_crit);
-        } elseif ("expired" == $status) {
+        } elseif ("expired" === $status) {
             $criteria->add(new Criteria('n.expired', 0, '!='));
             $criteria->add(new Criteria('n.expired', time(), '<'));
         }
@@ -123,7 +123,7 @@ function lastStories()
     }
 
     $order = isset($_POST['order']) ? $_POST['order'] : (isset($_GET['order']) ? $_GET['order'] : 'DESC');
-    $revOrder = 'DESC' == $order ? 'ASC' : 'DESC';
+    $revOrder = 'DESC' === $order ? 'ASC' : 'DESC';
     $criteria->setOrder($order);
 
     $sort = Request::getString('sort', 'n.published');
@@ -361,13 +361,13 @@ function topicsmanager()
     $usercount=1;
     $fullcount=1;
     foreach (array_keys($group_type_ref) as $i) {
-        if ('Admin' == $group_type_ref[$i]->getVar('group_type')) {
+        if ('Admin' === $group_type_ref[$i]->getVar('group_type')) {
             $admin_list[$i]=$group_list[$i];
             $admincount++;
             $user_list[$i]=$group_list[$i];
             $usercount++;
         }
-        if ('User' == $group_type_ref[$i]->getVar('group_type')) {
+        if ('User' === $group_type_ref[$i]->getVar('group_type')) {
             $user_list[$i]=$group_list[$i];
             $usercount++;
         }
@@ -597,7 +597,7 @@ function addTopic()
             $totaltopics = count($allTopics);
             if ($totaltopics=1) {
                 //Make sure xoopsModule is AMS.
-                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+                if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
                     $mod_handler = xoops_getHandler('module');
                     $amsModule = $mod_handler->getByDirname('AMS');
                 } else {

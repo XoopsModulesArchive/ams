@@ -78,7 +78,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php
     }
 
     $wysiwyg_is_exist=1;
-} elseif (file_exists(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') && 'koivi' == $editor) {
+} elseif (file_exists(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') && 'koivi' === $editor) {
     //if KOIVI installed manually in XOOPS 2.0.x
     $wysiwyg_is_exist=2;
     include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -89,7 +89,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php
     } else {
         include_once XOOPS_ROOT_PATH . '/class/wysiwyg/language/english.php';
     }
-} elseif (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/formwysiwygtextarea.php') && 'koivi' == $editor) {
+} elseif (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/formwysiwygtextarea.php') && 'koivi' === $editor) {
     //if XOOPS 2.2.x editor installed. Only KOIVI is supported
     $wysiwyg_is_exist=3;
     include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';

@@ -238,7 +238,7 @@ class AmsStory extends AmsXoopsStory
             $groups = $xoopsUser->getGroups();
             $gperm_handler = xoops_getHandler('groupperm');
             global $xoopsModule;
-            if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+            if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
                 $module_handler = xoops_getHandler('module');
                 $newsmodule = $module_handler->getByDirname('AMS');
             } else {
@@ -311,7 +311,7 @@ class AmsStory extends AmsXoopsStory
             $sql .= ' AND ihome=0';
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+                if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
@@ -342,7 +342,7 @@ class AmsStory extends AmsXoopsStory
             $sql .= ' AND ihome=0';
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+                if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
@@ -390,7 +390,7 @@ class AmsStory extends AmsXoopsStory
             } else {
                 $author = $users[$this->uid()];
             }
-            if ("" != $author->getVar('user_avatar') && "blank.gif" != $author->getVar('user_avatar')) {
+            if ("" != $author->getVar('user_avatar') && "blank.gif" !== $author->getVar('user_avatar')) {
                 return "<a href='".XOOPS_URL . '/userinfo.php?uid='
                        . $author->getVar('uid') . "'><img src='" . XOOPS_URL . '/uploads/'
                        . $author->getVar('user_avatar') . "' alt='" . $this->newstopic->topic_title() . "' hspace='10' vspace='10' align='" . $this->topicalign() . "' /></a>";
@@ -414,7 +414,7 @@ class AmsStory extends AmsXoopsStory
             return array();
         }
         global $xoopsModule, $xoopsModuleConfig;
-        if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+        if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
             $module_handler = xoops_getHandler('module');
             $module = $module_handler->getByDirname('AMS');
             $config_handler = xoops_getHandler('config');
@@ -1068,19 +1068,19 @@ class AmsStory extends AmsXoopsStory
     public function getAuthors($limit = 5, $sort = 'count', $name = 'uname', $compute_method = 'average')
     {
         $limit = (int)$limit;
-        if ("uname" != $name) {
+        if ("uname" !== $name) {
             $name = 'name'; //making sure that there is not invalid information in field value
         }
         $ret = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        if ("count" == $sort) {
+        if ("count" === $sort) {
             $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.storyid ) AS count
                     FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('ams_article') . ' n, ' . $db->prefix('ams_text') . ' t
                     WHERE n.storyid = t.storyid AND u.uid = t.uid AND t.current = 1
                        AND published > 0 AND published <= ' . time() . ' AND (expired = 0 OR expired > ' . time() . ')
                     GROUP BY u.uid ORDER BY count DESC';
-        } elseif ("read" == $sort) {
-            if ("average" == $compute_method) {
+        } elseif ("read" === $sort) {
+            if ("average" === $compute_method) {
                 $compute = 'sum( n.counter ) / count( n.storyid )';
             } else {
                 $compute = 'sum( n.counter )';
@@ -1091,7 +1091,7 @@ class AmsStory extends AmsXoopsStory
                        AND published > 0 AND published <= ' . time() . ' AND (expired = 0 OR expired > ' . time() . ')
                     GROUP BY u.uid ORDER BY count DESC';
         } else {
-            if ("average" == $compute_method) {
+            if ("average" === $compute_method) {
                 $compute = 'sum( n.rating ) / count( n.storyid )';
             } else {
                 $compute = 'sum( n.rating )';
@@ -1106,7 +1106,7 @@ class AmsStory extends AmsXoopsStory
             return false;
         }
         while ($row = $db->fetchArray($result)) {
-            if ("name" == $name && '' == $row['name']) {
+            if ("name" === $name && '' == $row['name']) {
                 $row['name'] = XoopsUser::getUnameFromId($row['uid']);
             }
             $row['count'] = round($row['count'], 0);

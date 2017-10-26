@@ -11,7 +11,7 @@ class AMSPageNav extends XoopsPageNav
         $this->current = (int)$current_start;
         $this->friendlyurl_enable = $friendlyurl_enable;
         $this->friendlyurl = substr($friendlyurl, 0, strlen($friendlyurl)-5);
-        if ('' != $extra_arg && ('&amp;' != substr($extra_arg, -5) || '&' != substr($extra_arg, -1))) {
+        if ('' != $extra_arg && ('&amp;' !== substr($extra_arg, -5) || '&' !== substr($extra_arg, -1))) {
             $extra_arg .= '&amp;';
         }
         if (1 == $friendlyurl_enable) {

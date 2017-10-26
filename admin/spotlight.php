@@ -66,7 +66,7 @@ switch ($op) {
                 }
                 $weight_select = new XoopsFormText('', 'weight['.$spotlights[$i]['spotid'].']', 10, 10, $spotlights[$i]['weight']);
                 $display_select = new XoopsFormRadioYN('', 'display['.$spotlights[$i]['spotid'].']', $spotlights[$i]['display']);
-                if (isset($class) && 'odd' == $class) {
+                if (isset($class) && 'odd' === $class) {
                     $class = 'even';
                 } else {
                     $class = 'odd';

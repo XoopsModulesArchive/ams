@@ -80,7 +80,7 @@ function AMS_getcookie($name, $isArray = false)
 function AMS_updateCache()
 {
     global $xoopsModule;
-    if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+    if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
         $mod_handler = xoops_getHandler('module');
         $amsModule = $mod_handler->getByDirname('AMS');
     } else {
@@ -145,7 +145,7 @@ function AMS_updateCache()
 
     // Remove cache for each page.
     foreach ($tpllist as $onetemplate) {
-        if ('module' == $onetemplate->getVar('tpl_type')) {
+        if ('module' === $onetemplate->getVar('tpl_type')) {
             // Note, I've been testing all the other methods (like the one of Smarty) and none of them run, that's why I have used this code
             $files_del = array();
             $files_del = glob(XOOPS_CACHE_PATH.'/*'.$onetemplate->getVar('tpl_file').'*');

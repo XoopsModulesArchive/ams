@@ -53,7 +53,7 @@ if (isset($_GET['start'])) {
 } else {
     $start = 0;
 }
-if (empty($xoopsModuleConfig['newsdisplay']) || 'Classic' == $xoopsModuleConfig['newsdisplay'] || $xoopsOption['storytopic'] > 0) {
+if (empty($xoopsModuleConfig['newsdisplay']) || 'Classic' === $xoopsModuleConfig['newsdisplay'] || $xoopsOption['storytopic'] > 0) {
     $showclassic = 1;
 } else {
     $showclassic = 0;

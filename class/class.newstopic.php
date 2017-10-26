@@ -130,7 +130,7 @@ class AmsTopic extends AmsXoopsTopic
             $sql = 'SELECT * FROM ' . $table;
             if (false != $checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+                if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {

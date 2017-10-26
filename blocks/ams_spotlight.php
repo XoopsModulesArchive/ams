@@ -28,7 +28,7 @@ function b_ams_spotlight_show($options)
 {
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
     global $xoopsModule;
-    if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+    if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
         $mod_handler = xoops_getHandler('module');
         $amsModule = $mod_handler->getByDirname('AMS');
     } else {
@@ -77,7 +77,7 @@ function b_ams_spotlight_edit($options)
 
     global $xoopsModule;
     AMS_updateCache();
-    if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
+    if (!isset($xoopsModule) || "AMS" !== $xoopsModule->getVar('dirname')) {
         $module_handler = xoops_getHandler('module');
         $module = $module_handler->getByDirname('AMS');
     } else {

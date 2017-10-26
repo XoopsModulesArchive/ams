@@ -83,7 +83,7 @@ class db_manager
             $prefixed_query = SqlUtility::prefixQuery($piece, $this->db->prefix());
             if (false != $prefixed_query) {
                 $table = $this->db->prefix($prefixed_query[4]);
-                if ('CREATE TABLE' == $prefixed_query[1]) {
+                if ('CREATE TABLE' === $prefixed_query[1]) {
                     if (false != $this->db->query($prefixed_query[0])) {
                         if (! isset($this->s_tables['create'][$table])) {
                             $this->s_tables['create'][$table] = 1;
@@ -93,7 +93,7 @@ class db_manager
                             $this->f_tables['create'][$table] = 1;
                         }
                     }
-                } elseif ('INSERT INTO' == $prefixed_query[1]) {
+                } elseif ('INSERT INTO' === $prefixed_query[1]) {
                     if (false != $this->db->query($prefixed_query[0])) {
                         if (! isset($this->s_tables['insert'][$table])) {
                             $this->s_tables['insert'][$table] = 1;
@@ -107,7 +107,7 @@ class db_manager
                             $this->f_tables['insert'][$table]++;
                         }
                     }
-                } elseif ('ALTER TABLE' == $prefixed_query[1]) {
+                } elseif ('ALTER TABLE' === $prefixed_query[1]) {
                     if (false != $this->db->query($prefixed_query[0])) {
                         if (! isset($this->s_tables['alter'][$table])) {
                             $this->s_tables['alter'][$table] = 1;
@@ -117,7 +117,7 @@ class db_manager
                             $this->f_tables['alter'][$table] = 1;
                         }
                     }
-                } elseif ('DROP TABLE' == $prefixed_query[1]) {
+                } elseif ('DROP TABLE' === $prefixed_query[1]) {
                     if (false != $this->db->query('DROP TABLE ' . $table)) {
                         if (! isset($this->s_tables['drop'][$table])) {
                             $this->s_tables['drop'][$table] = 1;

@@ -33,7 +33,7 @@ class sFiles
     public function createUploadName($folder, $filename, $trimname=false)
     {
         $workingfolder=$folder;
-        if ('/' <> xoops_substr($workingfolder, strlen($workingfolder) - 1, 1)) {
+        if ('/' !== xoops_substr($workingfolder, strlen($workingfolder) - 1, 1)) {
             $workingfolder.='/';
         }
         $ext = basename($filename);
