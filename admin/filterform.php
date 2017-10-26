@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: storyform.inc.php,v 1.10 2004/05/29 15:10:17 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -28,7 +28,7 @@ include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 
 include_once(XOOPS_ROOT_PATH."/class/tree.php");
 
-$fform = new XoopsThemeForm(_AMS_AM_FILTER, "filterform", 'index.php');
+$fform = new XoopsThemeForm(_AMS_AM_FILTER, "filterform", 'articles.php');
 $fform->setExtra('enctype="multipart/form-data"');
 
 $first_row = new XoopsFormElementTray(_OPTIONS);
@@ -38,7 +38,7 @@ global $xoopsDB;
 $xt = new AmsTopic($xoopsDB->prefix("ams_topics"));
 $alltopics = $xt->getAllTopics();
 $topic_obj_tree = new XoopsObjectTree($alltopics, 'topic_id', 'topic_pid');
-$first_row->addElement(new XoopsFormLabel(_AMS_AM_TOPIC, $topic_obj_tree->makeSelBox('topicid', 'topic_title', '--', $topicid, true)));
+$first_row->addElement($topic_obj_tree->makeSelectElement('topicid', 'topic_title', '--', $topicid, true, 0, '', _AMS_AM_TOPIC));
 
 $author_select = new XoopsFormSelect(_AMS_AM_POSTER, 'author', $author, 5, true);
 $authors = $xt->getAllAuthors();
@@ -82,4 +82,3 @@ $button_row = new XoopsFormElementTray('');
 $button_row->addElement(new XoopsFormButton('', 'submit', _AMS_AM_FILTER, 'submit'));
 //$button_row->addElement(new XoopsFormButton('', 'reset', _AMS_AM_RESET, 'reset'));
 $fform->addElement($button_row);
-?>

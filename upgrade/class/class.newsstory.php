@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: class.newsstory.php,v 1.24 2004/07/26 17:51:25 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -30,66 +30,68 @@ include_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
 
 class OldNewsStory extends XoopsStory
 {
-	function OldNewsStory($storyid=-1)
-	{
-		$this->db = Database::getInstance();
-		if (is_array($storyid)) {
-			$this->makeStory($storyid);
-		}
-	}
-	
-	function getAll() {
-	    $ret = array();
-	    $db = Database::getInstance();
-	    $sql = "SELECT * FROM ".$db->prefix("stories");
-	    $result = $db->query($sql);
-	    while ( $myrow = $db->fetchArray($result) ) {
-	        $ret[] = new OldNewsStory($myrow);
-	    }
-	    return $ret;
-	}
+    public function OldNewsStory($storyid=-1)
+    {
+        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        if (is_array($storyid)) {
+            $this->makeStory($storyid);
+        }
+    }
 
-	function upgrade()
-	{
-	    $myts = MyTextSanitizer::getInstance();
+    public function getAll()
+    {
+        $ret = array();
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $sql = "SELECT * FROM ".$db->prefix("stories");
+        $result = $db->query($sql);
+        while ($myrow = $db->fetchArray($result)) {
+            $ret[] = new OldNewsStory($myrow);
+        }
+        return $ret;
+    }
+
+    public function upgrade()
+    {
+        $myts = MyTextSanitizer::getInstance();
         $error = false;
-		$sql = "INSERT INTO ".$this->db->prefix('ams_article')."
+        $sql = "INSERT INTO ".$this->db->prefix('ams_article')."
 	            VALUES (".$this->storyid.", '".$this->title."', ".$this->created.", ".$this->published.",
 		                ".$this->expired.", '".$this->hostname."', ".$this->nohtml.", ".$this->nosmiley.", ".$this->counter.",
 		                ".$this->topicid.", ".$this->ihome.", ".$this->notifypub.", '".$this->story_type."', ".$this->topicdisplay.",
 		                '".$this->topicalign."', ".$this->comments.", 0, '', 1)";
-	    if (!$this->db->query($sql)) {
-	        $error = true;
-	    }
-	    $sql2 = "INSERT INTO ".$this->db->prefix('ams_text')."
+        if (!$this->db->query($sql)) {
+            $error = true;
+        }
+        $sql2 = "INSERT INTO ".$this->db->prefix('ams_text')."
 	             VALUES (".$this->storyid.", 1, 0, 0, ".$this->uid.", '".$this->hometext."', '".$this->bodytext."', 1, ".$this->created.")";
-	    if (!$this->db->query($sql2)) {
-	        $error = true;
-	    }
-	    return $error;
-	}
-	
-	function importFiles() {
-	    $db =& XoopsDatabaseFactory::getDatabaseConnection();
-	    $sql = "INSERT INTO ".$db->prefix('ams_files')."
+        if (!$this->db->query($sql2)) {
+            $error = true;
+        }
+        return $error;
+    }
+
+    public function importFiles()
+    {
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $sql = "INSERT INTO ".$db->prefix('ams_files')."
 	            SELECT * FROM ".$db->prefix('stories_files')."";
-	    return $db->query($sql);
-	}
-	
-	function moveComments() {
-	    $mod_handler =& xoops_gethandler('module');
-	    $newsModule =& $mod_handler->getByDirname('news');
-	    $amsModule =& $mod_handler->getByDirname('AMS');
-	    $mid = $amsModule->getVar('mid');
-	    $old_mid = $newsModule->getVar('mid');
-	    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+        return $db->query($sql);
+    }
+
+    public function moveComments()
+    {
+        $mod_handler = xoops_gethandler('module');
+        $newsModule = $mod_handler->getByDirname('news');
+        $amsModule = $mod_handler->getByDirname('AMS');
+        $mid = $amsModule->getVar('mid');
+        $old_mid = $newsModule->getVar('mid');
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'UPDATE '.$db->prefix('xoopscomments').' SET com_modid='.intval($mid).' WHERE com_modid='.intval($old_mid);
         return $db->query($sql);
-	}
-	
-	function cleanUp() {
-	    return true;
-	}
+    }
 
+    public function cleanUp()
+    {
+        return true;
+    }
 }
-?>

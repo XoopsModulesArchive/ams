@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: comment_functions.php,v 1.2 2004/01/29 17:15:54 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -28,15 +28,16 @@
 // comment callback functions
 
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
-function ams_com_update($story_id, $total_num){
-	$article = new AmsStory($story_id);
-	if (!$article->updateComments($total_num)) {
-		return false;
-	}
-	return true;
+function ams_com_update($story_id, $total_num)
+{
+    $article = new AmsStory($story_id);
+    if (!$article->updateComments($total_num)) {
+        return false;
+    }
+    return true;
 }
 
-function ams_com_approve(&$comment){
-	// notification mail here
+function ams_com_approve(&$comment)
+{
+    // notification mail here
 }
-?>

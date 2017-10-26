@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: article.php,v 1.6 2004/04/25 15:26:56 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -40,7 +40,7 @@ if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'
 $storyid = (isset($_GET['storyid'])) ? $_GET['storyid'] : 0;
 $storyid = intval($storyid);
 if (empty($storyid)) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php",2,_AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, _AMS_NW_NOSTORY);
     exit();
 }
 
@@ -49,18 +49,18 @@ $myts = MyTextSanitizer::getInstance();
 
 
 $article = new AmsStory($storyid);
-if ( $article->published() == 0 || $article->published() > time() ) {
+if ($article->published() == 0 || $article->published() > time()) {
     //redirect_header('index.php', 2, _AMS_NW_NOSTORY);
     include_once XOOPS_ROOT_PATH.'/header.php';
     include XOOPS_ROOT_PATH.'/footer.php';
     exit();
 }
 $admin = false;
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
-	$groups = XOOPS_GROUP_ANONYMOUS;
+    $groups = XOOPS_GROUP_ANONYMOUS;
 }
 if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
     if (!$gperm_handler->checkRight("ams_view", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
@@ -73,8 +73,7 @@ if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xo
         redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, sprintf(_AMS_NW_NOTALLOWEDAUDIENCE, $article->audience));
         exit();
     }
-}
-else {
+} else {
     $admin = true;
 }
 
@@ -104,32 +103,28 @@ $xoopsTpl->assign('lang_sendstory', _AMS_NW_SENDSTORY);
 $xoopsTpl->assign('lang_on', _AMS_NW_PUBLISHED_DATE);
 $xoopsTpl->assign('lang_postedby', _AMS_NW_POSTEDBY);
 $xoopsTpl->assign('lang_reads', _AMS_NW_READS);
-if($article->friendlyurl_enable !=1)
-{
-	$xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE,$xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.XOOPS_URL.'/modules/AMS/article.php?storyid='.$article->storyid());
-} else
-{
-	$xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE,$xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.$article->friendlyurl);
+if ($article->friendlyurl_enable !=1) {
+    $xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.XOOPS_URL.'/modules/AMS/article.php?storyid='.$article->storyid());
+} else {
+    $xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.$article->friendlyurl);
 }
 $xoopsTpl->assign('related', $article->getLinks());
 $xoopsTpl->assign('page', $storypage);
 $xoopsTpl->assign('admin', $admin);
 $xoopsTpl->assign('hasversions', $article->hasVersions());
 
-$xoopsTpl->assign('lang_attached_files',_AMS_NW_ATTACHEDFILES);
+$xoopsTpl->assign('lang_attached_files', _AMS_NW_ATTACHEDFILES);
 $sfiles = new sFiles();
-$filesarr=Array();
-$newsfiles=Array();
+$filesarr=array();
+$newsfiles=array();
 $filesarr=$sfiles->getAllbyStory($storyid);
 $filescount=count($filesarr);
-$xoopsTpl->assign('attached_files_count',$filescount);
-if($filescount>0)
-{
-	foreach ($filesarr as $onefile) 
-	{
-		$newsfiles[]=Array('file_id'=>$onefile->getFileid(), 'visitlink' => XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/visit.php?fileid='.$onefile->getFileid(),'file_realname'=>$onefile->getFileRealName(), 'file_attacheddate'=>formatTimestamp($onefile->getDate()), 'file_mimetype'=>$onefile->getMimetype(), 'file_downloadname'=>XOOPS_UPLOAD_URL.'/'.$onefile->getDownloadname());
-	}
-	$xoopsTpl->assign('attached_files',$newsfiles);
+$xoopsTpl->assign('attached_files_count', $filescount);
+if ($filescount>0) {
+    foreach ($filesarr as $onefile) {
+        $newsfiles[]=array('file_id'=>$onefile->getFileid(), 'visitlink' => XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/visit.php?fileid='.$onefile->getFileid(),'file_realname'=>$onefile->getFileRealName(), 'file_attacheddate'=>formatTimestamp($onefile->getDate()), 'file_mimetype'=>$onefile->getMimetype(), 'file_downloadname'=>XOOPS_UPLOAD_URL.'/'.$onefile->getDownloadname());
+    }
+    $xoopsTpl->assign('attached_files', $newsfiles);
 }
 $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($xoopsModule->name()) . ' - ' . $myts->htmlSpecialChars($article->topic_title()) . ' - ' . $myts->htmlSpecialChars($article->title()));
 
@@ -138,4 +133,3 @@ $xoopsTpl->assign('breadcrumb', $article->getPath());
 include XOOPS_ROOT_PATH.'/include/comment_view.php';
 
 include XOOPS_ROOT_PATH.'/footer.php';
-?>

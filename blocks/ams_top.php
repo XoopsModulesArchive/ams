@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: news_top.php,v 1.13 2004/06/27 08:08:11 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,24 +25,23 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-function b_ams_top_show($options) {
+function b_ams_top_show($options)
+{
     $myts = MyTextSanitizer::getInstance();
     include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
     $block = array();
-    if ( !isset($options[4]) || $options[4] == 0 || $options[4] == array(0)) {
-        $stories = AmsStory::getAllPublished($options[1],0,false,0,1, true, $options[0]);
-    }
-    else {
+    if (!isset($options[4]) || $options[4] == 0 || $options[4] == array(0)) {
+        $stories = AmsStory::getAllPublished($options[1], 0, false, 0, 1, true, $options[0]);
+    } else {
         // If using Xoops 2.0.9.1 way of saving array values
         if (is_array($options[4])) {
             $topics = $options[4];
-        }
-        else {
+        } else {
             $topics = array_slice($options, 4);
         }
-        $stories = AmsStory::getAllPublished($options[1],0,false,$topics, 1, true, $options[0]);
+        $stories = AmsStory::getAllPublished($options[1], 0, false, $topics, 1, true, $options[0]);
     }
-    foreach ( $stories as $key => $story ) {
+    foreach ($stories as $key => $story) {
         switch ($options[0]) {
             case "rating":
                 $stat = $story->rating;
@@ -58,30 +57,30 @@ function b_ams_top_show($options) {
         }
         $news = array();
         $title = $story->title();
-		if (strlen($title) >= $options[2]) {
-			$title = xoops_substr($title,0,($options[2]-1));
-		}
-		$html = $story->nohtml ? 0 : 1;
-		$news['title'] = $title;
-		$news['id'] = $story->storyid();
-		$news['date'] = formatTimestamp($story->published(),"s");
-		$news['hits'] = $stat;
-		$news['friendlyurl'] = $story->friendlyurl;
-		$news['friendlyurl_enable'] = $story->friendlyurl_enable;
-		if ($options[3] > 0) {
-		    $news['teaser'] = xoops_substr($myts->displayTarea($story->hometext, $html), 0, $options[3]-1);
-		}
-		else {
-		    $news['teaser'] = "";
-		}
-		$block['stories'][] = $news;
+        if (strlen($title) >= $options[2]) {
+            $title = xoops_substr($title, 0, ($options[2]-1));
+        }
+        $html = $story->nohtml ? 0 : 1;
+        $news['title'] = $title;
+        $news['id'] = $story->storyid();
+        $news['date'] = formatTimestamp($story->published(), "s");
+        $news['hits'] = $stat;
+        $news['friendlyurl'] = $story->friendlyurl;
+        $news['friendlyurl_enable'] = $story->friendlyurl_enable;
+        if ($options[3] > 0) {
+            $news['teaser'] = xoops_substr($myts->displayTarea($story->hometext, $html), 0, $options[3]-1);
+        } else {
+            $news['teaser'] = "";
+        }
+        $block['stories'][] = $news;
     }
     return $block;
 }
 
-function b_ams_top_edit($options) {
+function b_ams_top_edit($options)
+{
     global $xoopsDB;
-    include_once (XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
     $form = new XoopsFormElementTray('', '<br/><br />');
     
     $order_select = new XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);
@@ -102,8 +101,7 @@ function b_ams_top_edit($options) {
     // If using Xoops 2.0.9.1 way of saving array values
     elseif (is_array($options[4])) {
         $topics = $options[4];
-    }
-    else {
+    } else {
         $topics = array_slice($options, 4);
     }
     
@@ -121,4 +119,3 @@ function b_ams_top_edit($options) {
 
     return $form->render();
 }
-?>

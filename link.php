@@ -37,12 +37,12 @@ if (!$xoopsUser) {
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 $storyid = (isset($_POST['storyid'])) ? intval($_POST['storyid']) : (isset($_GET['storyid']) ? intval($_GET['storyid']) : 0);
 if (!$storyid) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php",2,_AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, _AMS_NW_NOSTORY);
     exit();
 }
 $article = new AmsStory($storyid);
 if ($xoopsUser->getVar('uid') != $article->uid()) {
-    $gperm_handler =& xoops_gethandler('groupperm');
+    $gperm_handler = xoops_gethandler('groupperm');
     $groups = $xoopsUser->getGroups();
     if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
@@ -53,7 +53,7 @@ if ($xoopsUser->getVar('uid') != $article->uid()) {
 $op = (isset($_POST['op'])) ? $_POST['op'] : "default";
 $myts = MyTextSanitizer::getInstance();
 
-$xoopsConfigSearch =& $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
+$xoopsConfigSearch = $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
 $xoopsOption['template_main'] = 'ams_searchform.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
@@ -63,14 +63,14 @@ $username = $myts->addSlashes($username);
 $queries = array();
 $andor = isset($_POST['andor']) ? $_POST['andor'] : "AND";
 
-switch($op) {
+switch ($op) {
     case 'default':
     default:
     break;
-    
+
     case 'results':
     $results = array();
-    if ( $andor != "exact" ) {
+    if ($andor != "exact") {
         $ignored_queries = array(); // holds kewords that are shorter than allowed minmum length
         $temp_queries = preg_split('/[\s,]+/', $_POST['query']);
         foreach ($temp_queries as $q) {
@@ -81,25 +81,23 @@ switch($op) {
                 $ignored_queries[] = $myts->addSlashes($q);
             }
         }
-    }
-    else {
+    } else {
         $query = trim($_POST['query']);
         if (strlen($query) < $xoopsConfigSearch['keyword_min']) {
             //query string too short
         }
         $queries = array($myts->addSlashes($query));
     }
-    $module_handler =& xoops_gethandler('module');
+    $module_handler = xoops_gethandler('module');
     if ($username != "") {
-        $member_handler =& xoops_gethandler('member');
+        $member_handler = xoops_gethandler('member');
         $criteria = new Criteria('uname', '%'.$username.'%', 'LIKE');
         $users = $member_handler->getUserList($criteria);
-    }
-    else {
+    } else {
         $users = 0;
     }
     foreach ($_POST['mids'] as $mid) {
-        $thismodule =& $module_handler->get($mid);
+        $thismodule = $module_handler->get($mid);
         if ($users == 0) {
             $thisresult = $thismodule->search($queries, $andor, 10, 0, 0, $article->storyid());
             if (count($thisresult) > 0) {
@@ -114,13 +112,12 @@ switch($op) {
                 }
                 $results[$mid]['results'][0] = $thisresult;
             }
-        }
-        else {
+        } else {
             foreach ($users as $userid => $username) {
                 $thisresult = $thismodule->search($queries, $andor, 10, 0, $userid, $article->storyid());
                 if (count($thisresult) > 0) {
                     foreach ($thisresult as $key => $searchresult) {
-                        if ($mid == $xoopsModule->getVar('mid')) {                        
+                        if ($mid == $xoopsModule->getVar('mid')) {
                             if (isset($searchresult['id']) && ($searchresult['id'] == $storyid)) {
                                 unset($thisresult[$key]);
                                 continue;
@@ -140,12 +137,11 @@ switch($op) {
     }
     if (count($results) > 0) {
         $xoopsTpl->assign('results', $results);
-    }
-    else {
+    } else {
         $xoopsTpl->assign('message', _SR_NOMATCH);
     }
     break;
-    
+
     case 'addexternallink':
         if ((isset($_POST['url']) && $_POST['url'] != "") && (isset($_POST['title']) && $_POST['title'] != "")) {
             if (!$article->addLink(-1, $_POST['url'], $myts->addSlashes($_POST['title']), $_POST['position'])) {
@@ -153,15 +149,14 @@ switch($op) {
             }
         }
     break;
-    
+
     case 'addlink':
     if (isset($_POST['linkids'])) {
         $linkids = $_POST['linkids'];
         $modules = $_POST['modules'];
         $links = $_POST['links'];
         $titles = $_POST['titles'];
-    }
-    else {
+    } else {
         $linkids = array();
         $xoopsTpl->assign('message', 'No Link Selected');
     }
@@ -177,7 +172,7 @@ switch($op) {
         }
     }
     break;
-    
+
     case 'dellink':
     if (isset($_POST['linkids'])) {
         $errors = 0;
@@ -189,8 +184,7 @@ switch($op) {
         if ($errors == 1) {
             $xoopsTpl->assign('message', $article->renderErrors());
         }
-    }
-    else {
+    } else {
         $xoopsTpl->assign('message', "No link selected");
     }
     break;
@@ -208,4 +202,3 @@ $xoopsTpl->assign('lang_postedby', _POSTEDBY);
 $xoopsTpl->assign('lang_reads', _READS);
 $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($xoopsModule->name()) . ' - ' . $myts->htmlSpecialChars($article->title()));
 include XOOPS_ROOT_PATH.'/footer.php';
-?>

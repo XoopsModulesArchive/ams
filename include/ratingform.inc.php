@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: storyform.inc.php,v 1.10 2004/05/29 15:10:17 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -39,4 +39,3 @@ $sform->addElement($rating_select, true);
 $sform->addElement(new XoopsFormButton('', 'submit', _AMS_NW_SUBMITRATING, 'submit'));
 
 $sform->assign($xoopsTpl);
-?>

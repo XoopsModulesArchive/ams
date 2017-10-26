@@ -94,7 +94,7 @@ CREATE TABLE ams_topics (
   PRIMARY KEY  (topic_id),
   KEY pid (topic_pid)
 ) ENGINE=MyISAM;
- 
+
 
 #
 # Table structure for table `ams_link`

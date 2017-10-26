@@ -51,9 +51,9 @@ SUCH DAMAGE.
 
    Usage:
 
-   	First an instance of the mimetype class must be created, then the
-	getType method should be called with the filename.  It will return
-	the mime type, an example follows.
+    First an instance of the mimetype class must be created, then the
+    getType method should be called with the filename.  It will return
+    the mime type, an example follows.
 
    Example:
 
@@ -67,9 +67,11 @@ SUCH DAMAGE.
    e-mail me.
 **/
 
-class cmimetype {
-   function getType($filename) {
-      // get base name of the filename provided by user
+class cmimetype
+{
+    public function getType($filename)
+    {
+        // get base name of the filename provided by user
       $filename = basename($filename);
 
       // break file into parts seperated by .
@@ -80,24 +82,25 @@ class cmimetype {
 
       // find mime type
       return $this->privFindType(strtolower($filename));
-   }
+    }
 
-   function privFindType($ext) {
-      // create mimetypes array
+    public function privFindType($ext)
+    {
+        // create mimetypes array
       $mimetypes = $this->privBuildMimeArray();
 
       // return mime type for extension
       if (isset($mimetypes[$ext])) {
-         return $mimetypes[$ext];
+          return $mimetypes[$ext];
       // if the extension wasn't found return octet-stream
       } else {
-         return 'unknown';
+          return 'unknown';
       }
+    }
 
-   }
-
-   function privBuildMimeArray() {
-      return array(
+    public function privBuildMimeArray()
+    {
+        return array(
 
   '3dm'    => 'x-world/x-3dmf',
   '3dmf'   => 'x-world/x-3dmf',
@@ -793,7 +796,6 @@ class cmimetype {
   'swf'    => 'application/x-shockwave-flash2-preview',
   'swf'    => 'application/futuresplash',
   'swf'    => 'image/vnd.rn-realflash'
-	  );
-   }
+      );
+    }
 }
-?>

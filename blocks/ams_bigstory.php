@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: news_bigstory.php,v 1.2 2004/01/29 17:15:54 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,28 +25,26 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-function b_ams_bigstory_show() {
-	global $xoopsDB;
-	include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
-	$myts = MyTextSanitizer::getInstance();
-	$block = array();
-	$tdate = mktime(0,0,0,date("n"),date("j"),date("Y"));
-	$result = $xoopsDB->query("SELECT storyid, title FROM ".$xoopsDB->prefix("ams_article")." WHERE published > ".$tdate." AND published < ".time()." AND (expired > ".time()." OR expired = 0) ORDER BY counter DESC",1,0);
-	list($fsid, $ftitle) = $xoopsDB->fetchRow($result);
-	if ( !$fsid && !$ftitle ) {
-		$block['message'] = _AMS_MB_NEWS_NOTYET;
-	} else {
-		$block['message'] = _AMS_MB_NEWS_TMRSI;
-		$block['story_title'] = $myts->htmlSpecialChars($ftitle);
-		$block['story_id'] = $fsid;
-	}
-	if($fsid > 0)
-	{
-		$article = new AmsStory($fsid);
-		$block['friendlyurl_enable'] = $article->friendlyurl_enable;
-		$block['friendlyurl'] = $article->friendlyurl;
-		
-	}
-	return $block;
+function b_ams_bigstory_show()
+{
+    global $xoopsDB;
+    include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
+    $myts = MyTextSanitizer::getInstance();
+    $block = array();
+    $tdate = mktime(0, 0, 0, date("n"), date("j"), date("Y"));
+    $result = $xoopsDB->query("SELECT storyid, title FROM ".$xoopsDB->prefix("ams_article")." WHERE published > ".$tdate." AND published < ".time()." AND (expired > ".time()." OR expired = 0) ORDER BY counter DESC", 1, 0);
+    list($fsid, $ftitle) = $xoopsDB->fetchRow($result);
+    if (!$fsid && !$ftitle) {
+        $block['message'] = _AMS_MB_NEWS_NOTYET;
+    } else {
+        $block['message'] = _AMS_MB_NEWS_TMRSI;
+        $block['story_title'] = $myts->htmlSpecialChars($ftitle);
+        $block['story_id'] = $fsid;
+    }
+    if ($fsid > 0) {
+        $article = new AmsStory($fsid);
+        $block['friendlyurl_enable'] = $article->friendlyurl_enable;
+        $block['friendlyurl'] = $article->friendlyurl;
+    }
+    return $block;
 }
-?>

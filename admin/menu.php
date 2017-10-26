@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: menu.php,v 1.3 2004/02/28 01:35:23 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,19 +25,58 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-$adminmenu[1]['title'] = _AMS_MI_NEWS_ADMENU2;
-$adminmenu[1]['link'] = "admin/index.php?op=topicsmanager";
-$adminmenu[2]['title'] = _AMS_MI_NEWS_ADMENU3;
-$adminmenu[2]['link'] = "admin/index.php?op=newarticle";
-$adminmenu[3]['title'] = _AMS_MI_NEWS_GROUPPERMS;
-$adminmenu[3]['link'] = "admin/groupperms.php";
-$adminmenu[4]['title'] = _AMS_MI_SPOTLIGHT;
-$adminmenu[4]['link'] = "admin/spotlight.php";
-$adminmenu[5]['title'] = _AMS_MI_AUDIENCE;
-$adminmenu[5]['link'] = "admin/index.php?op=audience";
-$adminmenu[6]['title'] = "SEO";
-$adminmenu[6]['link'] = "admin/seo.php";
-$adminmenu[7]['title'] = _AMS_MI_ABOUT;
-$adminmenu[7]['link'] = "admin/about.php";
+// get path to icons
+$pathIcon32='';
+if (class_exists('Xmf\Module\Admin', true)) {
+    $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
+}
 
-?>
+$adminmenu=array();
+
+$adminmenu[] = array(
+    'title' => _AMS_MI_HOME ,
+    'link'  => 'admin/index.php' ,
+    'icon'  => $pathIcon32.'home.png'
+);
+
+$adminmenu[] = array(
+    'title' => _AMS_MI_NEWS_ADMENU2,
+    'link'  => 'admin/articles.php?op=topicsmanager',
+    'icon'  => $pathIcon32.'category.png',
+);
+
+$adminmenu[] = array(
+    'title' => _AMS_MI_NEWS_ADMENU3,
+    'link'  => 'admin/articles.php?op=newarticle',
+    'icon'  => $pathIcon32.'content.png',
+);
+
+$adminmenu[] = array(
+    'title' => _AMS_MI_NEWS_GROUPPERMS,
+    'link'  => 'admin/groupperms.php',
+    'icon'  => $pathIcon32.'permissions.png',
+);
+
+$adminmenu[] = array(
+    'title' => _AMS_MI_SPOTLIGHT,
+    'link'  => 'admin/spotlight.php',
+    'icon'  => $pathIcon32.'insert_table_row.png',
+);
+
+$adminmenu[] = array(
+    'title' => _AMS_MI_AUDIENCE,
+    'link'  => 'admin/articles.php?op=audience',
+    'icon'  => $pathIcon32.'users.png',
+);
+
+$adminmenu[] = array(
+    'title' => 'SEO',
+    'link'  => 'admin/seo.php',
+    'icon'  => $pathIcon32.'search.png',
+);
+
+$adminmenu[] = array(
+    'title' => _AMS_MI_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => $pathIcon32.'about.png',
+);

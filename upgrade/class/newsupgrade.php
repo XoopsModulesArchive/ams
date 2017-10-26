@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: class.newsstory.php,v 1.24 2004/07/26 17:51:25 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -27,12 +27,12 @@
 
 class NewsUpgrade
 {
-	function prepare2upgrade() {
-	    include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/class/dbmanager.php';
-	    include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/language/install.php';
-	    $dbm = new db_manager;
-	    $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/AMS/sql/mysql.sql');
-	    return $dbm->report();
-	}
+    public function prepare2upgrade()
+    {
+        include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/class/dbmanager.php';
+        include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/language/install.php';
+        $dbm = new db_manager;
+        $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/AMS/sql/mysql.sql');
+        return $dbm->report();
+    }
 }
-?>

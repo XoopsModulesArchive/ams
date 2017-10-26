@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: news_top.php,v 1.13 2004/06/27 08:08:11 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,7 +25,8 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-function b_ams_author_show($options) {
+function b_ams_author_show($options)
+{
     if (!isset($options[3])) {
         $options[3] = "average";
     }
@@ -38,8 +39,9 @@ function b_ams_author_show($options) {
     return $block;
 }
 
-function b_ams_author_edit($options) {
-    include_once (XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+function b_ams_author_edit($options)
+{
+    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
     $form = new XoopsFormElementTray('', '<br/>');
     
     $sort_select = new XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);
@@ -61,4 +63,3 @@ function b_ams_author_edit($options) {
     $form->addElement($average_select);
     return $form->render();
 }
-?>

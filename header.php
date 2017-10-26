@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: header.php,v 1.2 2004/01/29 17:15:54 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,4 +25,3 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 include '../../mainfile.php';
-?>
