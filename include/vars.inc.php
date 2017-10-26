@@ -35,15 +35,15 @@ if (!defined('XOOPS_ROOT_PATH')) {
 // AMS cookie structure
 //create in AMS 2.50 but for future CLONEABLE ability
 /* -- Cookie settings -- */
-$AMSCookie['domain'] = "";
-$AMSCookie['path'] = "/";
+$AMSCookie['domain'] = '';
+$AMSCookie['path'] = '/';
 $AMSCookie['secure'] = false;
 $AMSCookie['expire'] = time() + 3600 * 24 * 30; // one month
 $AMSCookie['prefix'] = '';
 
 // set cookie name to avoid subsites confusion such as: domain.com, sub1.domain.com, sub2.domain.com, domain.com/xoopss, domain.com/xoops2
 if (empty($AMSCookie['prefix'])) {
-    $cookie_prefix = preg_replace("/[^a-z_0-9]+/i", "_", preg_replace("/(http(s)?:\/\/)?(www.)?/i", "", XOOPS_URL));
-    $cookie_userid = (is_object($xoopsUser))?$xoopsUser->getVar('uid'):0;
-    $AMSCookie['prefix'] = $cookie_prefix."_".$xoopsModule->dirname().$cookie_userid."_";
+    $cookie_prefix = preg_replace('/[^a-z_0-9]+/i', '_', preg_replace("/(http(s)?:\/\/)?(www.)?/i", '', XOOPS_URL));
+    $cookie_userid = is_object($xoopsUser) ?$xoopsUser->getVar('uid'):0;
+    $AMSCookie['prefix'] = $cookie_prefix . '_' . $xoopsModule->dirname() . $cookie_userid . '_';
 }

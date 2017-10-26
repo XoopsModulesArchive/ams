@@ -27,11 +27,11 @@
 function ams_notify_iteminfo($category, $item_id)
 {
     //Ain't working on Windows
-    //$pathparts = explode("/", dirname(__FILE__));
+    //$pathparts = explode("/", __DIR__);
     //$moduleDirName = $pathparts[array_search('modules', $pathparts)+1];
 
-    $moduleDirName = "AMS";
-    if ($category=='global') {
+    $moduleDirName = 'AMS';
+    if ('global' === $category) {
         $item['name'] = '';
         $item['url'] = '';
         return $item;
@@ -39,7 +39,7 @@ function ams_notify_iteminfo($category, $item_id)
 
     global $xoopsDB;
 
-    if ($category=='story') {
+    if ('story' === $category) {
         // Assume we have a valid story id
         $sql = 'SELECT title FROM '.$xoopsDB->prefix('ams_article') . ' WHERE storyid = ' . $item_id;
         $result = $xoopsDB->query($sql); // TODO: error check

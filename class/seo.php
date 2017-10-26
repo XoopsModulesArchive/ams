@@ -1,6 +1,6 @@
 <?php
 if (!class_exists('IdgObjectHandler')) {
-    include_once XOOPS_ROOT_PATH."/modules/AMS/class/idgobject.php";
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/idgobject.php';
 }
 
 class AmsSEO extends XoopsObject
@@ -23,7 +23,7 @@ class AMSSEOHandler extends IdgObjectHandler
     private function readDb($setting_type)
     {
         $myts = MyTextSanitizer::getInstance();
-        $sql = "SELECT settingvalue FROM ".$this->db->prefix('ams_setting')." WHERE settingtype='".$setting_type."'";
+        $sql = 'SELECT settingvalue FROM ' . $this->db->prefix('ams_setting') . " WHERE settingtype='" . $setting_type . "'";
 
         $result=$this->db->query($sql, 1, 0);
         $row=$this->db->fetchRow($result);
@@ -33,7 +33,7 @@ class AMSSEOHandler extends IdgObjectHandler
     private function updateDb($setting_type, $setting_value)
     {
         $myts = MyTextSanitizer::getInstance();
-        $sql = "UPDATE ".$this->db->prefix('ams_setting')." SET settingvalue='".$setting_value."' WHERE settingtype='".$setting_type."'";
+        $sql = 'UPDATE ' . $this->db->prefix('ams_setting') . " SET settingvalue='" . $setting_value . "' WHERE settingtype='" . $setting_type . "'";
         if (!$this->db->query($sql)) {
             return false;
         }
@@ -44,8 +44,8 @@ class AMSSEOHandler extends IdgObjectHandler
     public function save_setting($content_parameter=null)
     {
         //configure setting path based on XOOPS version
-        include_once XOOPS_ROOT_PATH."/mainfile.php";
-        if (!defined("XOOPS_VAR_PATH")) {
+        include_once XOOPS_ROOT_PATH . '/mainfile.php';
+        if (!defined('XOOPS_VAR_PATH')) {
             $AMS_setting=XOOPS_ROOT_PATH. '/cache';
         } else {
             $AMS_setting=XOOPS_VAR_PATH. '/configs';
@@ -63,8 +63,8 @@ class AMSSEOHandler extends IdgObjectHandler
             $this->updateDb('friendlyurl_template', $content_parameter['urltemplate']);
         }
 
-        if (!$file = fopen($AMS_setting . '/xoops_ams_seo_setting.php', "w")) {
-            print "FAIL WRITING SEO SETTING CACHE";
+        if (!$file = fopen($AMS_setting . '/xoops_ams_seo_setting.php', 'w')) {
+            print 'FAIL WRITING SEO SETTING CACHE';
             exit;
         } else {
             $content= "<?php
@@ -76,7 +76,7 @@ class AMSSEOHandler extends IdgObjectHandler
             }?>";
 
             if (fwrite($file, $content) == -1) {
-                print "FAIL WRITING SEO SETTING CACHE";
+                print 'FAIL WRITING SEO SETTING CACHE';
                 exit;
             }
             fclose($file);
@@ -85,10 +85,10 @@ class AMSSEOHandler extends IdgObjectHandler
 
     public function read_setting()
     {
-        include_once XOOPS_ROOT_PATH."/mainfile.php";
+        include_once XOOPS_ROOT_PATH . '/mainfile.php';
 
         //configure setting path based on XOOPS version
-        if (!defined("XOOPS_VAR_PATH")) {
+        if (!defined('XOOPS_VAR_PATH')) {
             $AMS_setting=XOOPS_ROOT_PATH. '/cache';
         } else {
             $AMS_setting=XOOPS_VAR_PATH. '/configs';

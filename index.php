@@ -26,19 +26,19 @@ use Xmf\Module\Helper;
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 
 $moduleHelper = Helper::getHelper(basename(__DIR__));
 
 if (isset($_GET['storytopic'])) {
-    $xoopsOption['storytopic'] = intval($_GET['storytopic']);
+    $xoopsOption['storytopic'] = (int)$_GET['storytopic'];
 } else {
     $xoopsOption['storytopic'] = 0;
 }
 if (isset($_GET['storynum'])) {
-    $xoopsOption['storynum'] = intval($_GET['storynum']);
+    $xoopsOption['storynum'] = (int)$_GET['storynum'];
     if ($xoopsOption['storynum'] > $xoopsModuleConfig['max_items']) {
         $xoopsOption['storynum'] = $xoopsModuleConfig['max_items'];
     }
@@ -49,11 +49,11 @@ if (isset($_GET['storynum'])) {
 }
 
 if (isset($_GET['start'])) {
-    $start = intval($_GET['start']);
+    $start = (int)$_GET['start'];
 } else {
     $start = 0;
 }
-if (empty($xoopsModuleConfig['newsdisplay']) || $xoopsModuleConfig['newsdisplay'] == 'Classic' || $xoopsOption['storytopic'] > 0) {
+if (empty($xoopsModuleConfig['newsdisplay']) || 'Classic' === $xoopsModuleConfig['newsdisplay'] || $xoopsOption['storytopic'] > 0) {
     $showclassic = 1;
 } else {
     $showclassic = 0;
@@ -63,29 +63,29 @@ $myts = MyTextSanitizer::getInstance();
 $pagetitle = $myts->htmlSpecialChars($xoopsModule->name());
 $column_count = $xoopsModuleConfig['columnmode'];
 if ($showclassic) {
-    $xoopsOption['template_main'] = 'ams_index.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_index.tpl';
 } else {
-    $xoopsOption['template_main'] = 'ams_by_topic.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_by_topic.tpl';
 }
 include XOOPS_ROOT_PATH.'/header.php';
-$xoopsTpl->assign('columnwidth', intval(1/$column_count*100));
-if ($xoopsModuleConfig['displaynav'] == 1) {
+$xoopsTpl->assign('columnwidth', (int)(1 / $column_count * 100));
+if (1 == $xoopsModuleConfig['displaynav']) {
     $xoopsTpl->assign('displaynav', true);
     $xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
     $allTopics = $xt->getAllTopics(true);
-    include_once(XOOPS_ROOT_PATH."/class/tree.php");
-    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+    include_once XOOPS_ROOT_PATH . '/class/tree.php';
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $topic_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
-    $topic_form = new XoopsThemeForm('', "topic_form", "index.php", "get");
+    $topic_form = new XoopsThemeForm('', 'topic_form', 'index.php', 'get');
     $topic_form->addElement($topic_tree->makeSelectElement('storytopic', 'topic_title', '-', $xoopsOption['storytopic'], true));
     // Make number options
     $i = 1;
     while ($i <= $xoopsModuleConfig['max_items']) {
         $options[$i] = $i;
-        if ($i == 1) {
+        if (1 == $i) {
             $i = 5;
         } else {
-            $i = $i + 5;
+            $i += 5;
         }
     }
     $storynum_select = new XoopsFormSelect('', 'storynum', $xoopsOption['storynum']);
@@ -113,8 +113,8 @@ if ($showclassic) {
         foreach ($sarray as $storyid => $thisstory) {
             $uids[$thisstory->uid()] = $thisstory->uid();
         }
-        $member_handler = xoops_gethandler('member');
-        $user_arr = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
+        $memberHandler = xoops_getHandler('member');
+        $user_arr = $memberHandler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($sarray as $storyid => $thisstory) {
             $stories[] = $thisstory->toArray(false, false, 0, $user_arr);
         }
@@ -144,8 +144,8 @@ if ($showclassic) {
         $xoopsTpl->assign('breadcrumb', false);
     }
 } else {
-    include_once(XOOPS_ROOT_PATH."/class/tree.php");
-    $xt = new AmsTopic($xoopsDB -> prefix("ams_topics"));
+    include_once XOOPS_ROOT_PATH . '/class/tree.php';
+    $xt = new AmsTopic($xoopsDB -> prefix('ams_topics'));
     $allTopics = $xt->getAllTopics($xoopsModuleConfig['restrictindex']);
     $topic_obj_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
     $alltopics = $topic_obj_tree->getFirstChild(0);
@@ -165,8 +165,8 @@ if ($showclassic) {
         }
     }
     if (count($uids) > 0) {
-        $member_handler = xoops_gethandler('member');
-        $user_arr = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
+        $memberHandler = xoops_getHandler('member');
+        $user_arr = $memberHandler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($alltopics as $topicid => $topic) {
             $topicstories = array();
             foreach ($allstories[$topicid] as $thisstory) {
@@ -180,7 +180,13 @@ if ($showclassic) {
             foreach (array_keys($subtopics) as $i) {
                 $subs[$i] = array('id' => $i, 'title' => $subtopics[$i]->topic_title(), 'imageurl' => $subtopics[$i]->topic_imgurl());
             }
-            $smarty_topics[] = array('title' => $topic->topic_title(), 'stories' => $topicstories, 'id' => $topicid, 'subtopics' => $subs, 'articlecount' => $article_counts[$topicid], 'subtopiccount' => $subcount);
+            $smarty_topics[] = array('title'         => $topic->topic_title(),
+                                     'stories'       => $topicstories,
+                                     'id'            => $topicid,
+                                     'subtopics'     => $subs,
+                                     'articlecount'  => $article_counts[$topicid],
+                                     'subtopiccount' => $subcount
+            );
             unset($subs);
         }
     }

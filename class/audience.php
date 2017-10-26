@@ -1,6 +1,6 @@
 <?php
 if (!class_exists('IdgObjectHandler')) {
-    include_once XOOPS_ROOT_PATH."/modules/AMS/class/idgobject.php";
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/idgobject.php';
 }
 class AmsAudience extends XoopsObject
 {
@@ -20,10 +20,13 @@ class AMSAudienceHandler extends IdgObjectHandler
 
     public function deleteReplace($aud, $newaudid)
     {
-        if ($aud->getVar('audienceid') == 1) {
+        if (1 == $aud->getVar('audienceid')) {
             return false;
         }
-        $sql = "UPDATE ".$this->db->prefix('ams_article')." SET audienceid = ".intval($newaudid)." WHERE audienceid = ".intval($aud->getVar('audienceid'));
+        $sql = 'UPDATE '
+               . $this->db->prefix('ams_article') . ' SET audienceid = '
+               . (int)$newaudid . ' WHERE audienceid = '
+               . (int)$aud->getVar('audienceid');
         if (!$this->db->query($sql)) {
             return false;
         }
@@ -37,7 +40,7 @@ class AMSAudienceHandler extends IdgObjectHandler
 
     public function getStoryCountByAudience($audience)
     {
-        $sql = "SELECT COUNT(*) FROM ".$this->db->prefix("ams_article")." WHERE audienceid=".$audience->getVar('audienceid');
+        $sql = 'SELECT COUNT(*) FROM ' . $this->db->prefix('ams_article') . ' WHERE audienceid=' . $audience->getVar('audienceid');
         if ($result = $this->db->query($sql)) {
             list($count) = $this->db->fetchRow($result);
             return $count;

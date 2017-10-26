@@ -27,11 +27,15 @@
 function b_ams_bigstory_show()
 {
     global $xoopsDB;
-    include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
     $myts = MyTextSanitizer::getInstance();
     $block = array();
-    $tdate = mktime(0, 0, 0, date("n"), date("j"), date("Y"));
-    $result = $xoopsDB->query("SELECT storyid, title FROM ".$xoopsDB->prefix("ams_article")." WHERE published > ".$tdate." AND published < ".time()." AND (expired > ".time()." OR expired = 0) ORDER BY counter DESC", 1, 0);
+    $tdate = mktime(0, 0, 0, date('n'), date('j'), date('Y'));
+    $result = $xoopsDB->query('SELECT storyid, title FROM '
+                              . $xoopsDB->prefix('ams_article') . ' WHERE published > '
+                              . $tdate . ' AND published < '
+                              . time() . ' AND (expired > '
+                              . time() . ' OR expired = 0) ORDER BY counter DESC', 1, 0);
     list($fsid, $ftitle) = $xoopsDB->fetchRow($result);
     if (!$fsid && !$ftitle) {
         $block['message'] = _AMS_MB_NEWS_NOTYET;

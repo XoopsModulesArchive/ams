@@ -23,11 +23,11 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 
-$storyid = isset($_GET['storyid']) ? intval($_GET['storyid']) : 0;
+$storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
 if (empty($storyid)) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php");
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php');
 }
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/class/class.newsstory.php';
 
@@ -37,15 +37,15 @@ function PrintPage($storyid)
     $myts = MyTextSanitizer::getInstance();
     $story = new AmsStory($storyid);
     $datetime = formatTimestamp($story->published());
-    $gperm_handler = xoops_gethandler('groupperm');
+    $gpermHandler = xoops_getHandler('groupperm');
     if (is_object($xoopsUser)) {
         $groups = $xoopsUser->getGroups();
     } else {
         $groups = XOOPS_GROUP_ANONYMOUS;
     }
-    if (!$gperm_handler->checkRight("ams_view", $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-        if (!$gperm_handler->checkRight("ams_submit", $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-            if (!$gperm_handler->checkRight("ams_approve", $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gpermHandler->checkRight('ams_view', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+        if (!$gpermHandler->checkRight('ams_submit', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+            if (!$gpermHandler->checkRight('ams_approve', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
                 redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
                 exit();
             }
@@ -68,8 +68,8 @@ function PrintPage($storyid)
         <small><b>'._AMS_NW_DATE.'</b>&nbsp;'.$datetime.' | <b>'._AMS_NW_TOPICC.'</b>&nbsp;'.$story->topic_title().'</small><br /><br /></td></tr>';
     echo '<tr valign="top" style="font:12px;"><td>'.$story->hometext().'<br />';
     $bodytext = $story->bodytext();
-    $bodytext = str_replace("[pagebreak]", "<br style=\"page-break-after:always;\">", $bodytext);
-    if ($bodytext != '') {
+    $bodytext = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $bodytext);
+    if ('' != $bodytext) {
         echo $bodytext.'<br /><br />';
     }
     echo '</td></tr></table></td></tr></table>

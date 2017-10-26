@@ -23,8 +23,8 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-$sform = new XoopsThemeForm(_AMS_NW_VERSIONCONFLICT, "overrideform", XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname').'/submit.php');
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+$sform = new XoopsThemeForm(_AMS_NW_VERSIONCONFLICT, 'overrideform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
 $sform->setExtra('enctype="multipart/form-data"');
 
 $sform->addElement(new XoopsFormLabel('', _AMS_NW_CONFLICTWHAT2DO));
@@ -40,5 +40,5 @@ $submit_tray->addElement(new XoopsFormButton('', 'op', _AMS_NW_FINDVERSION, 'sub
 $cancel_button = new XoopsFormButton('', 'cancel', _CANCEL, 'button');
 $cancel_button->setExtra('onclick="javascript:history.go(-1);"');
 $submit_tray->addElement($cancel_button);
-$sform->addelement($submit_tray);
+$sform->addElement($submit_tray);
 $sform->display();

@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 Copyright (C) 2002 Jason Sheets <jsheets@shadonet.com>.
 All rights reserved.
 
@@ -30,9 +30,9 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
-**/
+*/
 
-/**
+/*
    Name: PHP MimeType Class
 
    Version: 1.0
@@ -65,37 +65,37 @@ SUCH DAMAGE.
    License: This script is distributed under the BSD License, you are free
    to use, or modify it however you like.  If you find this script useful please
    e-mail me.
-**/
+*/
 
 class cmimetype
 {
     public function getType($filename)
     {
         // get base name of the filename provided by user
-      $filename = basename($filename);
+        $filename = basename($filename);
 
-      // break file into parts seperated by .
-      $filename = explode('.', $filename);
+        // break file into parts seperated by .
+        $filename = explode('.', $filename);
 
-      // take the last part of the file to get the file extension
-      $filename = $filename[count($filename)-1];
+        // take the last part of the file to get the file extension
+        $filename = $filename[count($filename)-1];
 
-      // find mime type
-      return $this->privFindType(strtolower($filename));
+        // find mime type
+        return $this->privFindType(strtolower($filename));
     }
 
     public function privFindType($ext)
     {
         // create mimetypes array
-      $mimetypes = $this->privBuildMimeArray();
+        $mimetypes = $this->privBuildMimeArray();
 
-      // return mime type for extension
-      if (isset($mimetypes[$ext])) {
-          return $mimetypes[$ext];
-      // if the extension wasn't found return octet-stream
-      } else {
-          return 'unknown';
-      }
+        // return mime type for extension
+        if (isset($mimetypes[$ext])) {
+            return $mimetypes[$ext];
+            // if the extension wasn't found return octet-stream
+        } else {
+            return 'unknown';
+        }
     }
 
     public function privBuildMimeArray()

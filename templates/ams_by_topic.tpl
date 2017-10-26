@@ -131,7 +131,7 @@
 </table>
 
 <div style="text-align: right; margin: 10px;"><{$pagenav}></div>
-<{include file='db:system_notification_select.html'}>
+<{include file='db:system_notification_select.tpl'}>
 <br>                     <{/if}>
                                     <a valign="middle" href="<{$xoops_url}>/modules/AMS/index.php?storytopic=<{$subtopic.id}>"><{$subtopic.title}></a>
 
@@ -150,4 +150,4 @@
 </table>
 <!-- end topic loop -->
 </div>
-<{include file='db:system_notification_select.html'}>
+<{include file='db:system_notification_select.tpl'}>

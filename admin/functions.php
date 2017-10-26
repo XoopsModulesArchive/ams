@@ -1,17 +1,16 @@
 <?php
-function adminmenu($currentoption=0, $breadcrumb = "")
+function adminmenu($currentoption=0, $breadcrumb = '')
 {
     global $xoopsModule, $xoopsConfig;
     $tblColors=array();
     $tblColors[0]=$tblColors[1]=$tblColors[2]=$tblColors[3]=$tblColors[4]=$tblColors[5]=$tblColors[6]=$tblColors[7]=$tblColors[8]='';
     if ($currentoption>=0) {
         $tblColors[$currentoption]='id=\'current\'';
-        ;
     }
     if (file_exists(XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/language/'.$xoopsConfig['language'].'/modinfo.php')) {
-        include_once '../language/'.$xoopsConfig['language'].'/modinfo.php';
+        include_once __DIR__ . '/../language/'.$xoopsConfig['language'].'/modinfo.php';
     } else {
-        include_once '../language/english/modinfo.php';
+        include_once __DIR__ . '/../language/english/modinfo.php';
     }
 
     /* Nice buttons styles */
@@ -47,21 +46,31 @@ function adminmenu($currentoption=0, $breadcrumb = "")
         </style>
     ";
 
-    include XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar('dirname')."/admin/menu.php";
+    include XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/menu.php';
 
     $return .= "<div id='buttontop'>";
-    $return .= "<table style=\"width: 100%; padding: 0; \" cellspacing=\"0\"><tr>";
-    $return .= "<td style='width: 60%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;'><a class='nobutton' href='" . XOOPS_URL . "/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid') . "'>" . _AMS_AM_PREFERENCES . "</a> | <a href='" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/index.php'>" . _AMS_AM_GOMOD . "</a> | <a href='" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/admin/about.php'>" . _AMS_AM_ABOUT . "</a></td>";
-    $return .= "<td style='width: 40%; font-size: 10px; text-align: right; color: #2F5376; padding: 0 6px; line-height: 18px;'><b>" . $xoopsModule->name() . " " . _AMS_AM_MODADMIN . "</b> " . $breadcrumb . "</td>";
-    $return .= "</tr></table>";
-    $return .= "</div>";
+    $return .= '<table style="width: 100%; padding: 0; " cellspacing="0"><tr>';
+    $return .= "<td style='width: 60%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;'><a class='nobutton' href='" . XOOPS_URL . '/modules/system/admin.php?fct=preferences&amp;op=showmod&amp;mod='
+               . $xoopsModule->getVar('mid') . "'>" . _AMS_AM_PREFERENCES . "</a> | <a href='" . XOOPS_URL . '/modules/'
+               . $xoopsModule->getVar('dirname') . "/index.php'>" . _AMS_AM_GOMOD . "</a> | <a href='" . XOOPS_URL . '/modules/'
+               . $xoopsModule->getVar('dirname') . "/admin/about.php'>" . _AMS_AM_ABOUT . '</a></td>';
+    $return .= "<td style='width: 40%; font-size: 10px; text-align: right; color: #2F5376; padding: 0 6px; line-height: 18px;'><b>" . $xoopsModule->name() . ' '
+               . _AMS_AM_MODADMIN . '</b> '
+               . $breadcrumb . '</td>';
+    $return .= '</tr></table>';
+    $return .= '</div>';
 
     $return .= "<div id='admintabs'>";
-    $return .= "<ul>";
+    $return .= '<ul>';
     foreach ($adminmenu as $key => $menu) {
-        $return .= "<li ". $tblColors[$key] . "><a href=\"" . XOOPS_URL . "/modules/" . $xoopsModule->getVar('dirname') . "/".$menu['link']."\">" . $menu['title'] . "</a></li>";
+        $return .= '<li '
+                   . $tblColors[$key] . '><a href="'
+                   . XOOPS_URL . '/modules/'
+                   . $xoopsModule->getVar('dirname') . '/'
+                   . $menu['link'] . '">'
+                   . $menu['title'] . '</a></li>';
     }
-    $return .= "</ul></div><div style=\"clear:both;\"></div>";
+    $return .= '</ul></div><div style="clear:both;"></div>';
 
     echo $return;
     /*
@@ -85,6 +94,6 @@ function adminmenu($currentoption=0, $breadcrumb = "")
 function table_exists($tablename)
 {
     global $xoopsDB;
-    $sql = "SELECT COUNT(*) FROM ".$xoopsDB->prefix($tablename);
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix($tablename);
     return $xoopsDB->query($sql);
 }

@@ -26,17 +26,17 @@
 
 function b_ams_spotlight_show($options)
 {
-    include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
     global $xoopsModule;
-    if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-        $mod_handler = xoops_gethandler('module');
-        $amsModule = $mod_handler->getByDirname('AMS');
+    if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
+        $moduleHandler = xoops_getHandler('module');
+        $amsModule = $moduleHandler->getByDirname('AMS');
     } else {
         $amsModule = $xoopsModule;
     }
 
-    $spotlight_handler = xoops_getmodulehandler('spotlight', 'AMS');
-    $block = $spotlight_handler->getSpotlightBlock();
+    $spotlightHandler = xoops_getModuleHandler('spotlight', 'AMS');
+    $block = $spotlightHandler->getSpotlightBlock();
 
     //load special block instruction if exist
     if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/templates/'.$options[2].'.php')) {
@@ -48,23 +48,28 @@ function b_ams_spotlight_show($options)
     $GLOBALS['xoopsTpl']->clear_assign('spotlights');
 
     if (count($options) > 0) {
-        if (intval($options[0]) > 0) {
-            $stories = AmsStory::getAllPublished(intval($options[0]), 0, false, 0, 1, true, 'published', $block['ids']);
+        if ((int)$options[0] > 0) {
+            $stories = AmsStory::getAllPublished((int)$options[0], 0, false, 0, 1, true, 'published', $block['ids']);
             $count = 0;
             foreach (array_keys($stories) as $i) {
-                $block['stories'][] = array('id' => $stories[$i]->storyid(), 'title' => $stories[$i]->title(), 'hits' => $stories[$i]->counter(), 'friendlyurl_enable'=>$stories[$i]->friendlyurl_enable, 'friendlyurl'=>$stories[$i]->friendlyurl );
+                $block['stories'][] = array('id'                 => $stories[$i]->storyid(),
+                                            'title'              => $stories[$i]->title(),
+                                            'hits'               => $stories[$i]->counter(),
+                                            'friendlyurl_enable' => $stories[$i]->friendlyurl_enable,
+                                            'friendlyurl'        => $stories[$i]->friendlyurl
+                );
                 $count ++;
             }
         }
 
-        if ($options[1] == 1) {
+        if (1 == $options[1]) {
             $block['total_art'] = AmsStory::countPublishedByTopic();
             $block['total_read'] = AmsStory::countReads();
-            $comment_handler = xoops_gethandler('comment');
-            $block['total_comments'] = $comment_handler->getCount(new Criteria('com_modid', $amsModule->getVar('mid')));
+            $commentHandler = xoops_getHandler('comment');
+            $block['total_comments'] = $commentHandler->getCount(new Criteria('com_modid', $amsModule->getVar('mid')));
         }
         $block['showministats'] = $options[1];
-        $block['showother'] = intval($options[0]) > 0;
+        $block['showother'] = (int)$options[0] > 0;
     }
 
     return $block;
@@ -72,19 +77,19 @@ function b_ams_spotlight_show($options)
 
 function b_ams_spotlight_edit($options)
 {
-    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
-    include_once XOOPS_ROOT_PATH."/modules/AMS/include/functions.inc.php";
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/include/functions.inc.php';
 
     global $xoopsModule;
     AMS_updateCache();
-    if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-        $module_handler = xoops_gethandler('module');
-        $module = $module_handler->getByDirname("AMS");
+    if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
+        $moduleHandler = xoops_getHandler('module');
+        $module = $moduleHandler->getByDirname('AMS');
     } else {
         $module = $xoopsModule;
     }
-    $config_handler = xoops_gethandler('config');
-    $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+    $configHandler = xoops_getHandler('config');
+    $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     $templates_list=array_flip($moduleConfig['spotlight_template']);
 
     //fix template list value lost after module update
@@ -102,13 +107,15 @@ function b_ams_spotlight_edit($options)
     //spotlight template selection
     $template_select = new XoopsFormSelect(_AMS_MB_SPOTLIGHT_TEMPLATE, 'options[2]', $options[2]);
     $template_select->addOptionArray($templates_list);
-    $template_select->setExtra("onchange='showImgSelected(\"template_preview\", \"options[2]\", \"" . '/modules/AMS/assets/images/spotlight_preview' . "\", \".jpg\", \"" . XOOPS_URL . "\")'");
+    $template_select->setExtra("onchange='showImgSelected(\"template_preview\", \"options[2]\", \"" . '/modules/AMS/assets/images/spotlight_preview' . '", ".jpg", "'
+                               . XOOPS_URL . "\")'");
     $template_select->setDescription(_AMS_MB_SPOTLIGHT_TEMPLATE_DESC);
     $form->addElement($template_select);
 
     //spotlight preview image
-    $imgpath=sprintf('', "modules/AMS/assets/images/spotlight_preview/");
-    $form -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . "/modules/AMS/assets/images/spotlight_preview/".$options[2].".jpg' name='template_preview' id='template_preview' alt='' />"));
+    $imgpath=sprintf('', 'modules/AMS/assets/images/spotlight_preview/');
+    $form -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . '/modules/AMS/assets/images/spotlight_preview/'
+                                               . $options[2] . ".jpg' name='template_preview' id='template_preview' alt='' />"));
 
 
     return $form->render();

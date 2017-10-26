@@ -1,9 +1,9 @@
 <?php
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 
-if (!defined("XOOPS_VAR_PATH")) {
+if (!defined('XOOPS_VAR_PATH')) {
     $AMS_setting=XOOPS_ROOT_PATH. '/cache';
 } else {
     $AMS_setting=XOOPS_VAR_PATH. '/configs';

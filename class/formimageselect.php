@@ -38,6 +38,7 @@ class XoopsFormImageSelect extends XoopsFormElementTray
     {
         parent::__construct($caption, '&nbsp;');
         $this->addElement(new XoopsFormText('', $name, $size, $maxlength, $value));
-        $this->addElement(new XoopsFormLabel('', "<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL."/imagemanager.php?target=".$name."\",\"imgmanager\",400,430);' src='".XOOPS_URL."/assets/images/image.gif' alt='image' />"));
+        $this->addElement(new XoopsFormLabel('', "<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL . '/imagemanager.php?target='
+                                                 . $name . "\",\"imgmanager\",400,430);' src='" . XOOPS_URL . "/assets/images/image.gif' alt='image' />"));
     }
 }

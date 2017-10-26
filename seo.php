@@ -4,7 +4,7 @@
  * Author: Sudhaker Raj <http://xoops.biz>, NovaSmart Technology
  * Licence: GNU
  */
-include "../../mainfile.php";
+include __DIR__ . '/../../mainfile.php';
 //$seoOp = $_GET['seoOp'];
 //$seoArg = $_GET['seoArg'];
 
@@ -48,7 +48,7 @@ if (! empty($novaseo_op)) {
             $_GET['page'] = $novaseo_pg;
     }
 
-    include($novaseo_op_map[$novaseo_op]);
+    include $novaseo_op_map[$novaseo_op];
 }
 
 exit;

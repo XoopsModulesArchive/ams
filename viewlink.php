@@ -23,12 +23,12 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include "../../mainfile.php";
+include __DIR__ . '/../../mainfile.php';
 
-$lid = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
+$lid = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
 $rev = isset($_GET['rev']) ? true : false;
 
-$linkHandler = xoops_getmodulehandler('link', 'AMS');
+$linkHandler = xoops_getModuleHandler('link', 'AMS');
 $link = $linkHandler->get($lid);
 $link->increment();
 if ($rev) {
@@ -38,8 +38,8 @@ if ($rev) {
 
 if ($link->getVar('link_module') > 0) {
     if ($link->getVar('link_module') != $xoopsModule->getVar('mid')) {
-        $module_handler = xoops_gethandler('module');
-        $module = $module_handler->get($link->getVar('link_module'));
+        $moduleHandler = xoops_getHandler('module');
+        $module = $moduleHandler->get($link->getVar('link_module'));
         if (!is_object($module)) {
             $module = $xoopsModule; // this is an error condition
         }

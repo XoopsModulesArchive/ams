@@ -25,13 +25,13 @@
 // ------------------------------------------------------------------------ //
 use Xmf\Module\Admin;
 
-require dirname(__FILE__) . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
 //$moduleAdmin->addItemButton('title', 'link.php');
-//$moduleAdmin->renderButton();
+//$moduleAdmin->displayButton();
 $moduleAdmin->displayNavigation('about.php');
 Admin::setPaypal('xoopsfoundation@gmail.com');
 $moduleAdmin->displayAbout(false);
 
-require dirname(__FILE__) . '/admin_footer.php';
+require __DIR__ . '/admin_footer.php';

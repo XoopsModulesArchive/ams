@@ -24,23 +24,29 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include "../../mainfile.php";
+include __DIR__ . '/../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
-include_once(XOOPS_ROOT_PATH."/class/template.php");
+include_once XOOPS_ROOT_PATH . '/class/template.php';
 $xoopsOption['theme_use_smarty'] = 1;
 $xoopsTpl = new XoopsTpl();
 $xoopsTpl->xoops_setCaching(0);
-if ($xoopsConfig['debug_mode'] == 3) {
+if (3 == $xoopsConfig['debug_mode']) {
     $xoopsTpl->xoops_setDebugging(true);
 }
-$xoopsTpl->assign(array('xoops_theme' => $xoopsConfig['theme_set'], 'xoops_imageurl' => XOOPS_THEME_URL.'/'.$xoopsConfig['theme_set'].'/', 'xoops_themecss'=> xoops_getcss($xoopsConfig['theme_set']), 'xoops_requesturi' => htmlspecialchars($GLOBALS['xoopsRequestUri'], ENT_QUOTES), 'xoops_sitename' => htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES), 'xoops_slogan' => htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)));
+$xoopsTpl->assign(array('xoops_theme'      => $xoopsConfig['theme_set'],
+                        'xoops_imageurl'   => XOOPS_THEME_URL . '/' . $xoopsConfig['theme_set'] . '/',
+                        'xoops_themecss'   => xoops_getcss($xoopsConfig['theme_set']),
+                        'xoops_requesturi' => htmlspecialchars($GLOBALS['xoopsRequestUri'], ENT_QUOTES),
+                        'xoops_sitename'   => htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES),
+                        'xoops_slogan'     => htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)
+                  ));
 
-$storyid = (isset($_GET['storyid'])) ? intval($_GET['storyid']) : 0;
-$version = (isset($_GET['version'])) ? intval($_GET['version']) : 0;
-$revision = (isset($_GET['revision'])) ? intval($_GET['revision']) : 0;
-$revisionminor = (isset($_GET['revisionminor'])) ? intval($_GET['revisionminor']) : 0;
+$storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
+$version = isset($_GET['version']) ? (int)$_GET['version'] : 0;
+$revision = isset($_GET['revision']) ? (int)$_GET['revision'] : 0;
+$revisionminor = isset($_GET['revisionminor']) ? (int)$_GET['revisionminor'] : 0;
 if (!$storyid || !$version) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 
@@ -50,24 +56,24 @@ $myts = MyTextSanitizer::getInstance();
 
 $article = new AmsStory();
 $article->getNewsVersion($storyid, $version, $revision, $revisionminor);
-$gperm_handler = xoops_gethandler('groupperm');
+$gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
     exit();
 }
 
 
-$xoopsOption['template_main'] = 'ams_article.html';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_article.tpl';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray(true, false, -1));
 $banner = $myts->displayTarea($article->getBanner(), 1);
-if (!$banner || $banner == "") {
-    $banner = " ";
+if (!$banner || '' == $banner) {
+    $banner = ' ';
 }
 $xoopsTpl->assign('articlebanner', $banner);
 if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
@@ -84,6 +90,6 @@ $xoopsTpl->assign('lang_reads', _READS);
 $xoopsTpl->assign('showfull', true);
 $xoopsTpl->assign('admin', false);
 $xoopsTpl->assign('xoops_sitename', $myts->htmlSpecialChars($article->title()));
-$xoopsTpl->assign('xoops_pagetitle', " v.".$article->version());
+$xoopsTpl->assign('xoops_pagetitle', ' v.' . $article->version());
 
 include_once XOOPS_ROOT_PATH.'/footer.php';

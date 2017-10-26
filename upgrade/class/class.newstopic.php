@@ -6,7 +6,7 @@ class OldNewsTopic
     public $topic_imgurl;
     public $topic_pid;
     public $topic_title;
-    public function OldNewsTopic($id=-1)
+    public function __construct($id=-1)
     {
         $this->db = XoopsDatabaseFactory::getDatabaseConnection();
         if (is_array($id)) {
@@ -24,7 +24,7 @@ class OldNewsTopic
     {
         $ret = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = "SELECT * FROM ".$db->prefix('topics');
+        $sql = 'SELECT * FROM ' . $db->prefix('topics');
         $result = $db->query($sql);
         while ($row = $db->fetchArray($result)) {
             $ret[] = new OldNewsTopic($row);
@@ -35,36 +35,39 @@ class OldNewsTopic
     public function upgrade()
     {
         $myts = MyTextSanitizer::getInstance();
-        $sql = "INSERT INTO ".$this->db->prefix('ams_topics')."
+        $sql = 'INSERT INTO '
+               . $this->db->prefix('ams_topics') . '
                 (topic_id, topic_pid, topic_imgurl, topic_title)
-	            VALUES (".$this->topic_id.", ".$this->topic_pid.", '".$this->topic_imgurl."', '".$myts->addSlashes($this->topic_title)."')";
+	            VALUES ('
+               . $this->topic_id . ', '
+               . $this->topic_pid . ", '" . $this->topic_imgurl . "', '" . $myts->addSlashes($this->topic_title) . "')";
         return $this->db->query($sql);
     }
 
     public function copyPermissions($mid)
     {
-        $criteria = new Criteria('gperm_modid', intval($mid));
-        $gperm_handler = xoops_gethandler('groupperm');
-        $gperm_items = $gperm_handler->getObjects($criteria);
+        $criteria = new Criteria('gperm_modid', (int)$mid);
+        $gpermHandler = xoops_getHandler('groupperm');
+        $gperm_items = $gpermHandler->getObjects($criteria);
 
-        $mod_handler = xoops_gethandler('module');
-        $amsModule = $mod_handler->getByDirname('AMS');
+        $moduleHandler = xoops_getHandler('module');
+        $amsModule = $moduleHandler->getByDirname('AMS');
         $amsmid = $amsModule->getVar('mid');
         foreach (array_keys($gperm_items) as $i) {
             $gperm_items[$i]->setNew();
             $gperm_items[$i]->setVar('gperm_modid', $amsmid);
             switch ($gperm_items[$i]->getVar('gperm_name')) {
-                case "news_approve":
+                case 'news_approve':
                    $gperm_items[$i]->setVar('gperm_name', 'ams_approve');
                    break;
-                case "news_submit":
+                case 'news_submit':
                    $gperm_items[$i]->setVar('gperm_name', 'ams_submit');
                    break;
-                case "news_view":
+                case 'news_view':
                    $gperm_items[$i]->setVar('gperm_name', 'ams_view');
                    break;
             }
-            if (!$gperm_handler->insert($gperm_items[$i])) {
+            if (!$gpermHandler->insert($gperm_items[$i])) {
                 return false;
             }
         }

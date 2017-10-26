@@ -23,31 +23,31 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 // create form
-$search_form = new XoopsThemeForm(_SR_SEARCH, "search_form", $_SERVER['PHP_SELF'], 'POST');
+$search_form = new XoopsThemeForm(_SR_SEARCH, 'search_form', $_SERVER['PHP_SELF'], 'post', true);
 
 // create form elements
-$search_form->addElement(new XoopsFormText(_SR_KEYWORDS, "query", 30, 255, htmlspecialchars(stripslashes(implode(" ", $queries)), ENT_QUOTES)), true);
-$search_form->addElement(new XoopsFormText(_AMS_NW_USERNAME, "username", 30, 255, $username), false);
-$type_select = new XoopsFormSelect(_SR_TYPE, "andor", $andor);
-$type_select->addOptionArray(array("AND"=>_SR_ALL, "OR"=>_SR_ANY, "exact"=>_SR_EXACT));
+$search_form->addElement(new XoopsFormText(_SR_KEYWORDS, 'query', 30, 255, htmlspecialchars(stripslashes(implode(' ', $queries)), ENT_QUOTES)), true);
+$search_form->addElement(new XoopsFormText(_AMS_NW_USERNAME, 'username', 30, 255, $username), false);
+$type_select = new XoopsFormSelect(_SR_TYPE, 'andor', $andor);
+$type_select->addOptionArray(array('AND' =>_SR_ALL, 'OR' =>_SR_ANY, 'exact' =>_SR_EXACT));
 $search_form->addElement($type_select);
 if (!empty($mids)) {
-    $mods_checkbox = new XoopsFormCheckBox(_SR_SEARCHIN, "mids[]", $mids);
+    $mods_checkbox = new XoopsFormCheckBox(_SR_SEARCHIN, 'mids[]', $mids);
 } else {
-    $mods_checkbox = new XoopsFormCheckBox(_SR_SEARCHIN, "mids[]", $xoopsModule->mid());
+    $mods_checkbox = new XoopsFormCheckBox(_SR_SEARCHIN, 'mids[]', $xoopsModule->mid());
 }
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('hassearch', 1));
 $criteria->add(new Criteria('isactive', 1));
-$module_handler = xoops_gethandler('module');
-$mods_checkbox->addOptionArray($module_handler->getList($criteria));
+$moduleHandler = xoops_getHandler('module');
+$mods_checkbox->addOptionArray($moduleHandler->getList($criteria));
 $search_form->addElement($mods_checkbox);
 if ($xoopsConfigSearch['keyword_min'] > 0) {
     $search_form->addElement(new XoopsFormLabel(_SR_SEARCHRULE, sprintf(_SR_KEYIGNORE, $xoopsConfigSearch['keyword_min'])));
 }
-$search_form->addElement(new XoopsFormHidden("op", "results"));
+$search_form->addElement(new XoopsFormHidden('op', 'results'));
 $search_form->addElement(new XoopsFormHidden('storyid', $article->storyid()));
-$search_form->addElement(new XoopsFormButton("", "submit", _SR_SEARCH, "submit"));
+$search_form->addElement(new XoopsFormButton('', 'submit', _SR_SEARCH, 'submit'));
