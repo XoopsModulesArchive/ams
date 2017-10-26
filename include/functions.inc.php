@@ -288,7 +288,7 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
         $maxloop += 1;
     }
 
-    if (sizeof($title) > 0) {
+    if (count($title) > 0) {
         //remove trailing dash
         $pattern = "/\-$/";
         $rep_pat = '';
