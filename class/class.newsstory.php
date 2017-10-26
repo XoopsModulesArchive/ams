@@ -701,7 +701,7 @@ class AmsStory extends AmsXoopsStory
 
     public function getRating()
     {
-        if (count($this->rating) < 1) {
+        if (is_array($this->rating) && count($this->rating) < 1) {
             if (empty($this->ratings)) {
                 $this->getRatings();
             }
