@@ -29,7 +29,7 @@ include_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
 
 class OldNewsStory extends XoopsStory
 {
-    public function OldNewsStory($storyid=-1)
+    public function __construct($storyid=-1)
     {
         $this->db = XoopsDatabaseFactory::getDatabaseConnection();
         if (is_array($storyid)) {

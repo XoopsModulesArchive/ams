@@ -6,7 +6,7 @@ class OldNewsTopic
     public $topic_imgurl;
     public $topic_pid;
     public $topic_title;
-    public function OldNewsTopic($id=-1)
+    public function __construct($id=-1)
     {
         $this->db = XoopsDatabaseFactory::getDatabaseConnection();
         if (is_array($id)) {
