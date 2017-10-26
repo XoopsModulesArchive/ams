@@ -40,8 +40,11 @@ if ($handle = opendir($path)) {
             //if it is spotlight templates..
             if ('ams_block_spotlight' === substr($file, 0, 19) && '.html' === substr($file, strlen($file) - 5)) {
                 $template_name_offset                                      = 20;
-                $template_name                                             = substr($file, $template_name_offset,
-                                                                                    strlen($file) - $template_name_offset - 5);
+                $template_name                                             = substr(
+                    $file,
+                    $template_name_offset,
+                                                                                    strlen($file) - $template_name_offset - 5
+                );
                 $spotlight_templates[$template_name]                       = $file;
                 $spotlight_templates_list[$spotlight_templates_list_count] = $file;
                 $spotlight_templates_list_count++;

@@ -164,7 +164,7 @@ class AmsStory extends AmsXoopsStory
         return $bodytext;
     }
 
-// rag - added $orderdir
+    // rag - added $orderdir
     public static function getAllPublished($limit=0, $start=0, $checkRight = false, $topic=0, $ihome=0, $asobject=true, $order = 'published', $ids = false, $orderdir = 'DESC')
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();

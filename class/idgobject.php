@@ -82,108 +82,108 @@ class IdgObjectHandler extends XoopsObjectHandler
      *
      * @return object
      */
-     public function create($isNew = true)
-     {
-         $obj = new $this->className();
-         if (true === $isNew) {
-             $obj->setNew();
-         }
-         return $obj;
-     }
+    public function create($isNew = true)
+    {
+        $obj = new $this->className();
+        if (true === $isNew) {
+            $obj->setNew();
+        }
+        return $obj;
+    }
 
-     /**
-     * retrieve an object
-     *
-     * @param int $id ID of the object
-     * @param bool $as_object whether to return an object or an array
-     * @return mixed reference to the object, FALSE if failed
-     */
-     public function get($id, $as_object = true)
-     {
-         $criteria = new Criteria($this->keyName, (int)$id);
-         $criteria->setLimit(1);
-         $obj_array = $this->getObjects($criteria, false, $as_object);
-         if (1 != count($obj_array)) {
-             return false;
-         }
-         return $obj_array[0];
-     }
+    /**
+    * retrieve an object
+    *
+    * @param int $id ID of the object
+    * @param bool $as_object whether to return an object or an array
+    * @return mixed reference to the object, FALSE if failed
+    */
+    public function get($id, $as_object = true)
+    {
+        $criteria = new Criteria($this->keyName, (int)$id);
+        $criteria->setLimit(1);
+        $obj_array = $this->getObjects($criteria, false, $as_object);
+        if (1 != count($obj_array)) {
+            return false;
+        }
+        return $obj_array[0];
+    }
 
-     /**
-     * retrieve objects from the database
-     *
-     * @param CriteriaElement $criteria {@link CriteriaElement} conditions to be met
-     * @param bool $id_as_key use the ID as key for the array?
-     * @param bool $as_object return an array of objects?
-     *
-     * @return array
-     */
-     public function &getObjects($criteria = null, $id_as_key = false, $as_object = true)
-     {
-         $ret = array();
-         $limit = $start = 0;
-         $sql = 'SELECT * FROM '.$this->table;
-         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
-             $sql .= ' '.$criteria->renderWhere();
-             if ('' != $criteria->getSort()) {
-                 $sql .= ' ORDER BY '.$criteria->getSort().' '.$criteria->getOrder();
-             }
-             $limit = $criteria->getLimit();
-             $start = $criteria->getStart();
-         }
-         $result = $this->db->query($sql, $limit, $start);
-         if (!$result) {
-             return $ret;
-         }
-         $tmpObj= $this->convertResultSet($result, $id_as_key, $as_object);
-         return $tmpObj;
-     }
+    /**
+    * retrieve objects from the database
+    *
+    * @param CriteriaElement $criteria {@link CriteriaElement} conditions to be met
+    * @param bool $id_as_key use the ID as key for the array?
+    * @param bool $as_object return an array of objects?
+    *
+    * @return array
+    */
+    public function &getObjects($criteria = null, $id_as_key = false, $as_object = true)
+    {
+        $ret = array();
+        $limit = $start = 0;
+        $sql = 'SELECT * FROM '.$this->table;
+        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+            $sql .= ' '.$criteria->renderWhere();
+            if ('' != $criteria->getSort()) {
+                $sql .= ' ORDER BY '.$criteria->getSort().' '.$criteria->getOrder();
+            }
+            $limit = $criteria->getLimit();
+            $start = $criteria->getStart();
+        }
+        $result = $this->db->query($sql, $limit, $start);
+        if (!$result) {
+            return $ret;
+        }
+        $tmpObj= $this->convertResultSet($result, $id_as_key, $as_object);
+        return $tmpObj;
+    }
 
-     /**
-     * Convert a database resultset to a returnable array
-     *
-     * @param object $result database resultset
-     * @param bool $id_as_key
-     * @param bool $as_object
-     *
-     * @return array
-     */
-     public function convertResultSet($result, $id_as_key = false, $as_object = true)
-     {
-         $ret = array();
-         while ($myrow = $this->db->fetchArray($result)) {
-             $obj = $this->create(false);
-             $obj->assignVars($myrow);
-             if (!$id_as_key) {
-                 if ($as_object) {
-                     $ret[] = $obj;
-                 } else {
-                     $row = array();
-                     $vars = $obj->getVars();
-                     foreach (array_keys($vars) as $i) {
-                         $row[$i] = $obj->getVar($i);
-                     }
-                     $ret[] = $row;
-                 }
-             } else {
-                 if ($as_object) {
-                     $ret[$myrow[$this->keyName]] = $obj;
-                 } else {
-                     $row = array();
-                     $vars = $obj->getVars();
-                     foreach (array_keys($vars) as $i) {
-                         $row[$i] = $obj->getVar($i);
-                     }
-                     $ret[$myrow[$this->keyName]] = $row;
-                 }
-             }
-             unset($obj);
-         }
+    /**
+    * Convert a database resultset to a returnable array
+    *
+    * @param object $result database resultset
+    * @param bool $id_as_key
+    * @param bool $as_object
+    *
+    * @return array
+    */
+    public function convertResultSet($result, $id_as_key = false, $as_object = true)
+    {
+        $ret = array();
+        while ($myrow = $this->db->fetchArray($result)) {
+            $obj = $this->create(false);
+            $obj->assignVars($myrow);
+            if (!$id_as_key) {
+                if ($as_object) {
+                    $ret[] = $obj;
+                } else {
+                    $row = array();
+                    $vars = $obj->getVars();
+                    foreach (array_keys($vars) as $i) {
+                        $row[$i] = $obj->getVar($i);
+                    }
+                    $ret[] = $row;
+                }
+            } else {
+                if ($as_object) {
+                    $ret[$myrow[$this->keyName]] = $obj;
+                } else {
+                    $row = array();
+                    $vars = $obj->getVars();
+                    foreach (array_keys($vars) as $i) {
+                        $row[$i] = $obj->getVar($i);
+                    }
+                    $ret[$myrow[$this->keyName]] = $row;
+                }
+            }
+            unset($obj);
+        }
 
-         return $ret;
-     }
+        return $ret;
+    }
 
-     /**
+    /**
     * Retrieve a list of objects as arrays
     * @param CriteriaElement $criteria {@link CriteriaElement} conditions to be met
     * @param int   $limit      Max number of objects to fetch
@@ -210,180 +210,180 @@ class IdgObjectHandler extends XoopsObjectHandler
      * @param CriteriaElement $criteria {@link CriteriaElement} to match
      * @return int count of objects
      */
-     public function getCount($criteria = null)
-     {
-         $field = '';
-         $groupby = false;
-         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
-             if ('' != $criteria->groupby) {
-                 $groupby = true;
-                 $field = $criteria->groupby . ', '; //Not entirely secure unless you KNOW that no criteria's groupby clause is going to be mis-used
-             }
-         }
-         $sql = 'SELECT '.$field.'COUNT(*) FROM '.$this->table;
-         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
-             $sql .= ' '.$criteria->renderWhere();
-             if ('' != $criteria->groupby) {
-                 $sql .= $criteria->getGroupby();
-             }
-         }
-         $result = $this->db->query($sql);
-         if (!$result) {
-             return 0;
-         }
-         if (false === $groupby) {
-             list($count) = $this->db->fetchRow($result);
-             return $count;
-         } else {
-             $ret = array();
-             while (list($id, $count) = $this->db->fetchRow($result)) {
-                 $ret[$id] = $count;
-             }
-             return $ret;
-         }
-     }
+    public function getCount($criteria = null)
+    {
+        $field = '';
+        $groupby = false;
+        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+            if ('' != $criteria->groupby) {
+                $groupby = true;
+                $field = $criteria->groupby . ', '; //Not entirely secure unless you KNOW that no criteria's groupby clause is going to be mis-used
+            }
+        }
+        $sql = 'SELECT '.$field.'COUNT(*) FROM '.$this->table;
+        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+            $sql .= ' '.$criteria->renderWhere();
+            if ('' != $criteria->groupby) {
+                $sql .= $criteria->getGroupby();
+            }
+        }
+        $result = $this->db->query($sql);
+        if (!$result) {
+            return 0;
+        }
+        if (false === $groupby) {
+            list($count) = $this->db->fetchRow($result);
+            return $count;
+        } else {
+            $ret = array();
+            while (list($id, $count) = $this->db->fetchRow($result)) {
+                $ret[$id] = $count;
+            }
+            return $ret;
+        }
+    }
 
-     /**
-     * delete an object from the database
-     *
-     * @param object $obj reference to the object to delete
-     * @param bool $force
-     * @return bool FALSE if failed.
-     */
-     public function delete(XoopsObject $obj) // , $force = false)
-     {
-         $force = false;
+    /**
+    * delete an object from the database
+    *
+    * @param object $obj reference to the object to delete
+    * @param bool $force
+    * @return bool FALSE if failed.
+    */
+    public function delete(XoopsObject $obj) // , $force = false)
+    {
+        $force = false;
 
-         $sql = sprintf('DELETE FROM %s WHERE %s = %u', $this->table, $this->keyName, $obj->getVar($this->keyName));
-         if (false !== $force) {
-             $result = $this->db->queryF($sql);
-         } else {
-             $result = $this->db->query($sql);
-         }
-         if (!$result) {
-             return false;
-         }
-         return true;
-     }
+        $sql = sprintf('DELETE FROM %s WHERE %s = %u', $this->table, $this->keyName, $obj->getVar($this->keyName));
+        if (false !== $force) {
+            $result = $this->db->queryF($sql);
+        } else {
+            $result = $this->db->query($sql);
+        }
+        if (!$result) {
+            return false;
+        }
+        return true;
+    }
 
-     /**
-     * insert a new object in the database
-     *
-     * @param object $obj reference to the object
-     * @param bool $force whether to force the query execution despite security settings
-     * @param bool $checkObject check if the object is dirty and clean the attributes
-     * @return bool FALSE if failed, TRUE if already present and unchanged or successful
-     */
+    /**
+    * insert a new object in the database
+    *
+    * @param object $obj reference to the object
+    * @param bool $force whether to force the query execution despite security settings
+    * @param bool $checkObject check if the object is dirty and clean the attributes
+    * @return bool FALSE if failed, TRUE if already present and unchanged or successful
+    */
 
-     public function insert(XoopsObject $obj) // , $force = false, $checkObject = true)
-     {
-         $force = false;
-         $checkObject = true;
+    public function insert(XoopsObject $obj) // , $force = false, $checkObject = true)
+    {
+        $force = false;
+        $checkObject = true;
 
-         if (false !== $checkObject) {
-             /**
+        if (false !== $checkObject) {
+            /**
         * @TODO: Change to if (!(class_exists($this->className) && $obj instanceof $this->className)) when going fully PHP5
         */
-             if (!is_a($obj, $this->className)) {
-                 $obj->setErrors(get_class($obj) . ' Differs from ' . $this->className);
-                 return false;
-             }
-             if (!$obj->isDirty()) {
-                 return true;
-             }
-         }
-         if (!$obj->cleanVars()) {
-             return false;
-         }
+            if (!is_a($obj, $this->className)) {
+                $obj->setErrors(get_class($obj) . ' Differs from ' . $this->className);
+                return false;
+            }
+            if (!$obj->isDirty()) {
+                return true;
+            }
+        }
+        if (!$obj->cleanVars()) {
+            return false;
+        }
 
-         foreach ($obj->cleanVars as $k => $v) {
-             if (XOBJ_DTYPE_INT == $obj->vars[$k]['data_type']) {
-                 $cleanvars[$k] = (int)$v;
-             } else {
-                 $cleanvars[$k] = $this->db->quoteString($v);
-             }
-         }
-         if ($obj->isNew()) {
-             if ($cleanvars[$this->keyName] < 1) {
-                 $cleanvars[$this->keyName] = $this->db->genId($this->table.'_'.$this->keyName.'_seq');
-             }
-             $sql = 'INSERT INTO '
+        foreach ($obj->cleanVars as $k => $v) {
+            if (XOBJ_DTYPE_INT == $obj->vars[$k]['data_type']) {
+                $cleanvars[$k] = (int)$v;
+            } else {
+                $cleanvars[$k] = $this->db->quoteString($v);
+            }
+        }
+        if ($obj->isNew()) {
+            if ($cleanvars[$this->keyName] < 1) {
+                $cleanvars[$this->keyName] = $this->db->genId($this->table.'_'.$this->keyName.'_seq');
+            }
+            $sql = 'INSERT INTO '
                     . $this->table . ' ('
                     . implode(',', array_keys($cleanvars)) . ') VALUES ('
                     . implode(',', array_values($cleanvars)) . ')';
-         } else {
-             $sql = 'UPDATE ' . $this->table . ' SET';
-             foreach ($cleanvars as $key => $value) {
-                 if ($key == $this->keyName) {
-                     continue;
-                 }
-                 if (isset($notfirst)) {
-                     $sql .= ',';
-                 }
-                 $sql .= ' ' . $key . ' = ' . $value;
-                 $notfirst = true;
-             }
-             $sql .= ' WHERE ' . $this->keyName . ' = ' . $obj->getVar($this->keyName);
-         }
+        } else {
+            $sql = 'UPDATE ' . $this->table . ' SET';
+            foreach ($cleanvars as $key => $value) {
+                if ($key == $this->keyName) {
+                    continue;
+                }
+                if (isset($notfirst)) {
+                    $sql .= ',';
+                }
+                $sql .= ' ' . $key . ' = ' . $value;
+                $notfirst = true;
+            }
+            $sql .= ' WHERE ' . $this->keyName . ' = ' . $obj->getVar($this->keyName);
+        }
         //echo "<script type=\"text/javascript\">alert(\"$sql\");</script>";
         if (false !== $force) {
             $result = $this->db->queryF($sql);
         } else {
             $result = $this->db->query($sql);
         }
-         if (!$result) {
-             return false;
-         }
-         if ($obj->isNew()) {
-             $obj->assignVar($this->keyName, $this->db->getInsertId());
-         }
-         return true;
-     }
+        if (!$result) {
+            return false;
+        }
+        if ($obj->isNew()) {
+            $obj->assignVar($this->keyName, $this->db->getInsertId());
+        }
+        return true;
+    }
 
-     /**
-     * Change a value for objects with a certain criteria
-     *
-     * @param   string  $fieldname  Name of the field
-     * @param   string  $fieldvalue Value to write
-     * @param   CriteriaElement  $criteria   {@link CriteriaElement}
-     *
-     * @return  bool
-     **/
-     public function updateAll($fieldname, $fieldvalue, $criteria = null, $force = false)
-     {
-         $set_clause = is_numeric($fieldvalue) ? $fieldname.' = '.$fieldvalue : $fieldname.' = '.$this->db->quoteString($fieldvalue);
-         $sql = 'UPDATE '.$this->table.' SET '.$set_clause;
-         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
-             $sql .= ' '.$criteria->renderWhere();
-         }
-         if (false !== $force) {
-             $result = $this->db->queryF($sql);
-         } else {
-             $result = $this->db->query($sql);
-         }
-         if (!$result) {
-             return false;
-         }
-         return true;
-     }
+    /**
+    * Change a value for objects with a certain criteria
+    *
+    * @param   string  $fieldname  Name of the field
+    * @param   string  $fieldvalue Value to write
+    * @param   CriteriaElement  $criteria   {@link CriteriaElement}
+    *
+    * @return  bool
+    **/
+    public function updateAll($fieldname, $fieldvalue, $criteria = null, $force = false)
+    {
+        $set_clause = is_numeric($fieldvalue) ? $fieldname.' = '.$fieldvalue : $fieldname.' = '.$this->db->quoteString($fieldvalue);
+        $sql = 'UPDATE '.$this->table.' SET '.$set_clause;
+        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+            $sql .= ' '.$criteria->renderWhere();
+        }
+        if (false !== $force) {
+            $result = $this->db->queryF($sql);
+        } else {
+            $result = $this->db->query($sql);
+        }
+        if (!$result) {
+            return false;
+        }
+        return true;
+    }
 
-     /**
-     * delete all objects meeting the conditions
-     *
-     * @param CriteriaElement $criteria {@link CriteriaElement} with conditions to meet
-     * @return bool
-     */
+    /**
+    * delete all objects meeting the conditions
+    *
+    * @param CriteriaElement $criteria {@link CriteriaElement} with conditions to meet
+    * @return bool
+    */
 
-     public function deleteAll($criteria = null)
-     {
-         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
-             $sql = 'DELETE FROM '.$this->table;
-             $sql .= ' '.$criteria->renderWhere();
-             if (!$this->db->query($sql)) {
-                 return false;
-             }
-             return true;
-         }
-         return false;
-     }
+    public function deleteAll($criteria = null)
+    {
+        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
+            $sql = 'DELETE FROM '.$this->table;
+            $sql .= ' '.$criteria->renderWhere();
+            if (!$this->db->query($sql)) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
 }

@@ -54,8 +54,10 @@ define('_AMS_MI_DISPLAYNAVDSC', '');
 define('_AMS_MI_AUTOAPPROVEDSC', '');
 define('_AMS_MI_ALLOWEDSUBMITGROUPSDESC', 'The selected groups will be able to submit articles');
 define('_AMS_MI_ALLOWEDAPPROVEGROUPSDESC', 'The selected groups will be able to approve articles');
-define('_AMS_MI_NEWSDISPLAYDESC',
-       'Classic shows all articles ordered by date of publish. Articles by topic will group the articles by topic with the latest article in full and the others with just the title');
+define(
+    '_AMS_MI_NEWSDISPLAYDESC',
+       'Classic shows all articles ordered by date of publish. Articles by topic will group the articles by topic with the latest article in full and the others with just the title'
+);
 define('_AMS_MI_ADISPLAYNAMEDSC', 'Select how to display the author"s name');
 define('_AMS_MI_COLUMNMODE_DESC', 'You can choose the number of columns to display articles list');
 define('_AMS_MI_STORYCOUNTADMIN_DESC', '');
@@ -104,8 +106,10 @@ define('_AMS_MI_NEWS_STORY_APPROVE_NOTIFYDSC', 'Receive notification when this a
 define('_AMS_MI_NEWS_STORY_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} auto-notify : Article Approved');
 
 define('_AMS_MI_RESTRICTINDEX', 'Restrict Topics on Index Page?');
-define('_AMS_MI_RESTRICTINDEXDSC',
-       'If set to yes, users will only see articles listed in the index from the topics, they have access to as set in Article Permissions');
+define(
+    '_AMS_MI_RESTRICTINDEXDSC',
+       'If set to yes, users will only see articles listed in the index from the topics, they have access to as set in Article Permissions'
+);
 
 define('_AMS_MI_ANONYMOUS_VOTE', 'Enable Anonymous Rating of Articles');
 define('_AMS_MI_ANONYMOUS_VOTE_DESC', 'If enabled, anonymous users can rate articles');
@@ -114,8 +118,10 @@ define('_AMS_MI_AUDIENCE', 'Audience Levels');
 
 define('_AMS_MI_SPOTLIGHT', 'Spotlight');
 define('_AMS_MI_SPOTLIGHT_ITEMS', 'Spotlight Article Candidates');
-define('_AMS_MI_SPOTLIGHT_ITEMS_DESC',
-       'This is the number of articles that will be listed in the spotlight configuration page as selectable for spotlighted article');
+define(
+    '_AMS_MI_SPOTLIGHT_ITEMS_DESC',
+       'This is the number of articles that will be listed in the spotlight configuration page as selectable for spotlighted article'
+);
 
 define('_AMS_MI_EDITOR', 'Editor');
 define('_AMS_MI_EDITOR_DESC', 'Choose the editor to use in the submit form - non-default editors MUST be separately installed');
@@ -149,4 +155,3 @@ define('_AMS_MI_SORT_ORDER', 'Order');
 define('_AMS_MI_SORT_ORDER_DESC', 'Order for index list sorting');
 define('_AMS_MI_SORT_ORDER_DESCEND', 'DESC');
 define('_AMS_MI_SORT_ORDER_ASCEND', 'ASC');
-

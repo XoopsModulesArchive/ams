@@ -219,8 +219,12 @@ class AmsSpotlightHandler extends IdgObjectHandler
             if (is_object($article)) {
                 $article->uname($users);
 
-                $teaser = 1 != $spots[$i]->getVar('autoteaser') ? $myts->displayTarea($spots[$i]->getVar('teaser', 'n'), 1) : ($spots[$i]->getVar('maxlength') > 0 ? xoops_substr($article->hometext(), 0, $spots[$i]->getVar('maxlength'),
-                                                                                                                                                                                  '') : $article->hometext());
+                $teaser = 1 != $spots[$i]->getVar('autoteaser') ? $myts->displayTarea($spots[$i]->getVar('teaser', 'n'), 1) : ($spots[$i]->getVar('maxlength') > 0 ? xoops_substr(
+                    $article->hometext(),
+                    0,
+                    $spots[$i]->getVar('maxlength'),
+                                                                                                                                                                                  ''
+                ) : $article->hometext());
                 $id = $article->storyid();
                 $title = $article->title();
                 $hits = $article->counter();

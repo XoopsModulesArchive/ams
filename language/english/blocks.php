@@ -42,4 +42,3 @@ define('_AMS_MB_SPOTLIGHT_TEMPLATE', 'Spotlight Template');
 define('_AMS_MB_SPOTLIGHT_TEMPLATE_DESC', 'Template to use in the Spotlight Block');
 //3.20
 define('_AMS_MB_NOSUBJECT', '(no subject)');
-

@@ -179,7 +179,7 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
      * if XOOPS ML is present, let's sanitize the title with the current language
      */
 
-     $myts = MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
     if (method_exists($myts, 'formatForML')) {
         $title = $myts->formatForML($title);
     }
@@ -306,12 +306,12 @@ function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
     $urltemplate=AMS_SEO_friendlyURLIsEnable();
 
     if (!(false === $urltemplate)) { //if friendly url is enabled
-         //remove prefix slash
+        //remove prefix slash
         $pattern = "/^\//";
         $rep_pat = '';
         $topic = preg_replace($pattern, $rep_pat, $topic);
 
-         //remove trailing slash
+        //remove trailing slash
         $pattern = "/\/$/";
         $rep_pat = '';
         $urltemplate = preg_replace($pattern, $rep_pat, $urltemplate);

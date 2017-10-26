@@ -32,30 +32,26 @@ $tpl = new XoopsTpl();
 $tpl->xoops_setCaching(2);
 $tpl->xoops_setCacheTime(3600);
 $cache_file='db:system_rss.html';
-if(defined('XOOPS_CUBE_LEGACY') && (XOOPS_CUBE_LEGACY==true))
-{
-	$cache_file='db:legacy_rss.html';
+if (defined('XOOPS_CUBE_LEGACY') && (XOOPS_CUBE_LEGACY==true)) {
+    $cache_file='db:legacy_rss.html';
 }
 if (!$tpl->is_cached($cache_file)) {
-
-	$tpl->assign('channel_title', xoops_utf8_encode(htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES)));
+    $tpl->assign('channel_title', xoops_utf8_encode(htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES)));
     $tpl->assign('channel_link', XOOPS_URL . '/');
-	$tpl->assign('channel_desc', xoops_utf8_encode(htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)));
+    $tpl->assign('channel_desc', xoops_utf8_encode(htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)));
     $tpl->assign('channel_lastbuild', formatTimestamp(time(), 'rss'));
-	$tpl->assign('channel_webmaster', $xoopsConfig['adminmail']);
-	$tpl->assign('channel_editor', $xoopsConfig['adminmail']);
+    $tpl->assign('channel_webmaster', $xoopsConfig['adminmail']);
+    $tpl->assign('channel_editor', $xoopsConfig['adminmail']);
     $tpl->assign('channel_category', 'News');
     $tpl->assign('channel_generator', 'XOOPS');
     $tpl->assign('channel_language', _LANGCODE);
-	if(file_exists(XOOPS_ROOT_PATH . '/images/logo.png'))
-	{
-		$tpl->assign('image_url', XOOPS_URL . '/images/logo.png');
-		$dimention = getimagesize(XOOPS_ROOT_PATH . '/images/logo.png');
-	} elseif(file_exists(XOOPS_ROOT_PATH . '/images/logo.gif'))
-	{
-		$tpl->assign('image_url', XOOPS_URL . '/images/logo.gif');
-		$dimention = getimagesize(XOOPS_ROOT_PATH . '/images/logo.gif');
-	}
+    if (file_exists(XOOPS_ROOT_PATH . '/images/logo.png')) {
+        $tpl->assign('image_url', XOOPS_URL . '/images/logo.png');
+        $dimention = getimagesize(XOOPS_ROOT_PATH . '/images/logo.png');
+    } elseif (file_exists(XOOPS_ROOT_PATH . '/images/logo.gif')) {
+        $tpl->assign('image_url', XOOPS_URL . '/images/logo.gif');
+        $dimention = getimagesize(XOOPS_ROOT_PATH . '/images/logo.gif');
+    }
     if (empty($dimention[0])) {
         $width = 88;
     } else {
@@ -73,44 +69,40 @@ if (!$tpl->is_cached($cache_file)) {
         include $fileinc;
         $sarray = AmsStory::getAllPublished(10, 0, true);
     
-	    if (!empty($sarray) && is_array($sarray)) {
-	        foreach ($sarray as $story) {
-			//print $story->friendlyurl_enable;exit;
-				if(1 == $story->friendlyurl_enable)
-				{
-					$story_link = $story->friendlyurl ;
-					$story_guid = $story->friendlyurl ;
-				}else
-				{
-					$story_link = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
-					$story_guid = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
-				}		
-	            $tpl->append('items', array(
-	                'title' => xoops_utf8_encode(htmlspecialchars($story->title(), ENT_QUOTES)) ,
-					'link' => $story_link ,
-					'guid' => $story_guid  ,
-	                'pubdate' => formatTimestamp($story->published(), 'rss') ,
-	                'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))));
-	        }
-	    }
-	}
+        if (!empty($sarray) && is_array($sarray)) {
+            foreach ($sarray as $story) {
+                //print $story->friendlyurl_enable;exit;
+                if (1 == $story->friendlyurl_enable) {
+                    $story_link = $story->friendlyurl ;
+                    $story_guid = $story->friendlyurl ;
+                } else {
+                    $story_link = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
+                    $story_guid = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
+                }
+                $tpl->append('items', array(
+                    'title' => xoops_utf8_encode(htmlspecialchars($story->title(), ENT_QUOTES)) ,
+                    'link' => $story_link ,
+                    'guid' => $story_guid  ,
+                    'pubdate' => formatTimestamp($story->published(), 'rss') ,
+                    'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))));
+            }
+        }
+    }
 
     if (file_exists($fileinc = XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php')) {
         include $fileinc;
         $sarray = NewsStory::getAllPublished(10, 0, true);
     
-	    if (!empty($sarray) && is_array($sarray)) {
-	        foreach ($sarray as $story) {
-	            $tpl->append('items', array(
-	                'title' => xoops_utf8_encode(htmlspecialchars($story->title(), ENT_QUOTES)) ,
-	                'link' => XOOPS_URL . '/modules/news/article.php?storyid=' . $story->storyid() ,
-	                'guid' => XOOPS_URL . '/modules/news/article.php?storyid=' . $story->storyid() ,
-	                'pubdate' => formatTimestamp($story->published(), 'rss') ,
-	                'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))));
-	        }
-	    }
-	}	
-
-
+        if (!empty($sarray) && is_array($sarray)) {
+            foreach ($sarray as $story) {
+                $tpl->append('items', array(
+                    'title' => xoops_utf8_encode(htmlspecialchars($story->title(), ENT_QUOTES)) ,
+                    'link' => XOOPS_URL . '/modules/news/article.php?storyid=' . $story->storyid() ,
+                    'guid' => XOOPS_URL . '/modules/news/article.php?storyid=' . $story->storyid() ,
+                    'pubdate' => formatTimestamp($story->published(), 'rss') ,
+                    'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))));
+            }
+        }
+    }
 }
 $tpl->display($cache_file);
