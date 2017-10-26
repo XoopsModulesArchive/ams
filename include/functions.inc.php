@@ -56,7 +56,7 @@ function AMS_getcookie($name, $isArray = false)
         if (count($_value)>0) {
             foreach ($_value as $string) {
                 $sep = strpos($string, "|");
-                if ($sep===false) {
+                if (false === $sep) {
                     $value[]=$string;
                 } else {
                     $key = substr($string, 0, $sep);
@@ -80,7 +80,7 @@ function AMS_getcookie($name, $isArray = false)
 function AMS_updateCache()
 {
     global $xoopsModule;
-    if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+    if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
         $mod_handler = xoops_getHandler('module');
         $amsModule = $mod_handler->getByDirname('AMS');
     } else {
@@ -145,7 +145,7 @@ function AMS_updateCache()
 
     // Remove cache for each page.
     foreach ($tpllist as $onetemplate) {
-        if ($onetemplate->getVar('tpl_type') == 'module') {
+        if ('module' == $onetemplate->getVar('tpl_type')) {
             // Note, I've been testing all the other methods (like the one of Smarty) and none of them run, that's why I have used this code
             $files_del = array();
             $files_del = glob(XOOPS_CACHE_PATH.'/*'.$onetemplate->getVar('tpl_file').'*');
@@ -233,7 +233,7 @@ function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
 {
     $urltemplate=AMS_SEO_friendlyURLIsEnable();
 
-    if (!($urltemplate==false)) { //if friendly url is enabled
+    if (!(false == $urltemplate)) { //if friendly url is enabled
          //remove prefix slash
         $pattern = "/^\//";
         $rep_pat = "";
@@ -260,7 +260,7 @@ function AMS_SEO_friendlyURLIsEnable()
 {
     $SEO_handler = xoops_getModuleHandler('seo', 'AMS');
     $thisSEO= $SEO_handler->read_setting();
-    if (intval($thisSEO['friendlyurl_enable'])==1) {
+    if (1 == intval($thisSEO['friendlyurl_enable'])) {
         return $thisSEO['urltemplate'];
     } else {
         return false;

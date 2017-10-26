@@ -31,7 +31,7 @@ function ams_notify_iteminfo($category, $item_id)
     //$moduleDirName = $pathparts[array_search('modules', $pathparts)+1];
 
     $moduleDirName = "AMS";
-    if ($category=='global') {
+    if ('global' == $category) {
         $item['name'] = '';
         $item['url'] = '';
         return $item;
@@ -39,7 +39,7 @@ function ams_notify_iteminfo($category, $item_id)
 
     global $xoopsDB;
 
-    if ($category=='story') {
+    if ('story' == $category) {
         // Assume we have a valid story id
         $sql = 'SELECT title FROM '.$xoopsDB->prefix('ams_article') . ' WHERE storyid = ' . $item_id;
         $result = $xoopsDB->query($sql); // TODO: error check

@@ -226,16 +226,16 @@ class AmsXoopsStory
         $title    = $myts->addSlashes($title);
         $hometext = $myts->addSlashes($hometext);
         $bodytext = $myts->addSlashes($bodytext);
-        if (!isset($this->nohtml) || $this->nohtml != 1) {
+        if (!isset($this->nohtml) || 1 != $this->nohtml) {
             $this->nohtml = 0;
         }
-        if (!isset($this->nosmiley) || $this->nosmiley != 1) {
+        if (!isset($this->nosmiley) || 1 != $this->nosmiley) {
             $this->nosmiley = 0;
         }
-        if (!isset($this->notifypub) || $this->notifypub != 1) {
+        if (!isset($this->notifypub) || 1 != $this->notifypub) {
             $this->notifypub = 0;
         }
-        if (!isset($this->topicdisplay) || $this->topicdisplay != 0) {
+        if (!isset($this->topicdisplay) || 0 != $this->topicdisplay) {
             $this->topicdisplay = 1;
         }
         $expired = !empty($this->expired) ? $this->expired : 0;
@@ -530,7 +530,7 @@ class AmsXoopsStory
     {
         $ret = 'left';
         if ($astext) {
-            if ($this->topicalign === 'R') {
+            if ('R' === $this->topicalign) {
                 $ret = 'right';
             }
 

@@ -53,7 +53,7 @@ if (isset($_GET['start'])) {
 } else {
     $start = 0;
 }
-if (empty($xoopsModuleConfig['newsdisplay']) || $xoopsModuleConfig['newsdisplay'] == 'Classic' || $xoopsOption['storytopic'] > 0) {
+if (empty($xoopsModuleConfig['newsdisplay']) || 'Classic' == $xoopsModuleConfig['newsdisplay'] || $xoopsOption['storytopic'] > 0) {
     $showclassic = 1;
 } else {
     $showclassic = 0;
@@ -69,7 +69,7 @@ if ($showclassic) {
 }
 include XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('columnwidth', intval(1/$column_count*100));
-if ($xoopsModuleConfig['displaynav'] == 1) {
+if (1 == $xoopsModuleConfig['displaynav']) {
     $xoopsTpl->assign('displaynav', true);
     $xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
     $allTopics = $xt->getAllTopics(true);
@@ -82,7 +82,7 @@ if ($xoopsModuleConfig['displaynav'] == 1) {
     $i = 1;
     while ($i <= $xoopsModuleConfig['max_items']) {
         $options[$i] = $i;
-        if ($i == 1) {
+        if (1 == $i) {
             $i = 5;
         } else {
             $i += 5;

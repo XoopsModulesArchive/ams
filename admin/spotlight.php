@@ -55,12 +55,12 @@ switch ($op) {
         $minis = 0;
         if (count($spotlights) > 0) {
             foreach (array_keys($spotlights) as $i) {
-                if ($spotlights[$i]['autoteaser'] == 1) {
+                if (1 == $spotlights[$i]['autoteaser']) {
                     $spotlights[$i]['text'] = "[auto]".$spotlights[$i]['text'];
                 }
                 $weight_select = new XoopsFormText('', 'weight['.$spotlights[$i]['spotid'].']', 10, 10, $spotlights[$i]['weight']);
                 $display_select = new XoopsFormRadioYN('', 'display['.$spotlights[$i]['spotid'].']', $spotlights[$i]['display']);
-                if (isset($class) && $class == 'odd') {
+                if (isset($class) && 'odd' == $class) {
                     $class = 'even';
                 } else {
                     $class = 'odd';
@@ -141,7 +141,7 @@ switch ($op) {
         break;
 
     case "delete":
-        if (isset($_REQUEST['ok']) && intval($_REQUEST['ok']) === 1) {
+        if (isset($_REQUEST['ok']) && 1 === intval($_REQUEST['ok'])) {
             $spot = $spotlight_handler->get($_REQUEST['id']);
             if ($spotlight_handler->delete($spot)) {
                 redirect_header('spotlight.php', 3, _AMS_AM_SPOT_DELETESUCCESS);
@@ -154,7 +154,7 @@ switch ($op) {
         break;
 
     case "reorder":
-        if (!isset($_POST['weight']) || !is_array($_POST['weight']) || count($_POST['weight'] == 0)) {
+        if (!isset($_POST['weight']) || !is_array($_POST['weight']) || count(0 == $_POST['weight'])) {
             header("location:spotlight.php");
         }
         $criteria = new Criteria('spotlightid', "(".implode(',', array_keys($_POST['weight'])).")", 'IN');

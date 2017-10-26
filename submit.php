@@ -74,15 +74,15 @@ if (isset($_REQUEST['preview'])) {
 } elseif (isset($_REQUEST['post'])) {
     $op = 'post';
 } elseif ((isset($_REQUEST['op'])) && (isset($_REQUEST['storyid']))) {
-    if ($approveprivilege && (($_REQUEST['op']  == 'edit'))) {
+    if ($approveprivilege && (('edit' == $_REQUEST['op']))) {
         $op = 'edit';
-    } elseif ($approveprivilege && (($_REQUEST['op'] == 'delete'))) {
+    } elseif ($approveprivilege && (('delete' == $_REQUEST['op']))) {
         $op = 'delete';
-    } elseif ($approveprivilege && (($_REQUEST['op'] == _AMS_NW_OVERRIDE))) {
+    } elseif ($approveprivilege && ((_AMS_NW_OVERRIDE == $_REQUEST['op']))) {
         $op = _AMS_NW_OVERRIDE;
-    } elseif ($approveprivilege && (($_REQUEST['op'] == _AMS_NW_FINDVERSION))) {
+    } elseif ($approveprivilege && ((_AMS_NW_FINDVERSION == $_REQUEST['op']))) {
         $op = _AMS_NW_FINDVERSION;
-    } elseif ($approveprivilege && (($_REQUEST['op'] == 'override_ok'))) {
+    } elseif ($approveprivilege && (('override_ok' == $_REQUEST['op']))) {
         $op = 'override_ok';
     } else {
         redirect_header(XOOPS_URL."/modules/AMS/index.php", 0, _NOPERM);
@@ -180,7 +180,7 @@ case "preview":
     $notifypub = isset($_POST['notifypub']) ? intval($_POST['notifypub']) : 0;
     $story->setNotifyPub($notifypub);
 
-    if (isset($_POST['nosmiley']) && ($_POST['nosmiley'] == 0 || $_POST['nosmiley'] == 1)) {
+    if (isset($_POST['nosmiley']) && (0 == $_POST['nosmiley'] || 1 == $_POST['nosmiley'])) {
         $story -> setNosmiley($_POST['nosmiley']);
     } else {
         $story->setNosmiley(0);
@@ -207,9 +207,9 @@ case "preview":
     $p_title = $story->title("Preview");
     $p_hometext = $story->hometext("Preview");
     $p_hometext .= "<br />".$story->bodytext("Preview");
-    $topversion = ($story->revision == 0 && $story->revisionminor == 0) ? 1 : 0;
+    $topversion = (0 == $story->revision && 0 == $story->revisionminor) ? 1 : 0;
     $topicalign = isset($story->topicalign) ? 'align="'.$story->topicalign().'"' : "";
-    $p_hometext = (($xt->topic_imgurl() != '') && $story->topicdisplay()) ? '<img src="assets/images/topics/'.$xt->topic_imgurl().'" '.$story->topicalign().' alt="" />'.$p_hometext : $p_hometext;
+    $p_hometext = (('' != $xt->topic_imgurl()) && $story->topicdisplay()) ? '<img src="assets/images/topics/' . $xt->topic_imgurl() . '" ' . $story->topicalign() . ' alt="" />' . $p_hometext : $p_hometext;
 
     //Added  in AMS 2.50 Final. replace deprecated themecenterposts function
     if (file_exists(XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php")) {
@@ -252,7 +252,7 @@ case "post":
 
         $change = isset($_POST['change']) ? $_POST['change'] : 0;
         //If change = auto
-        if ($change == 4) {
+        if (4 == $change) {
             if (($hometext!= $story->hometext) ||
             ($bodytext!=$story->bodytext) ||
             ($_POST['newauthor'] && $approveprivilege)) {
@@ -321,7 +321,7 @@ case "post":
         }
 
         $story->audienceid = intval($_POST['audience']);
-    } elseif ($xoopsModuleConfig['autoapprove'] == 1 && !$approveprivilege) {
+    } elseif (1 == $xoopsModuleConfig['autoapprove'] && !$approveprivilege) {
         $approve = 1;
         $story->setPublished(time());
         $story->setExpired(0);
@@ -340,9 +340,9 @@ case "post":
         $tags = array();
         $tags['STORY_NAME'] = $story->title();
         $tags['STORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/article.php?storyid=' . $story->storyid();
-        if ($approve == 1 && $oldapprove == 0 && $story->published <= time()) {
+        if (1 == $approve && 0 == $oldapprove && $story->published <= time()) {
             $notification_handler->triggerEvent('global', 0, 'new_story', $tags);
-        } elseif ($approve != 1) {
+        } elseif (1 != $approve) {
             $tags['WAITINGSTORIES_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?op=edit&amp;storyid='.$story->storyid();
             $notification_handler->triggerEvent('global', 0, 'story_submit', $tags);
 
@@ -364,7 +364,7 @@ case "post":
         if (isset($_POST['xoops_upload_file'])&& isset($_FILES[$_POST['xoops_upload_file'][0]])) {
             $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
             $fldname = (get_magic_quotes_gpc()) ? stripslashes($fldname['name']) : $fldname['name'];
-            if (trim($fldname!='')) {
+            if (trim('' != $fldname)) {
                 $sfiles = new sFiles();
                 $destname=$sfiles->createUploadName(XOOPS_UPLOAD_PATH, $fldname);
                 // Actually : Web pictures (png, gif, jpeg), zip, doc, xls, pdf, gtar, tar, txt, tiff, htm, xml, ico,swf flv, mp3, bmp, ra, mov, swc. swf not allow by xoops, not AMS
@@ -396,7 +396,7 @@ case "post":
             }
         }
     } else {
-        if ($story->versionConflict == true) {
+        if (true == $story->versionConflict) {
             include('include/versionconflict.inc.php');
             break;
         } else {

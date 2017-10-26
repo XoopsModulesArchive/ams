@@ -28,7 +28,7 @@ include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 include_once XOOPS_ROOT_PATH."/modules/AMS/include/functions.inc.php";
 
 global $xoopsModule;
-if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
     $mod_handler = xoops_getHandler('module');
     $amsModule = $mod_handler->getByDirname('AMS');
 } else {

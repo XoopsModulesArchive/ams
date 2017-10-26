@@ -42,7 +42,7 @@ class Link extends XoopsObject
         $this->initVar('link_counter', XOBJ_DTYPE_INT);
         $this->initVar('link_position', XOBJ_DTYPE_TXTBOX);
         $this->table = $this->db->prefix('ams_link');
-        if ($id != null) {
+        if (null != $id) {
             $this->get($id);
         }
     }
@@ -89,7 +89,7 @@ class AMSLinkHandler extends IdgObjectHandler
         $link = "article.php?storyid=".intval($storyid);
         $myts = MyTextSanitizer::getInstance();
 
-        if ($xoopsModule->getVar('dirname') != "AMS") {
+        if ("AMS" != $xoopsModule->getVar('dirname')) {
             $newsmodule = $module_handler->getByDirname('AMS');
         } else {
             $newsmodule = $xoopsModule;

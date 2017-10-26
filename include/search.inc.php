@@ -28,7 +28,7 @@ function ams_search($queryarray, $andor, $limit, $offset, $userid, $storyid = fa
 {
     global $xoopsDB;
     $sql = "SELECT n.storyid,uid,title,updated FROM ".$xoopsDB->prefix("ams_article")." n, ".$xoopsDB->prefix("ams_text")." t WHERE t.storyid=n.storyid AND t.current=1 AND published>0 AND published<=".time()."";
-    if ($userid != 0) {
+    if (0 != $userid) {
         $sql .= " AND uid=".$userid." ";
     }
     if (false != $storyid) {

@@ -76,7 +76,7 @@ if (!$tpl->is_cached($cache_file)) {
 	    if (!empty($sarray) && is_array($sarray)) {
 	        foreach ($sarray as $story) {
 			//print $story->friendlyurl_enable;exit;
-				if($story->friendlyurl_enable==1)
+				if(1 == $story->friendlyurl_enable)
 				{
 					$story_link = $story->friendlyurl ;
 					$story_guid = $story->friendlyurl ;

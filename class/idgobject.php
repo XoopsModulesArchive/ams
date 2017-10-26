@@ -85,7 +85,7 @@ class IdgObjectHandler extends XoopsObjectHandler
      public function create($isNew = true)
      {
          $obj = new $this->className();
-         if ($isNew === true) {
+         if (true === $isNew) {
              $obj->setNew();
          }
          return $obj;
@@ -103,7 +103,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $criteria = new Criteria($this->keyName, intval($id));
          $criteria->setLimit(1);
          $obj_array = $this->getObjects($criteria, false, $as_object);
-         if (count($obj_array) != 1) {
+         if (1 != count($obj_array)) {
              return false;
          }
          return $obj_array[0];
@@ -125,7 +125,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $sql = 'SELECT * FROM '.$this->table;
          if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
              $sql .= ' '.$criteria->renderWhere();
-             if ($criteria->getSort() != '') {
+             if ('' != $criteria->getSort()) {
                  $sql .= ' ORDER BY '.$criteria->getSort().' '.$criteria->getOrder();
              }
              $limit = $criteria->getLimit();
@@ -194,7 +194,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     public function getList($criteria = null, $limit = 0, $start = 0)
     {
         if ($limit > 0 || $start > 0) {
-            if ($criteria == null) {
+            if (null == $criteria) {
                 $criteria = new Criteria($this->keyName, -1, "!=");
             }
             $criteria->setLimit($limit);
@@ -215,7 +215,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $field = "";
          $groupby = false;
          if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
-             if ($criteria->groupby != "") {
+             if ("" != $criteria->groupby) {
                  $groupby = true;
                  $field = $criteria->groupby.", "; //Not entirely secure unless you KNOW that no criteria's groupby clause is going to be mis-used
              }
@@ -223,7 +223,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $sql = 'SELECT '.$field.'COUNT(*) FROM '.$this->table;
          if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
              $sql .= ' '.$criteria->renderWhere();
-             if ($criteria->groupby != "") {
+             if ("" != $criteria->groupby) {
                  $sql .= $criteria->getGroupby();
              }
          }
@@ -231,7 +231,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          if (!$result) {
              return 0;
          }
-         if ($groupby == false) {
+         if (false == $groupby) {
              list($count) = $this->db->fetchRow($result);
              return $count;
          } else {
@@ -280,7 +280,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $force = false;
          $checkObject = true;
 
-         if ($checkObject != false) {
+         if (false != $checkObject) {
              /**
         * @TODO: Change to if (!(class_exists($this->className) && $obj instanceof $this->className)) when going fully PHP5
         */
@@ -297,7 +297,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          }
 
          foreach ($obj->cleanVars as $k => $v) {
-             if ($obj->vars[$k]['data_type'] == XOBJ_DTYPE_INT) {
+             if (XOBJ_DTYPE_INT == $obj->vars[$k]['data_type']) {
                  $cleanvars[$k] = intval($v);
              } else {
                  $cleanvars[$k] = $this->db->quoteString($v);

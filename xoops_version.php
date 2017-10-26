@@ -36,9 +36,9 @@ $path                           = XOOPS_ROOT_PATH . "/modules/$moduleDirName/tem
 if ($handle = opendir($path)) {
     while (false !== ($file = readdir($handle))) {
         //if not a folder...
-        if (!is_dir($path . "/" . $file) && $file != "." && $file != "..") {
+        if (!is_dir($path . "/" . $file) && "." != $file && ".." != $file) {
             //if it is spotlight templates..
-            if (substr($file, 0, 19) == "ams_block_spotlight" && substr($file, strlen($file) - 5) == ".html") {
+            if ("ams_block_spotlight" == substr($file, 0, 19) && ".html" == substr($file, strlen($file) - 5)) {
                 $template_name_offset                                      = 20;
                 $template_name                                             = substr($file, $template_name_offset,
                                                                                     strlen($file) - $template_name_offset - 5);

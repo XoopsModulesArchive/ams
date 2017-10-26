@@ -69,7 +69,7 @@ class AmsStory extends AmsXoopsStory
         } elseif ($storyid != -1) {
             $this->getStory(intval($storyid));
             $this->newstopic = $this->topic(true);
-            if ($getRating != false) {
+            if (false != $getRating) {
                 $this->getRatings();
             }
         } else {
@@ -167,7 +167,7 @@ class AmsStory extends AmsXoopsStory
         $myts = MyTextSanitizer::getInstance();
         $ret = array();
         $sql = "SELECT * FROM ".$db->prefix("ams_article")." n, ".$db->prefix("ams_text")." t, ".$db->prefix("ams_audience")." a WHERE t.storyid=n.storyid AND n.audienceid=a.audienceid AND published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
-        if ($topic != 0) {
+        if (0 != $topic) {
             if (!is_array($topic)) {
                 $sql .= " AND topicid=".intval($topic)." AND (ihome=1 OR ihome=0)";
             } else {
@@ -176,7 +176,7 @@ class AmsStory extends AmsXoopsStory
         } else {
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
@@ -188,11 +188,11 @@ class AmsStory extends AmsXoopsStory
                 $topics = implode(',', $topics);
                 $sql .= " AND topicid IN (".$topics.")";
             }
-            if ($ihome == 0) {
+            if (0 == $ihome) {
                 $sql .= " AND ihome=0";
             }
         }
-        if ($ids != false) {
+        if (false != $ids) {
             $sql .= " AND n.storyid NOT IN (".implode(',', $ids).")";
         }
         $sql .= " AND t.current=1";
@@ -229,14 +229,14 @@ class AmsStory extends AmsXoopsStory
             $groups = $xoopsUser->getGroups();
             $gperm_handler = xoops_getHandler('groupperm');
             global $xoopsModule;
-            if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+            if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
                 $module_handler = xoops_getHandler('module');
                 $newsmodule = $module_handler->getByDirname('AMS');
             } else {
                 $newsmodule = $xoopsModule;
             }
             $allowedtopics = $gperm_handler->getItemIds('ams_approve', $groups, $newsmodule->getVar('mid'));
-            if (count($allowedtopics) == 0) {
+            if (0 == count($allowedtopics)) {
                 return $ret;
             }
             $criteria2 = new CriteriaCompo();
@@ -275,7 +275,7 @@ class AmsStory extends AmsXoopsStory
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = "SELECT COUNT(*) FROM ".$db->prefix("ams_article")."
         WHERE expired >= ".time()."";
-        if ($topicid != 0) {
+        if (0 != $topicid) {
             $sql .= " AND  topicid=".intval($topicid);
         }
         $result = $db->query($sql);
@@ -293,7 +293,7 @@ class AmsStory extends AmsXoopsStory
             $sql .= " AND ihome=0";
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
@@ -321,7 +321,7 @@ class AmsStory extends AmsXoopsStory
             $sql .= " AND ihome=0";
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
@@ -366,14 +366,14 @@ class AmsStory extends AmsXoopsStory
             } else {
                 $author = $users[$this->uid()];
             }
-            if ($author->getVar('user_avatar') != "" && $author->getVar('user_avatar') != "blank.gif") {
+            if ("" != $author->getVar('user_avatar') && "blank.gif" != $author->getVar('user_avatar')) {
                 return "<a href='".XOOPS_URL."/userinfo.php?uid=".$author->getVar('uid')."'><img src='".XOOPS_URL."/uploads/".$author->getVar('user_avatar')."' alt='".$this->newstopic->topic_title()."' hspace='10' vspace='10' align='".$this->topicalign()."' /></a>";
             }
         }
         if (!is_object($this->newstopic)) {
             $this->topic();
         }
-        if ($this->newstopic->topic_imgurl() != '' && file_exists(XOOPS_ROOT_PATH."/modules/AMS/assets/images/topics/".$this->newstopic->topic_imgurl())) {
+        if ('' != $this->newstopic->topic_imgurl() && file_exists(XOOPS_ROOT_PATH . "/modules/AMS/assets/images/topics/" . $this->newstopic->topic_imgurl())) {
             $ret = "<a href='".XOOPS_URL."/modules/AMS/index.php?storytopic=".$this->topicid."'><img src='".XOOPS_URL."/modules/AMS/assets/images/topics/".$this->newstopic->topic_imgurl()."' alt='".$this->newstopic->topic_title()."' hspace='10' vspace='10' align='".$this->topicalign()."' /></a>";
         }
         return $ret;
@@ -381,12 +381,12 @@ class AmsStory extends AmsXoopsStory
 
     public function uname($users = false)
     {
-        if ($this->uid == 0) {
+        if (0 == $this->uid) {
             $this->uname = $GLOBALS['xoopsConfig']['anonymous'];
             return array();
         }
         global $xoopsModule, $xoopsModuleConfig;
-        if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+        if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
             $module_handler = xoops_getHandler('module');
             $module = $module_handler->getByDirname("AMS");
             $config_handler = xoops_getHandler('config');
@@ -399,14 +399,14 @@ class AmsStory extends AmsXoopsStory
         } else {
             $option = $xoopsModuleConfig['displayname'];
         }
-        if ($users != false && isset($users[$this->uid()])) {
+        if (false != $users && isset($users[$this->uid()])) {
             $author = $users[$this->uid()];
             switch ($option) {
                 case 1:        // Username
                 $this->uname = $author->getVar('uname');
                 break;
                 case 2:        // Display full name (if it is not empty)
-                if ($author->getVar('name') == "") {
+                if ("" == $author->getVar('name')) {
                     $this->uname = $author->getVar('uname');
                     break;
                 }
@@ -424,7 +424,7 @@ class AmsStory extends AmsXoopsStory
                 break;
                 case 2:        // Display full name (if it is not empty)
                 $author = new XoopsUser($this->uid());
-                if ($author->getVar('name') == "") {
+                if ("" == $author->getVar('name')) {
                     $this->uname = $author->getVar('uname');
                     break;
                 }
@@ -448,13 +448,13 @@ class AmsStory extends AmsXoopsStory
         $myts = MyTextSanitizer::getInstance();
         $title =$myts->censorString($this->title);
         $title = $myts->addSlashes($title);
-        if (!isset($this->nohtml) || $this->nohtml != 1) {
+        if (!isset($this->nohtml) || 1 != $this->nohtml) {
             $this->nohtml = 0;
         }
-        if (!isset($this->nosmiley) || $this->nosmiley != 1) {
+        if (!isset($this->nosmiley) || 1 != $this->nosmiley) {
             $this->nosmiley = 0;
         }
-        if (!isset($this->notifypub) || $this->notifypub != 1) {
+        if (!isset($this->notifypub) || 1 != $this->notifypub) {
             $this->notifypub = 0;
         }
         $expired = !empty($this->expired) ? $this->expired : 0;
@@ -535,11 +535,11 @@ class AmsStory extends AmsXoopsStory
     {
         $clause = "";
         if (false != $only_higher) {
-            if ($this->change == 1) {
+            if (1 == $this->change) {
                 $clause = " AND version >= ".$this->version;
-            } elseif ($this->change == 2) {
+            } elseif (2 == $this->change) {
                 $clause = " AND version = ".$this->version." AND revision >= ".$this->revision;
-            } elseif ($this->change == 3) {
+            } elseif (3 == $this->change) {
                 $clause = " AND version = ".$this->version." AND revision = ".$this->revision." AND revisionminor >= ".$this->revisionminor;
             }
         }
@@ -577,20 +577,20 @@ class AmsStory extends AmsXoopsStory
 
     public function calculateVersion($recursive = false)
     {
-        if ($this->isNew == true) {
+        if (true == $this->isNew) {
             $this->version = 1;
             $this->revision = 0;
             $this->revisionminor = 0;
             return true;
         }
-        if ($this->change == 1) {
+        if (1 == $this->change) {
             $this->version       += 1;
             $this->revision      = 0;
             $this->revisionminor = 0;
-        } elseif ($this->change == 2) {
+        } elseif (2 == $this->change) {
             $this->revision      += 1;
             $this->revisionminor = 0;
-        } elseif ($this->change == 3) {
+        } elseif (3 == $this->change) {
             $this->revisionminor += 1;
         }
         $sql = "SELECT COUNT(*) FROM ".$this->texttable." WHERE storyid=".$this->storyid." AND version=".$this->version." AND revision=".$this->revision." AND revisionminor=".$this->revisionminor;
@@ -648,7 +648,7 @@ class AmsStory extends AmsXoopsStory
                 $this->getRatings();
             }
             $ratingcount = count($this->ratings);
-            if ($ratingcount == 0) {
+            if (0 == $ratingcount) {
                 return 0;
             }
             $rating = 0;
@@ -669,7 +669,7 @@ class AmsStory extends AmsXoopsStory
         }
         $ip = getenv("REMOTE_ADDR");
         if (!$xoopsUser) {
-            if ($xoopsModuleConfig['anonymous_vote'] == 0) {
+            if (0 == $xoopsModuleConfig['anonymous_vote']) {
                 $this->_errors[] = _AMS_NW_ANONYMOUSVOTEDISABLED;
                 return false;
             }
@@ -781,7 +781,7 @@ class AmsStory extends AmsXoopsStory
 
     public function renderErrors()
     {
-        if (count($this->_errors) == 0) {
+        if (0 == count($this->_errors)) {
             return _AMS_NW_NOERRORSENCOUNTERED;
         }
         $ret = "";
@@ -805,7 +805,7 @@ class AmsStory extends AmsXoopsStory
         $story['friendlyurl'] = $this->friendlyurl;
 
         $bodytext = $this->bodytext();
-        if (trim($bodytext) != '') {
+        if ('' != trim($bodytext)) {
             if (false != $pagenav) {
                 $articletext = explode("[pagebreak]", $bodytext);
                 $story_pages = count($articletext);
@@ -830,7 +830,7 @@ class AmsStory extends AmsXoopsStory
                 }
             }
         }
-        if ($this->uname == "") {
+        if ("" == $this->uname) {
             $users = array($this->uid() => $this->uname($users));
         }
         $story['poster'] = $this->uname;
@@ -852,9 +852,9 @@ class AmsStory extends AmsXoopsStory
         $story['bytestext'] = _AMS_NW_READMORE;
 
         $ccount = $this->comments();
-        if ($ccount == 0) {
+        if (0 == $ccount) {
             $story['comments'] = _AMS_NW_COMMENTS;
-        } elseif ($ccount == 1) {
+        } elseif (1 == $ccount) {
             $story['comments'] = _AMS_NW_ONECOMMENT;
         } else {
             $story['comments'] = sprintf(_AMS_NW_NUMCOMMENTS, $ccount);
@@ -864,7 +864,7 @@ class AmsStory extends AmsXoopsStory
         $story['imglink'] = '';
         $story['align'] = '';
         if ($this->topicdisplay() > 0) {
-            $story['imglink'] = $this->imglink($this->topicdisplay() == 2, $users);
+            $story['imglink'] = $this->imglink(2 == $this->topicdisplay(), $users);
             $story['align'] = $this->topicalign();
         }
         $story['ratingimage'] = XOOPS_URL."/modules/AMS/assets/images/rate".$this->getRating().".gif";
@@ -956,7 +956,7 @@ class AmsStory extends AmsXoopsStory
         $setSqlMode = "SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))";
         $db->queryF($setSqlMode);
 
-        if ($criteria == null) {
+        if (null == $criteria) {
             $criteria = new Criteria();
         }
         $criteria->setLimit($limit);
@@ -964,11 +964,11 @@ class AmsStory extends AmsXoopsStory
         $sql = "SELECT n.*, t.*, a.* FROM ".$db->prefix('ams_article')." n, ".$db->prefix('ams_text')." t, ".$db->prefix('ams_audience')." a WHERE n.storyid=t.storyid AND n.audienceid=a.audienceid AND n.published != 0 AND t.current=1";
         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
             $render = $criteria->render();
-            if ($render != "") {
+            if ("" != $render) {
                 $sql .= ' AND '.$render;
             }
             $sql .= " GROUP BY n.storyid";
-            if ($criteria->getSort() != '') {
+            if ('' != $criteria->getSort()) {
                 $sql .= ' ORDER BY '.$criteria->getSort().' '.$criteria->getOrder();
             }
             $limit = $criteria->getLimit();
@@ -1011,19 +1011,19 @@ class AmsStory extends AmsXoopsStory
     public function getAuthors($limit = 5, $sort = "count", $name = 'uname', $compute_method = "average")
     {
         $limit = intval($limit);
-        if ($name != "uname") {
+        if ("uname" != $name) {
             $name = "name"; //making sure that there is not invalid information in field value
         }
         $ret = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        if ($sort == "count") {
+        if ("count" == $sort) {
             $sql = "SELECT u.".$name." AS name, u.uid , count( n.storyid ) AS count
                     FROM ".$db->prefix("users")." u, ".$db->prefix("ams_article")." n, ".$db->prefix("ams_text")." t
                     WHERE n.storyid = t.storyid AND u.uid = t.uid AND t.current = 1
                        AND published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")
                     GROUP BY u.uid ORDER BY count DESC";
-        } elseif ($sort == "read") {
-            if ($compute_method == "average") {
+        } elseif ("read" == $sort) {
+            if ("average" == $compute_method) {
                 $compute = "sum( n.counter ) / count( n.storyid )";
             } else {
                 $compute = "sum( n.counter )";
@@ -1034,7 +1034,7 @@ class AmsStory extends AmsXoopsStory
                        AND published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")
                     GROUP BY u.uid ORDER BY count DESC";
         } else {
-            if ($compute_method == "average") {
+            if ("average" == $compute_method) {
                 $compute = "sum( n.rating ) / count( n.storyid )";
             } else {
                 $compute = "sum( n.rating )";
@@ -1049,7 +1049,7 @@ class AmsStory extends AmsXoopsStory
             return false;
         }
         while ($row = $db->fetchArray($result)) {
-            if ($name == "name" && $row['name'] == '') {
+            if ("name" == $name && '' == $row['name']) {
                 $row['name'] = XoopsUser::getUnameFromId($row['uid']);
             }
             $row['count'] = round($row['count'], 0);
@@ -1074,14 +1074,14 @@ class AmsStory extends AmsXoopsStory
             $this->topic = $this->newstopic->getTopicPath(false, '/', false);
             $this->newstopic = new AmsTopic($this->topicstable, $this->topicid());  //workaround due to destructive getTopicPath
             $this->friendlyurl=AMS_SEO_genURL($this->title, $this->audience, $this->topic, $op, $id, $pg);
-            if (!($this->friendlyurl==false)) {
+            if (!(false == $this->friendlyurl)) {
                 $this->friendlyurl_enable=1; //mark it as enabled and friendlyurl is valid
                 return $this->friendlyurl;
             } else {
                 $this->friendlyurl_enable=0; //mark it as disabled and friendlyurl is invalid
                 return $url;
             }
-        } elseif ($this->friendlyurl_enable==1) {
+        } elseif (1 == $this->friendlyurl_enable) {
             return $this->friendlyurl;
         } else {
             return $url;

@@ -58,7 +58,7 @@ $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable cachin
 $xoopsOption['template_main'] = 'ams_searchform.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
 
-$username = (isset($_POST['username']) && $_POST['username'] != "") ? $_POST['username'] : '';
+$username = (isset($_POST['username']) && "" != $_POST['username']) ? $_POST['username'] : '';
 $username = $myts->addSlashes($username);
 $queries = array();
 $andor = isset($_POST['andor']) ? $_POST['andor'] : "AND";
@@ -70,7 +70,7 @@ switch ($op) {
 
     case 'results':
     $results = array();
-    if ($andor != "exact") {
+    if ("exact" != $andor) {
         $ignored_queries = array(); // holds kewords that are shorter than allowed minmum length
         $temp_queries = preg_split('/[\s,]+/', $_POST['query']);
         foreach ($temp_queries as $q) {
@@ -89,7 +89,7 @@ switch ($op) {
         $queries = array($myts->addSlashes($query));
     }
     $module_handler = xoops_getHandler('module');
-    if ($username != "") {
+    if ("" != $username) {
         $member_handler = xoops_getHandler('member');
         $criteria = new Criteria('uname', '%'.$username.'%', 'LIKE');
         $users = $member_handler->getUserList($criteria);
@@ -98,7 +98,7 @@ switch ($op) {
     }
     foreach ($_POST['mids'] as $mid) {
         $thismodule = $module_handler->get($mid);
-        if ($users == 0) {
+        if (0 == $users) {
             $thisresult = $thismodule->search($queries, $andor, 10, 0, 0, $article->storyid());
             if (count($thisresult) > 0) {
                 foreach ($thisresult as $key => $searchresult) {
@@ -143,7 +143,7 @@ switch ($op) {
     break;
 
     case 'addexternallink':
-        if ((isset($_POST['url']) && $_POST['url'] != "") && (isset($_POST['title']) && $_POST['title'] != "")) {
+        if ((isset($_POST['url']) && "" != $_POST['url']) && (isset($_POST['title']) && "" != $_POST['title'])) {
             if (!$article->addLink(-1, $_POST['url'], $myts->addSlashes($_POST['title']), $_POST['position'])) {
                 $xoopsTpl->assign('message', $article->renderErrors());
             }
@@ -167,7 +167,7 @@ switch ($op) {
                 $errors = 1;
             }
         }
-        if ($errors == 1) {
+        if (1 == $errors) {
             $xoopsTpl->assign('message', $article->renderErrors());
         }
     }
@@ -181,7 +181,7 @@ switch ($op) {
                 $errors = 1;
             }
         }
-        if ($errors == 1) {
+        if (1 == $errors) {
             $xoopsTpl->assign('message', $article->renderErrors());
         }
     } else {

@@ -14,7 +14,7 @@ $sfiles = new sFiles($fileid);
 // Do we have the right to see the file ?
 $article = new AmsStory($sfiles->getStoryid());
 // and the news, can we see it ?
-if ($article->published() == 0 || $article->published() > time()) {
+if (0 == $article->published() || $article->published() > time()) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }

@@ -48,7 +48,7 @@ $myts = MyTextSanitizer::getInstance();
 
 
 $article = new AmsStory($storyid);
-if ($article->published() == 0 || $article->published() > time()) {
+if (0 == $article->published() || $article->published() > time()) {
     //redirect_header('index.php', 2, _AMS_NW_NOSTORY);
     include_once XOOPS_ROOT_PATH.'/header.php';
     include XOOPS_ROOT_PATH.'/footer.php';
@@ -78,7 +78,7 @@ if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xo
 
 $storypage = isset($_GET['page']) ? intval($_GET['page']) : 0;
 // update counter only when viewing top page
-if (empty($_GET['com_id']) && $storypage == 0) {
+if (empty($_GET['com_id']) && 0 == $storypage) {
     $article->updateCounter();
 }
 if ($admin) {
@@ -89,7 +89,7 @@ include_once XOOPS_ROOT_PATH.'/header.php';
 
 $xoopsTpl->assign('story', $article->toArray($admin, true, $storypage));
 $artbanner = $article->getBanner();
-if ($artbanner == "") {
+if ("" == $artbanner) {
     $artbanner = " ";
 }
 $xoopsTpl->assign('articlebanner', $myts->displayTarea($artbanner, 1));
@@ -102,7 +102,7 @@ $xoopsTpl->assign('lang_sendstory', _AMS_NW_SENDSTORY);
 $xoopsTpl->assign('lang_on', _AMS_NW_PUBLISHED_DATE);
 $xoopsTpl->assign('lang_postedby', _AMS_NW_POSTEDBY);
 $xoopsTpl->assign('lang_reads', _AMS_NW_READS);
-if ($article->friendlyurl_enable !=1) {
+if (1 != $article->friendlyurl_enable) {
     $xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.XOOPS_URL.'/modules/AMS/article.php?storyid='.$article->storyid());
 } else {
     $xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.$article->friendlyurl);

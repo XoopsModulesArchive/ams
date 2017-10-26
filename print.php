@@ -69,7 +69,7 @@ function PrintPage($storyid)
     echo '<tr valign="top" style="font:12px;"><td>'.$story->hometext().'<br />';
     $bodytext = $story->bodytext();
     $bodytext = str_replace("[pagebreak]", "<br style=\"page-break-after:always;\">", $bodytext);
-    if ($bodytext != '') {
+    if ('' != $bodytext) {
         echo $bodytext.'<br /><br />';
     }
     echo '</td></tr></table></td></tr></table>

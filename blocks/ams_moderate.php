@@ -45,7 +45,7 @@ function b_ams_topics_moderate()
         foreach ($storyarray as $newstory) {
             $newstory->uname($user_arr);
             $title = $newstory -> title();
-            if (!isset($title) || ($title == "")) {
+            if (!isset($title) || ("" == $title)) {
                 $linktitle = "<a href='" . XOOPS_URL . "/modules/AMS/index.php?op=edit&amp;storyid=" . $newstory -> storyid() . "'>" . _AD_NOSUBJECT . "</a>";
             } else {
                 $linktitle = "<a href='" . XOOPS_URL . "/modules/AMS/submit.php?op=edit&amp;storyid=" . $newstory -> storyid() . "'>" . $title . "</a>";

@@ -31,7 +31,7 @@ if ($com_itemid > 0) {
     $article->uname();
     $com_replytext = _POSTEDBY.'&nbsp;<b>'.$article->uname.'</b>&nbsp;'._DATE.'&nbsp;<b>'.formatTimestamp($article->published()).'</b><br /><br />'.$article->hometext();
     $bodytext = $article->bodytext();
-    if ($bodytext != '') {
+    if ('' != $bodytext) {
         $com_replytext .= '<br /><br />'.$bodytext.'';
     }
     $com_replytitle = $article->title();

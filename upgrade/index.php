@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
                 $error = 1;
             }
         }
-        if ($error==0) {
+        if (0 == $error) {
             $stories = OldNewsStory::getAll();
             foreach ($stories as $story) {
                 if (!$story->upgrade()) {
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
                 }
             }
         }
-        if ($error == 0) {
+        if (0 == $error) {
             // Import attachments if News version 1.2
             $mod_handler = xoops_getHandler('module');
             $newsModule = $mod_handler->getByDirname('news');

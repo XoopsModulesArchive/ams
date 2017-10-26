@@ -43,7 +43,7 @@ class AmsTopic extends AmsXoopsTopic
         $this->table = $table;
         if (is_array($topicid)) {
             $this->makeTopic($topicid);
-        } elseif ($topicid != 0) {
+        } elseif (0 != $topicid) {
             $this->getTopic(intval($topicid));
         } else {
             $this->topic_id = $topicid;
@@ -83,10 +83,10 @@ class AmsTopic extends AmsXoopsTopic
         $title = "";
         $imgurl = "";
         $insert=false;
-        if (isset($this->topic_title) && $this->topic_title != "") {
+        if (isset($this->topic_title) && "" != $this->topic_title) {
             $title = $myts->addSlashes($this->topic_title);
         }
-        if (isset($this->topic_imgurl) && $this->topic_imgurl != "") {
+        if (isset($this->topic_imgurl) && "" != $this->topic_imgurl) {
             $imgurl = $myts->addSlashes($this->topic_imgurl);
         }
         if (!isset($this->topic_pid) || !is_numeric($this->topic_pid)) {
@@ -113,7 +113,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public function getBanner()
     {
-        if ((!$this->banner_inherit && $this->banner != "") || (!$this->topic_pid())) {
+        if ((!$this->banner_inherit && "" != $this->banner) || (!$this->topic_pid())) {
             return $this->banner;
         }
 
@@ -130,7 +130,7 @@ class AmsTopic extends AmsXoopsTopic
             $sql = "SELECT * FROM ".$table;
             if (false != $checkRight) {
                 global $xoopsUser, $xoopsModule;
-                if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
                     $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
@@ -139,7 +139,7 @@ class AmsTopic extends AmsXoopsTopic
                 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
                 $gperm_handler = xoops_getHandler('groupperm');
                 $topics = $gperm_handler->getItemIds($permission, $groups, $newsModule->getVar('mid'));
-                if (count($topics) == 0) {
+                if (0 == count($topics)) {
                     return array();
                 }
                 $topics = implode(',', $topics);
@@ -165,7 +165,7 @@ class AmsTopic extends AmsXoopsTopic
     {
         static $authors = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        if (count($authors) == 0) {
+        if (0 == count($authors)) {
             $sql = "SELECT DISTINCT u.uid, u.uname, u.name FROM ".$db->prefix('users')." u, ".$db->prefix('ams_text')." t
                 WHERE u.uid = t.uid";
             if (false != $byName) {

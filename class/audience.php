@@ -20,7 +20,7 @@ class AMSAudienceHandler extends IdgObjectHandler
 
     public function deleteReplace($aud, $newaudid)
     {
-        if ($aud->getVar('audienceid') == 1) {
+        if (1 == $aud->getVar('audienceid')) {
             return false;
         }
         $sql = "UPDATE ".$this->db->prefix('ams_article')." SET audienceid = ".intval($newaudid)." WHERE audienceid = ".intval($aud->getVar('audienceid'));

@@ -64,7 +64,7 @@ function newSubmissions()
             $newstory -> uname($users);
             echo '<tr class="' . ((++$i % 2) ? 'even' : 'odd') . '"><td>';
             $title = $newstory->title();
-            if (!isset($title) || ($title == "")) {
+            if (!isset($title) || ("" == $title)) {
                 echo '<a href="articles.php?op=edit&amp;storyid=' . $newstory -> storyid() . '">' . _AD_NOSUBJECT . '</a>';
             } else {
                 echo '&nbsp;<a href="../submit.php?op=edit&amp;storyid=' . $newstory -> storyid() . '">' . $title . "</a>\n";
@@ -93,37 +93,37 @@ function lastStories()
 
     $criteria = new CriteriaCompo();
     $querystring = "op=newarticle";
-    if (isset($title) && $title != "") {
+    if (isset($title) && "" != $title) {
         $criteria->add(new Criteria('n.title', "%".$title."%", 'LIKE'));
         $querystring .= "&amp;title=".$title;
     }
-    if (isset($author) && is_array($author) && count($author) != 0) {
+    if (isset($author) && is_array($author) && 0 != count($author)) {
         $criteria->add(new Criteria('t.uid', "(".implode($author).")", 'IN'));
         foreach ($author as $uid) {
             $querystring .= "&amp;author[]=".$uid;
         }
     }
 
-    if (isset($status) && $status != 'none') {
-        if ($status == "published") {
+    if (isset($status) && 'none' != $status) {
+        if ("published" == $status) {
             $status_crit = new CriteriaCompo(new Criteria('n.published', 0, '>'));
             $status_crit->add(new Criteria('n.published', time(), '<='));
             $status_exp= new CriteriaCompo(new Criteria('n.expired', 0));
             $status_exp->add(new Criteria('n.expired', time(), '>='), 'OR');
             $status_crit->add($status_exp);
             $criteria->add($status_crit);
-        } elseif ($status == "expired") {
+        } elseif ("expired" == $status) {
             $criteria->add(new Criteria('n.expired', 0, '!='));
             $criteria->add(new Criteria('n.expired', time(), '<'));
         }
     }
 
-    if (isset($topicid) && $topicid != 0) {
+    if (isset($topicid) && 0 != $topicid) {
         $criteria->add(new Criteria('n.topicid', $topicid));
     }
 
     $order = isset($_POST['order']) ? $_POST['order'] : (isset($_GET['order']) ? $_GET['order'] : 'DESC');
-    $revOrder = $order == 'DESC' ? 'ASC' : 'DESC';
+    $revOrder = 'DESC' == $order ? 'ASC' : 'DESC';
     $criteria->setOrder($order);
 
     $sort = Request::getString('sort', 'n.published');
@@ -267,7 +267,7 @@ function topicsmanager()
         $xtmod = $topics_arr[$topic_id];
         $topic_title=$xtmod->topic_title('E');
         $op='modTopicS';
-        if (trim($xtmod->topic_imgurl())!='') {
+        if ('' != trim($xtmod->topic_imgurl())) {
             $topicimage=$xtmod->topic_imgurl();
         } else {
             $topicimage="blank.png";
@@ -359,13 +359,13 @@ function topicsmanager()
     $usercount=1;
     $fullcount=1;
     foreach (array_keys($group_type_ref) as $i) {
-        if ($group_type_ref[$i]->getVar('group_type') == 'Admin') {
+        if ('Admin' == $group_type_ref[$i]->getVar('group_type')) {
             $admin_list[$i]=$group_list[$i];
             $admincount++;
             $user_list[$i]=$group_list[$i];
             $usercount++;
         }
-        if ($group_type_ref[$i]->getVar('group_type') == 'User') {
+        if ('User' == $group_type_ref[$i]->getVar('group_type')) {
             $user_list[$i]=$group_list[$i];
             $usercount++;
         }
@@ -434,7 +434,7 @@ function modTopicS()
         redirect_header("articles.php?op=topicsmanager", 2, _AMS_AM_ERRORTOPICNAME);
     }
     $xt -> setTopicTitle($_POST['topic_title']);
-    if (isset($_POST['topic_imgurl']) && $_POST['topic_imgurl'] != "") {
+    if (isset($_POST['topic_imgurl']) && "" != $_POST['topic_imgurl']) {
         $xt -> setTopicImgurl($_POST['topic_imgurl']);
     }
 
@@ -445,7 +445,7 @@ function modTopicS()
     if (isset($_POST['xoops_upload_file'])) {
         $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
         $fldname = (get_magic_quotes_gpc()) ? stripslashes($fldname['name']) : $fldname['name'];
-        if (trim($fldname!='')) {
+        if (trim('' != $fldname)) {
             $sfiles = new sFiles();
             $dstpath = XOOPS_ROOT_PATH . "/modules/" . $xoopsModule -> dirname() . '/assets/images/topics';
             $destname=$sfiles->createUploadName($dstpath, $fldname, true);
@@ -513,7 +513,7 @@ function modTopicS()
 
 function delTopic()
 {
-    if (!isset($_REQUEST['topic_id']) || $_REQUEST['topic_id'] == 0) {
+    if (!isset($_REQUEST['topic_id']) || 0 == $_REQUEST['topic_id']) {
         redirect_header('articles.php?op=topicsmanager', 3, _AMS_AM_NOTOPICSELECTED);
     }
     global $xoopsDB, $xoopsModule;
@@ -555,18 +555,18 @@ function addTopic()
     $xt = new AmsTopic($xoopsDB -> prefix("ams_topics"));
     if (!$xt -> topicExists($topicpid, $_POST['topic_title'])) {
         $xt -> setTopicPid($topicpid);
-        if (empty($_POST['topic_title']) || trim($_POST['topic_title'])=='') {
+        if (empty($_POST['topic_title']) || '' == trim($_POST['topic_title'])) {
             redirect_header("articles.php?op=topicsmanager", 2, _AMS_AM_ERRORTOPICNAME);
         }
         $xt -> setTopicTitle($_POST['topic_title']);
-        if (isset($_POST['topic_imgurl']) && $_POST['topic_imgurl'] != "") {
+        if (isset($_POST['topic_imgurl']) && "" != $_POST['topic_imgurl']) {
             $xt -> setTopicImgurl($_POST['topic_imgurl']);
         }
 
         if (isset($_POST['xoops_upload_file'])) {
             $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
             $fldname = (get_magic_quotes_gpc()) ? stripslashes($fldname['name']) : $fldname['name'];
-            if (trim($fldname!='')) {
+            if (trim('' != $fldname)) {
                 $sfiles = new sFiles();
                 $dstpath = XOOPS_ROOT_PATH . "/modules/" . $xoopsModule -> dirname() . '/assets/images/topics';
                 $destname=$sfiles->createUploadName($dstpath, $fldname, true);
@@ -595,7 +595,7 @@ function addTopic()
             $totaltopics = count($allTopics);
             if ($totaltopics=1) {
                 //Make sure xoopsModule is AMS.
-                if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
+                if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
                     $mod_handler = xoops_getHandler('module');
                     $amsModule = $mod_handler->getByDirname('AMS');
                 } else {
@@ -660,7 +660,7 @@ function listAudience()
             $output .= "<tr><td class='odd'>".$audid."</td>
             <td class='even'><a href='?op=audience&amp;audid=".$audid."'>".$audience->getVar('audience')."</a></td>
             <td class='even'>";
-            if ($audid != 1) {
+            if (1 != $audid) {
                 $output .= "<a href='?op=delaudience&amp;audienceid=".$audid."'>"._AMS_AM_DELETE."</a>";
             }
             $output .= "</td>
@@ -788,7 +788,7 @@ switch ($op) {
         break;
 
     case "delaudience":
-        if ($_GET['audienceid'] == 1) {
+        if (1 == $_GET['audienceid']) {
             redirect_header('articles.php?op=audience', 2, _AMS_AM_CANNOTDELETEDEFAULTAUDIENCE);
         }
         $audience_handler = xoops_getModuleHandler('audience', 'AMS');
@@ -820,7 +820,7 @@ switch ($op) {
         break;
 
     case "reorder":
-        if (!isset($_POST['weight']) || !is_array($_POST['weight']) || (count($_POST['weight']) == 0)) {
+        if (!isset($_POST['weight']) || !is_array($_POST['weight']) || (0 == count($_POST['weight']))) {
             header("location:articles.php?op=topicsmanager");
         }
         $topics = AmsTopic::getAllTopics();

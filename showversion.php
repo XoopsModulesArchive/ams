@@ -30,7 +30,7 @@ include_once(XOOPS_ROOT_PATH."/class/template.php");
 $xoopsOption['theme_use_smarty'] = 1;
 $xoopsTpl = new XoopsTpl();
 $xoopsTpl->xoops_setCaching(0);
-if ($xoopsConfig['debug_mode'] == 3) {
+if (3 == $xoopsConfig['debug_mode']) {
     $xoopsTpl->xoops_setDebugging(true);
 }
 $xoopsTpl->assign(array('xoops_theme' => $xoopsConfig['theme_set'], 'xoops_imageurl' => XOOPS_THEME_URL.'/'.$xoopsConfig['theme_set'].'/', 'xoops_themecss'=> xoops_getcss($xoopsConfig['theme_set']), 'xoops_requesturi' => htmlspecialchars($GLOBALS['xoopsRequestUri'], ENT_QUOTES), 'xoops_sitename' => htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES), 'xoops_slogan' => htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)));
@@ -66,7 +66,7 @@ $xoopsOption['template_main'] = 'ams_article.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray(true, false, -1));
 $banner = $myts->displayTarea($article->getBanner(), 1);
-if (!$banner || $banner == "") {
+if (!$banner || "" == $banner) {
     $banner = " ";
 }
 $xoopsTpl->assign('articlebanner', $banner);

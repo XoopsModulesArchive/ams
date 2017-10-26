@@ -42,7 +42,7 @@ include_once(XOOPS_ROOT_PATH."/class/tree.php");
 
 
 //Added AMS 2.50. Enable user selection Editor. Modify at AMS 3.0 to correctly detect XOOPS 2.3.x scheme
-if ($xoopsModuleConfig['editor_userchoice']==true && (file_exists(XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php") || file_exists(XOOPS_ROOT_PATH."/class/xoopsform/formselecteditor.php"))) {
+if (true == $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_PATH . "/Frameworks/xoops22/class/xoopsformloader.php") || file_exists(XOOPS_ROOT_PATH . "/class/xoopsform/formselecteditor.php"))) {
     if (isset($_REQUEST['seditor'])) {
         $editor= $_REQUEST['seditor'];
     } elseif (isset($_REQUEST['editor'])) {
@@ -78,7 +78,7 @@ if (file_exists(XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php")
     }
 
     $wysiwyg_is_exist=1;
-} elseif (file_exists(XOOPS_ROOT_PATH."/class/wysiwyg/formwysiwygtextarea.php") && $editor=='koivi') {
+} elseif (file_exists(XOOPS_ROOT_PATH."/class/wysiwyg/formwysiwygtextarea.php") && 'koivi' == $editor) {
     //if KOIVI installed manually in XOOPS 2.0.x
     $wysiwyg_is_exist=2;
     include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
@@ -89,7 +89,7 @@ if (file_exists(XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php")
     } else {
         include_once XOOPS_ROOT_PATH."/class/wysiwyg/language/english.php";
     }
-} elseif (file_exists(XOOPS_ROOT_PATH."/class/xoopseditor/koivi/formwysiwygtextarea.php") && $editor=='koivi') {
+} elseif (file_exists(XOOPS_ROOT_PATH."/class/xoopseditor/koivi/formwysiwygtextarea.php") && 'koivi' == $editor) {
     //if XOOPS 2.2.x editor installed. Only KOIVI is supported
     $wysiwyg_is_exist=3;
     include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
@@ -114,7 +114,7 @@ if (!isset($xt)) {
     $xt = new AmsTopic($xoopsDB->prefix("ams_topics"));
 }
 $alltopics = $xt->getAllTopics(true, "ams_submit");
-if (count($alltopics) == 0) {
+if (0 == count($alltopics)) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _AMS_NW_NOTOPICS);
 }
 $topic_obj_tree = new XoopsObjectTree($alltopics, 'topic_id', 'topic_pid');
@@ -156,7 +156,7 @@ else include_once ''.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")
 */
 
 //Only enable editor selection if Framework is enabled
-if ($wysiwyg_is_exist==1 && $xoopsModuleConfig['editor_userchoice']==true) {
+if (1 == $wysiwyg_is_exist && true == $xoopsModuleConfig['editor_userchoice']) {
     $sform->addElement(new XoopsFormSelectEditor($sform, "seditor", $editor, $story->nohtml(), $editor_select));
 }
 
@@ -172,11 +172,11 @@ $editor_configs['cols'] = 60; // default value = 50
 $editor_configs['width'] = '100%'; // default value = 100%
 $editor_configs['height'] = '400px'; // default value = 400px
 
-if ($wysiwyg_is_exist==1) {
+if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormEditor($editor_configs['caption'], $editor, $editor_configs, $story->nohtml(), null));
-} elseif ($wysiwyg_is_exist==2) {
+} elseif (2 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
-} elseif ($wysiwyg_is_exist==3) {
+} elseif (3 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs, 'hiddenHometext'));
 } else {
     $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['rows'], $editor_configs['cols'], 'hiddenHometext'));
@@ -195,11 +195,11 @@ $editor_configs['cols'] = 60; // default value = 50
 $editor_configs['width'] = '100%'; // default value = 100%
 $editor_configs['height'] = '400px'; // default value = 400px
 
-if ($wysiwyg_is_exist==1) {
+if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormEditor($editor_configs['caption'], $editor, $editor_configs, $story->nohtml(), null));
-} elseif ($wysiwyg_is_exist==2) {
+} elseif (2 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
-} elseif ($wysiwyg_is_exist==3) {
+} elseif (3 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs, 'hiddenBodytext'));
 } else {
     $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['rows'], $editor_configs['cols'], 'hiddenBodytext'));

@@ -51,7 +51,7 @@ class AmsSpotlight extends XoopsObject
     */
     public function getForm($action = false)
     {
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         $title = _AMS_AM_SPOTLIGHT;
@@ -122,8 +122,8 @@ class AmsSpotlight extends XoopsObject
     public function getImage($article)
     {
         $myts = MyTextSanitizer::getInstance();
-        if ($this->getVar('mode') == 4) {
-            if ($this->getVar('image') == "") {
+        if (4 == $this->getVar('mode')) {
+            if ("" == $this->getVar('image')) {
                 return "";
             }
             $this->setVar('showimage', 0);
@@ -168,7 +168,7 @@ class AmsSpotlightHandler extends IdgObjectHandler
         }
         $criteria->setSort('weight');
         $spots = $this->getObjects($criteria);
-        if (count($spots) == 0) {
+        if (0 == count($spots)) {
             return $block;
         }
         $ids = array();
@@ -219,7 +219,7 @@ class AmsSpotlightHandler extends IdgObjectHandler
             if (is_object($article)) {
                 $article->uname($users);
 
-                $teaser = $spots[$i]->getVar('autoteaser') != 1 ? $myts->displayTarea($spots[$i]->getVar('teaser', 'n'), 1) : ($spots[$i]->getVar('maxlength') > 0 ? xoops_substr($article->hometext(), 0, $spots[$i]->getVar('maxlength'), "") : $article->hometext());
+                $teaser = 1 != $spots[$i]->getVar('autoteaser') ? $myts->displayTarea($spots[$i]->getVar('teaser', 'n'), 1) : ($spots[$i]->getVar('maxlength') > 0 ? xoops_substr($article->hometext(), 0, $spots[$i]->getVar('maxlength'), "") : $article->hometext());
                 $id = $article->storyid();
                 $title = $article->title();
                 $hits = $article->counter();

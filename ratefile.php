@@ -11,7 +11,7 @@ if ($storyid > 0) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _AMS_NW_NOSTORY);
     exit();
 }
-if ($_POST['submit'] != '' && $storyid > 0) {
+if ('' != $_POST['submit'] && $storyid > 0) {
     if ($article->rateStory($_POST['rating'])) {
         $ratemessage = _AMS_NW_RATING_SUCCESSFUL;
     } else {

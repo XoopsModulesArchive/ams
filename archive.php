@@ -43,7 +43,7 @@ $fromyear = (isset($_GET['year'])) ? intval($_GET['year']): 0;
 $frommonth = (isset($_GET['month'])) ? intval($_GET['month']) : 0;
 
 $pgtitle='';
-if ($fromyear!=0 && $frommonth!=0) {
+if (0 != $fromyear && 0 != $frommonth) {
     $pgtitle=sprintf(" - %d - %d", $fromyear, $frommonth);
 }
 $myts = MyTextSanitizer::getInstance();
@@ -73,7 +73,7 @@ if (!$result) {
             if (empty($lastyear)) {
                 $lastyear = $this_year;
             }
-            if ($lastmonth == 0) {
+            if (0 == $lastmonth) {
                 $lastmonth = $this_month;
                 $months[$lastmonth]['string'] = $months_arr[$lastmonth];
                 $months[$lastmonth]['number'] = $lastmonth;
@@ -98,7 +98,7 @@ if (!$result) {
     $xoopsTpl->assign('years', $years);
 }
 
-if ($fromyear != 0 && $frommonth != 0) {
+if (0 != $fromyear && 0 != $frommonth) {
     $xoopsTpl->assign('show_articles', true);
     $xoopsTpl->assign('lang_articles', _AMS_NW_ARTICLES);
     $xoopsTpl->assign('currentmonth', $months_arr[$frommonth]);

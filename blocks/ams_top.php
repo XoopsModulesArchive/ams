@@ -29,7 +29,7 @@ function b_ams_top_show($options)
     $myts = MyTextSanitizer::getInstance();
     include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
     $block = array();
-    if (!isset($options[4]) || $options[4] == 0 || $options[4] == array(0)) {
+    if (!isset($options[4]) || 0 == $options[4] || $options[4] == array(0)) {
         $stories = AmsStory::getAllPublished($options[1], 0, false, 0, 1, true, $options[0]);
     } else {
         // If using Xoops 2.0.9.1 way of saving array values
