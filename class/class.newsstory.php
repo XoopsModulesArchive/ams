@@ -1017,7 +1017,7 @@ class AmsStory extends AmsXoopsStory
                . $db->prefix('ams_article') . ' n, '
                . $db->prefix('ams_text') . ' t, '
                . $db->prefix('ams_audience') . ' a WHERE n.storyid=t.storyid AND n.audienceid=a.audienceid AND n.published != 0 AND t.current=1';
-        if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+        if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
             $render = $criteria->render();
             if ('' != $render) {
                 $sql .= ' AND '.$render;

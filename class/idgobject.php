@@ -53,7 +53,7 @@ class IdgObjectHandler extends XoopsObjectHandler
 
     /**
     * Constructor - called from child classes
-    * @param object     $db         {@link XoopsDatabase} object
+    * @param XoopsDatabase     $db         {@link XoopsDatabase} object
     * @param string     $tablename  Name of database table
     * @param string     $classname  Name of Class, this handler is managing
     * @param string     $keyname    Name of the property, holding the key
@@ -112,7 +112,7 @@ class IdgObjectHandler extends XoopsObjectHandler
      /**
      * retrieve objects from the database
      *
-     * @param object $criteria {@link CriteriaElement} conditions to be met
+     * @param CriteriaElement $criteria {@link CriteriaElement} conditions to be met
      * @param bool $id_as_key use the ID as key for the array?
      * @param bool $as_object return an array of objects?
      *
@@ -123,7 +123,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $ret = array();
          $limit = $start = 0;
          $sql = 'SELECT * FROM '.$this->table;
-         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
              $sql .= ' '.$criteria->renderWhere();
              if ('' != $criteria->getSort()) {
                  $sql .= ' ORDER BY '.$criteria->getSort().' '.$criteria->getOrder();
@@ -185,7 +185,7 @@ class IdgObjectHandler extends XoopsObjectHandler
 
      /**
     * Retrieve a list of objects as arrays
-    * @param object $criteria {@link CriteriaElement} conditions to be met
+    * @param CriteriaElement $criteria {@link CriteriaElement} conditions to be met
     * @param int   $limit      Max number of objects to fetch
     * @param int   $start      Which record to start at
     *
@@ -207,21 +207,21 @@ class IdgObjectHandler extends XoopsObjectHandler
 
      * count objects matching a condition
      *
-     * @param object $criteria {@link CriteriaElement} to match
+     * @param CriteriaElement $criteria {@link CriteriaElement} to match
      * @return int count of objects
      */
      public function getCount($criteria = null)
      {
          $field = '';
          $groupby = false;
-         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
              if ('' != $criteria->groupby) {
                  $groupby = true;
                  $field = $criteria->groupby . ', '; //Not entirely secure unless you KNOW that no criteria's groupby clause is going to be mis-used
              }
          }
          $sql = 'SELECT '.$field.'COUNT(*) FROM '.$this->table;
-         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
              $sql .= ' '.$criteria->renderWhere();
              if ('' != $criteria->groupby) {
                  $sql .= $criteria->getGroupby();
@@ -345,7 +345,7 @@ class IdgObjectHandler extends XoopsObjectHandler
      *
      * @param   string  $fieldname  Name of the field
      * @param   string  $fieldvalue Value to write
-     * @param   object  $criteria   {@link CriteriaElement}
+     * @param   CriteriaElement  $criteria   {@link CriteriaElement}
      *
      * @return  bool
      **/
@@ -353,7 +353,7 @@ class IdgObjectHandler extends XoopsObjectHandler
      {
          $set_clause = is_numeric($fieldvalue) ? $fieldname.' = '.$fieldvalue : $fieldname.' = '.$this->db->quoteString($fieldvalue);
          $sql = 'UPDATE '.$this->table.' SET '.$set_clause;
-         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
              $sql .= ' '.$criteria->renderWhere();
          }
          if (false != $force) {
@@ -370,13 +370,13 @@ class IdgObjectHandler extends XoopsObjectHandler
      /**
      * delete all objects meeting the conditions
      *
-     * @param object $criteria {@link CriteriaElement} with conditions to meet
+     * @param CriteriaElement $criteria {@link CriteriaElement} with conditions to meet
      * @return bool
      */
 
      public function deleteAll($criteria = null)
      {
-         if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
+         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
              $sql = 'DELETE FROM '.$this->table;
              $sql .= ' '.$criteria->renderWhere();
              if (!$this->db->query($sql)) {
