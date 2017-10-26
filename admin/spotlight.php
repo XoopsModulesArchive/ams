@@ -28,16 +28,16 @@ require __DIR__ . '/admin_header.php';
 $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('spotlight.php');
 
-$spotlight_handler = xoops_getModuleHandler('spotlight', $xoopsModule->getVar('dirname'));
+$spotlightHandler = xoops_getModuleHandler('spotlight', $xoopsModule->getVar('dirname'));
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
 
 switch ($op) {
     case 'list':
     default:
-        $block_handler = xoops_getHandler('block');
-        $spotlightBlock = $block_handler->getObjects(new Criteria('b.func_file', 'ams_spotlight.php'));
+        $blockHandler = xoops_getHandler('block');
+        $spotlightBlock = $blockHandler->getObjects(new Criteria('b.func_file', 'ams_spotlight.php'));
         $spotlightBlock = isset($spotlightBlock[0]) ? $spotlightBlock[0] : null;
-        $block = $spotlight_handler->getSpotlightBlock(false);
+        $block = $spotlightHandler->getSpotlightBlock(false);
         $spotlights = isset($block['spotlights']) ? $block['spotlights'] : array();
         $output = "<div align='right'>
                         <a href='spotlight.php?op=add'><img src='../assets/images/new.png' />"._AMS_AM_SPOT_ADD . '</a>';
@@ -98,22 +98,22 @@ switch ($op) {
         break;
 
     case 'add':
-        $spotlight = $spotlight_handler->create();
+        $spotlight = $spotlightHandler->create();
         $form = $spotlight->getForm();
         $form->display();
         break;
 
     case 'edit':
-        $spot = $spotlight_handler->get($_REQUEST['id']);
+        $spot = $spotlightHandler->get($_REQUEST['id']);
         $form = $spot->getForm();
         $form->display();
         break;
 
     case 'save':
         if (isset($_REQUEST['id'])) {
-            $spot = $spotlight_handler->get($_REQUEST['id']);
+            $spot = $spotlightHandler->get($_REQUEST['id']);
         } else {
-            $spot = $spotlight_handler->create();
+            $spot = $spotlightHandler->create();
         }
         $spot->setVar('showimage', $_REQUEST['showimage']);
         $spot->setVar('image', $_REQUEST['image']);
@@ -137,7 +137,7 @@ switch ($op) {
                 $spot->setVar('storyid', $_REQUEST['storyid']);
                 break;
         }
-        if ($spotlight_handler->insert($spot)) {
+        if ($spotlightHandler->insert($spot)) {
             redirect_header('spotlight.php', 3, _AMS_AM_SPOT_SAVESUCCESS);
         } else {
             echo $spot->getHtmlErrors();
@@ -148,8 +148,8 @@ switch ($op) {
 
     case 'delete':
         if (isset($_REQUEST['ok']) && 1 === (int)$_REQUEST['ok']) {
-            $spot = $spotlight_handler->get($_REQUEST['id']);
-            if ($spotlight_handler->delete($spot)) {
+            $spot = $spotlightHandler->get($_REQUEST['id']);
+            if ($spotlightHandler->delete($spot)) {
                 redirect_header('spotlight.php', 3, _AMS_AM_SPOT_DELETESUCCESS);
             } else {
                 echo $spot->getHtmlErrors();
@@ -164,12 +164,12 @@ switch ($op) {
             header('location:spotlight.php');
         }
         $criteria = new Criteria('spotlightid', '(' . implode(',', array_keys($_POST['weight'])) . ')', 'IN');
-        $spots = $spotlight_handler->getObjects($criteria, true);
+        $spots = $spotlightHandler->getObjects($criteria, true);
 
         foreach ($_POST['weight'] as $id => $weight) {
             $spots[$id]->setVar('weight', $weight);
             $spots[$id]->setVar('display', $_POST['display'][$id]);
-            if (!$spotlight_handler->insert($spots[$id])) {
+            if (!$spotlightHandler->insert($spots[$id])) {
                 $errors++;
             }
         }

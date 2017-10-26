@@ -82,9 +82,9 @@ class OldNewsStory extends XoopsStory
 
     public function moveComments()
     {
-        $mod_handler = xoops_getHandler('module');
-        $newsModule = $mod_handler->getByDirname('news');
-        $amsModule = $mod_handler->getByDirname('AMS');
+        $moduleHandler = xoops_getHandler('module');
+        $newsModule = $moduleHandler->getByDirname('news');
+        $amsModule = $moduleHandler->getByDirname('AMS');
         $mid = $amsModule->getVar('mid');
         $old_mid = $newsModule->getVar('mid');
         $db = XoopsDatabaseFactory::getDatabaseConnection();

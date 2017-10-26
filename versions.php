@@ -1,6 +1,6 @@
 <?php
 
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
 if (!isset($_POST['submit'])) {
     if (!isset($_GET['storyid'])) {
@@ -8,11 +8,11 @@ if (!isset($_POST['submit'])) {
         exit();
     }
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
-    $xoopsOption['template_main'] = 'ams_version.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_version.html';
     include_once XOOPS_ROOT_PATH . '/header.php';
     $story = new AmsStory((int)$_GET['storyid']);
-    $gperm_handler = xoops_getHandler('groupperm');
-    if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+    $gpermHandler = xoops_getHandler('groupperm');
+    if (!$xoopsUser || !$gpermHandler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
         redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
         exit();
     }
@@ -30,8 +30,8 @@ if (!isset($_POST['submit'])) {
     switch ($_POST['op']) {
         case 'setversion':
             $story = new AmsStory((int)$_POST['storyid']);
-            $gperm_handler = xoops_getHandler('groupperm');
-            if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+            $gpermHandler = xoops_getHandler('groupperm');
+            if (!$xoopsUser || !$gpermHandler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
                 exit();
             }
@@ -49,8 +49,8 @@ if (!isset($_POST['submit'])) {
 
         case 'delversions':
             $story = new AmsStory((int)$_POST['storyid']);
-            $gperm_handler = xoops_getHandler('groupperm');
-            if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+            $gpermHandler = xoops_getHandler('groupperm');
+            if (!$xoopsUser || !$gpermHandler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
                 exit();
             }
@@ -72,8 +72,8 @@ if (!isset($_POST['submit'])) {
 
         case 'delallversions':
             $story = new AmsStory((int)$_POST['storyid']);
-            $gperm_handler = xoops_getHandler('groupperm');
-            if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+            $gpermHandler = xoops_getHandler('groupperm');
+            if (!$xoopsUser || !$gpermHandler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
                 exit();
             }
@@ -94,4 +94,4 @@ if (!isset($_POST['submit'])) {
             break;
     }
 }
-include '../../footer.php';
+include __DIR__ . '/../../footer.php';

@@ -42,8 +42,8 @@ if (!empty($mids)) {
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('hassearch', 1));
 $criteria->add(new Criteria('isactive', 1));
-$module_handler = xoops_getHandler('module');
-$mods_checkbox->addOptionArray($module_handler->getList($criteria));
+$moduleHandler = xoops_getHandler('module');
+$mods_checkbox->addOptionArray($moduleHandler->getList($criteria));
 $search_form->addElement($mods_checkbox);
 if ($xoopsConfigSearch['keyword_min'] > 0) {
     $search_form->addElement(new XoopsFormLabel(_SR_SEARCHRULE, sprintf(_SR_KEYIGNORE, $xoopsConfigSearch['keyword_min'])));

@@ -24,7 +24,7 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
 include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.sfiles.php';
 if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php')) {
@@ -55,20 +55,20 @@ if (0 == $article->published() || $article->published() > time()) {
     exit();
 }
 $admin = false;
-$gperm_handler = xoops_getHandler('groupperm');
+$gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-if (!$gperm_handler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-    if (!$gperm_handler->checkRight('ams_view', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-        if (!$gperm_handler->checkRight('ams_submit', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gpermHandler->checkRight('ams_view', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+        if (!$gpermHandler->checkRight('ams_submit', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
             redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
             exit();
         }
     }
-    if (!$gperm_handler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gpermHandler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, sprintf(_AMS_NW_NOTALLOWEDAUDIENCE, $article->audience));
         exit();
     }
@@ -84,7 +84,7 @@ if (empty($_GET['com_id']) && 0 == $storypage) {
 if ($admin) {
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0;
 }
-$xoopsOption['template_main'] = 'ams_article.html';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_article.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
 
 $xoopsTpl->assign('story', $article->toArray($admin, true, $storypage));

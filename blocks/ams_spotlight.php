@@ -29,14 +29,14 @@ function b_ams_spotlight_show($options)
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
     global $xoopsModule;
     if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
-        $mod_handler = xoops_getHandler('module');
-        $amsModule = $mod_handler->getByDirname('AMS');
+        $moduleHandler = xoops_getHandler('module');
+        $amsModule = $moduleHandler->getByDirname('AMS');
     } else {
         $amsModule = $xoopsModule;
     }
 
-    $spotlight_handler = xoops_getModuleHandler('spotlight', 'AMS');
-    $block = $spotlight_handler->getSpotlightBlock();
+    $spotlightHandler = xoops_getModuleHandler('spotlight', 'AMS');
+    $block = $spotlightHandler->getSpotlightBlock();
 
     //load special block instruction if exist
     if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/templates/'.$options[2].'.php')) {
@@ -60,8 +60,8 @@ function b_ams_spotlight_show($options)
         if (1 == $options[1]) {
             $block['total_art'] = AmsStory::countPublishedByTopic();
             $block['total_read'] = AmsStory::countReads();
-            $comment_handler = xoops_getHandler('comment');
-            $block['total_comments'] = $comment_handler->getCount(new Criteria('com_modid', $amsModule->getVar('mid')));
+            $commentHandler = xoops_getHandler('comment');
+            $block['total_comments'] = $commentHandler->getCount(new Criteria('com_modid', $amsModule->getVar('mid')));
         }
         $block['showministats'] = $options[1];
         $block['showother'] = (int)$options[0] > 0;
@@ -78,13 +78,13 @@ function b_ams_spotlight_edit($options)
     global $xoopsModule;
     AMS_updateCache();
     if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
-        $module_handler = xoops_getHandler('module');
-        $module = $module_handler->getByDirname('AMS');
+        $moduleHandler = xoops_getHandler('module');
+        $module = $moduleHandler->getByDirname('AMS');
     } else {
         $module = $xoopsModule;
     }
-    $config_handler = xoops_getHandler('config');
-    $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+    $configHandler = xoops_getHandler('config');
+    $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     $templates_list=array_flip($moduleConfig['spotlight_template']);
 
     //fix template list value lost after module update

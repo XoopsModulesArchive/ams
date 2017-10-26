@@ -25,7 +25,7 @@
 //  ------------------------------------------------------------------------ //
 
 $xoopsOption['pagetype'] = 'search';
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php')) {
     include_once XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php';
 } else {
@@ -42,9 +42,9 @@ if (!$storyid) {
 }
 $article = new AmsStory($storyid);
 if ($xoopsUser->getVar('uid') != $article->uid()) {
-    $gperm_handler = xoops_getHandler('groupperm');
+    $gpermHandler = xoops_getHandler('groupperm');
     $groups = $xoopsUser->getGroups();
-    if (!$gperm_handler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
         exit();
     }
@@ -53,9 +53,9 @@ if ($xoopsUser->getVar('uid') != $article->uid()) {
 $op = isset($_POST['op']) ? $_POST['op'] : 'default';
 $myts = MyTextSanitizer::getInstance();
 
-$xoopsConfigSearch = $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
+$xoopsConfigSearch = $configHandler->getConfigsByCat(XOOPS_CONF_SEARCH);
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
-$xoopsOption['template_main'] = 'ams_searchform.html';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_searchform.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
 
 $username = (isset($_POST['username']) && '' != $_POST['username']) ? $_POST['username'] : '';
@@ -88,16 +88,16 @@ switch ($op) {
         }
         $queries = array($myts->addSlashes($query));
     }
-    $module_handler = xoops_getHandler('module');
+    $moduleHandler = xoops_getHandler('module');
     if ('' != $username) {
-        $member_handler = xoops_getHandler('member');
+        $memberHandler = xoops_getHandler('member');
         $criteria = new Criteria('uname', '%'.$username.'%', 'LIKE');
-        $users = $member_handler->getUserList($criteria);
+        $users = $memberHandler->getUserList($criteria);
     } else {
         $users = 0;
     }
     foreach ($_POST['mids'] as $mid) {
-        $thismodule = $module_handler->get($mid);
+        $thismodule = $moduleHandler->get($mid);
         if (0 == $users) {
             $thisresult = $thismodule->search($queries, $andor, 10, 0, 0, $article->storyid());
             if (count($thisresult) > 0) {
@@ -190,7 +190,7 @@ switch ($op) {
     break;
 }
 $existing_links = $article->getLinks();
-include 'include/searchform.php';
+include __DIR__ . '/include/searchform.php';
 $search_form->assign($xoopsTpl);
 if (count($existing_links)>0) {
     $xoopsTpl->assign('related', $existing_links);

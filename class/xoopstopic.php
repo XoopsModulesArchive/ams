@@ -134,7 +134,7 @@ class AmsXoopsTopic
         if (!$result = $this->db->query($sql)) {
             ErrorHandler::show('0022');
         }
-        if (true == $this->use_permission) {
+        if (true === $this->use_permission) {
             if (empty($this->topic_id)) {
                 $this->topic_id = $this->db->getInsertId();
             }
@@ -151,7 +151,7 @@ class AmsXoopsTopic
                             continue;
                         }
                     }
-                    if (true == $add) {
+                    if (true === $add) {
                         $xp = new XoopsPerms();
                         $xp->setModuleId($this->mid);
                         $xp->setName('ModInTopic');
@@ -171,7 +171,7 @@ class AmsXoopsTopic
                             continue;
                         }
                     }
-                    if (true == $add) {
+                    if (true === $add) {
                         $xp = new XoopsPerms();
                         $xp->setModuleId($this->mid);
                         $xp->setName('SubmitInTopic');
@@ -191,7 +191,7 @@ class AmsXoopsTopic
                             continue;
                         }
                     }
-                    if (true == $add) {
+                    if (true === $add) {
                         $xp = new XoopsPerms();
                         $xp->setModuleId($this->mid);
                         $xp->setName('ReadInTopic');

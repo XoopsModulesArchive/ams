@@ -436,9 +436,9 @@ if (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php')) {
         include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
     }
     include_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
-    //$editor_handler = XoopsEditorHandler::getInstance();
-    $editor_handler = new XoopsEditorHandler;
-    $editor_list    = array_flip($editor_handler->getList());
+    //$editorHandler = XoopsEditorHandler::getInstance();
+    $editorHandler = new XoopsEditorHandler;
+    $editor_list    = array_flip($editorHandler->getList());
 } else {
     $editor_list = array('_AMS_MI_EDITOR_DEFAULT' => 'textarea', '_AMS_MI_EDITOR_DHTML' => 'dhtmlext');
 }

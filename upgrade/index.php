@@ -1,8 +1,8 @@
 <?php
-include '../../../include/cp_header.php';
-include_once 'class/class.newsstory.php';
-include_once 'class/class.newstopic.php';
-include_once 'class/newsupgrade.php';
+include __DIR__ . '/../../../include/cp_header.php';
+include_once __DIR__ . '/class/class.newsstory.php';
+include_once __DIR__ . '/class/class.newstopic.php';
+include_once __DIR__ . '/class/newsupgrade.php';
 xoops_cp_header();
 set_magic_quotes_runtime(1);
 if (isset($_POST['submit'])) {
@@ -32,8 +32,8 @@ if (isset($_POST['submit'])) {
         }
         if (0 == $error) {
             // Import attachments if News version 1.2
-            $mod_handler = xoops_getHandler('module');
-            $newsModule = $mod_handler->getByDirname('news');
+            $moduleHandler = xoops_getHandler('module');
+            $newsModule = $moduleHandler->getByDirname('news');
             if (is_object($newsModule) && $newsModule->getVar('version') > 110) {
                 if (!OldNewsStory::importFiles()) {
                     echo 'Error: Attachments NOT imported <br />';
@@ -54,8 +54,8 @@ if (isset($_POST['submit'])) {
         break;
 
         case 'Permissions':
-        $mod_handler = xoops_getHandler('module');
-        $newsModule = $mod_handler->getByDirname('news');
+        $moduleHandler = xoops_getHandler('module');
+        $newsModule = $moduleHandler->getByDirname('news');
         if ($newsModule->getVar('version') > 110) {
             if (OldNewsTopic::copyPermissions($newsModule->getVar('mid'))) {
                 echo 'Permissions Copied <br />';
@@ -89,8 +89,8 @@ if (!isset($_POST['submit'])) {
     $upgrade_form->addElement(new XoopsFormButton('Articles and Topics ARE Imported Earlier, Proceed to Next Step', 'submit', 'Proceed', 'submit'));
 } else {
     $upgrade_form->addElement(new XoopsFormButton('MOVE Comments From News Articles to AMS Articles', 'submit', 'Comments', 'submit'));
-    $mod_handler = xoops_getHandler('module');
-    $newsModule = $mod_handler->getByDirname('news');
+    $moduleHandler = xoops_getHandler('module');
+    $newsModule = $moduleHandler->getByDirname('news');
     if (is_object($newsModule) && $newsModule->getVar('version') > 110) {
         $upgrade_form->addElement(new XoopsFormButton('Copy Permissions From News to AMS', 'submit', 'Permissions', 'submit'));
     }

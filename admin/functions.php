@@ -9,9 +9,9 @@ function adminmenu($currentoption=0, $breadcrumb = '')
         ;
     }
     if (file_exists(XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/language/'.$xoopsConfig['language'].'/modinfo.php')) {
-        include_once '../language/'.$xoopsConfig['language'].'/modinfo.php';
+        include_once __DIR__ . '/../language/'.$xoopsConfig['language'].'/modinfo.php';
     } else {
-        include_once '../language/english/modinfo.php';
+        include_once __DIR__ . '/../language/english/modinfo.php';
     }
 
     /* Nice buttons styles */

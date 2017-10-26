@@ -42,7 +42,7 @@ include_once XOOPS_ROOT_PATH . '/class/tree.php';
 
 
 //Added AMS 2.50. Enable user selection Editor. Modify at AMS 3.0 to correctly detect XOOPS 2.3.x scheme
-if (true == $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php'))) {
+if (true === $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php'))) {
     if (isset($_REQUEST['seditor'])) {
         $editor= $_REQUEST['seditor'];
     } elseif (isset($_REQUEST['editor'])) {
@@ -137,8 +137,8 @@ if ($approveprivilege) {
     //Publish in home?
     //TODO: Check that pubinhome is 0 = no and 1 = yes (currently vice versa)
     $sform->addElement(new XoopsFormRadioYN(_AMS_AM_PUBINHOME, 'ihome', $story->ihome(), _NO, _YES));
-    $audience_handler = xoops_getModuleHandler('audience', 'AMS');
-    $audiences = $audience_handler->getAllAudiences();
+    $audienceHandler = xoops_getModuleHandler('audience', 'AMS');
+    $audiences = $audienceHandler->getAllAudiences();
     $audience_select = new XoopsFormSelect(_AMS_NW_AUDIENCE, 'audience', $story->audienceid);
     if (is_array($audiences) && count($audiences) > 0) {
         foreach ($audiences as $aid => $audience) {
@@ -151,12 +151,12 @@ if ($approveprivilege) {
 $myts = MyTextSanitizer::getInstance();
 /*
 if(file_exists(XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php"))
-include_once ''.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php";
-else include_once ''.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/english.php";
+include_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php";
+else include_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/english.php";
 */
 
 //Only enable editor selection if Framework is enabled
-if (1 == $wysiwyg_is_exist && true == $xoopsModuleConfig['editor_userchoice']) {
+if (1 == $wysiwyg_is_exist && true === $xoopsModuleConfig['editor_userchoice']) {
     $sform->addElement(new XoopsFormSelectEditor($sform, 'seditor', $editor, $story->nohtml(), $editor_select));
 }
 

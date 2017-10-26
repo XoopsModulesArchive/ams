@@ -27,7 +27,7 @@
 function ams_notify_iteminfo($category, $item_id)
 {
     //Ain't working on Windows
-    //$pathparts = explode("/", dirname(__FILE__));
+    //$pathparts = explode("/", __DIR__);
     //$moduleDirName = $pathparts[array_search('modules', $pathparts)+1];
 
     $moduleDirName = 'AMS';

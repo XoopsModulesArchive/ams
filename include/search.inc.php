@@ -34,7 +34,7 @@ function ams_search($queryarray, $andor, $limit, $offset, $userid, $storyid = fa
     if (0 != $userid) {
         $sql .= ' AND uid=' . $userid . ' ';
     }
-    if (false != $storyid) {
+    if (false !== $storyid) {
         $sql .= ' AND n.storyid != ' . (int)$storyid;
     }
     // because count() returns 1 even if a supplied variable

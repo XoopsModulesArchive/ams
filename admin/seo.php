@@ -29,8 +29,8 @@ include_once XOOPS_ROOT_PATH . '/modules/AMS/include/functions.inc.php';
 
 global $xoopsModule;
 if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
-    $mod_handler = xoops_getHandler('module');
-    $amsModule = $mod_handler->getByDirname('AMS');
+    $moduleHandler = xoops_getHandler('module');
+    $amsModule = $moduleHandler->getByDirname('AMS');
 } else {
     $amsModule = $xoopsModule;
 }
@@ -39,7 +39,7 @@ $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('seo.php');
 
 //load AMS SEO class
-$SEO_handler = xoops_getModuleHandler('seo', 'AMS');
+$SEOHandler = xoops_getModuleHandler('seo', 'AMS');
 
 //if process form submitted
 if (isset($_POST['submit'])) {
@@ -49,11 +49,11 @@ if (isset($_POST['submit'])) {
     $SEO_URL_Template='[XOOPS_URL]/'.$myts->htmlSpecialChars($_POST['urltemplate']);
 
     //Save setting into cache
-    $thisSEO= $SEO_handler->save_setting(array('friendlyurl_enable'=>$SEO_is_Enable,'urltemplate'=>$SEO_URL_Template));
+    $thisSEO= $SEOHandler->save_setting(array('friendlyurl_enable'=>$SEO_is_Enable,'urltemplate'=>$SEO_URL_Template));
 } else { //just print form. Don't process anything
 }
 //load AMS SEO setting from cache
-$thisSEO= $SEO_handler->read_setting();
+$thisSEO= $SEOHandler->read_setting();
 
 $pattern = "/\[XOOPS_URL\]\//";
 $rep_pat = '';

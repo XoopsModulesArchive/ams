@@ -24,7 +24,7 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include_once '../../mainfile.php';
+include_once __DIR__ . '/../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.sfiles.php';
 include_once XOOPS_ROOT_PATH.'/class/uploader.php';
@@ -32,19 +32,19 @@ include_once XOOPS_ROOT_PATH.'/class/uploader.php';
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0;
 include_once XOOPS_ROOT_PATH.'/header.php';
 if (file_exists(XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/language/'.$xoopsConfig['language'].'/admin.php')) {
-    include_once 'language/'.$xoopsConfig['language'].'/admin.php';
+    include_once __DIR__ . '/language/'.$xoopsConfig['language'].'/admin.php';
 } else {
-    include_once 'language/english/admin.php';
+    include_once __DIR__ . '/language/english/admin.php';
 }
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/include/functions.inc.php';
 $module_id = $xoopsModule->getVar('mid');
 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-$gperm_handler = xoops_getHandler('groupperm');
+$gpermHandler = xoops_getHandler('groupperm');
 $perm_itemid = isset($_POST['topic_id']) ? (int)$_POST['topic_id'] : 0;
 
 //If no access
-if (!$gperm_handler->checkRight('ams_submit', $perm_itemid, $groups, $module_id)) {
+if (!$gpermHandler->checkRight('ams_submit', $perm_itemid, $groups, $module_id)) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
 }
 
@@ -53,7 +53,7 @@ $myts = MyTextSanitizer::getInstance();
 
 //If approve privileges
 $approveprivilege = 0;
-if ($xoopsUser && $gperm_handler->checkRight('ams_approve', $perm_itemid, $groups, $module_id)) {
+if ($xoopsUser && $gpermHandler->checkRight('ams_approve', $perm_itemid, $groups, $module_id)) {
     $approveprivilege = 1;
 }
 
@@ -118,7 +118,7 @@ switch ($op) {
             exit();
         } else {
 
-            //include_once '../../include/cp_header.php';
+            //include_once __DIR__ . '/../../include/cp_header.php';
             //xoops_cp_header();
             echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
             xoops_confirm(array( 'op' => 'delete', 'storyid' => $_REQUEST['storyid'], 'ok' => 1 ), 'submit.php', _AMS_AM_RUSUREDEL);
@@ -147,7 +147,7 @@ switch ($op) {
         $type = $story -> type();
         $story->uname();
         $author = $story->uname;
-        include 'include/storyform.inc.php';
+        include __DIR__ . '/include/storyform.inc.php';
         echo '</td></tr></table>';
         break;
 
@@ -227,7 +227,7 @@ case 'preview':
     $author = $story->uname;
 
     //Display post edit form
-    include 'include/storyform.inc.php';
+    include __DIR__ . '/include/storyform.inc.php';
     break;
 
 case 'post':
@@ -336,20 +336,20 @@ case 'post':
 
     if ($result) {
         // Notification
-        $notification_handler = xoops_getHandler('notification');
+        $notificationHandler = xoops_getHandler('notification');
         $tags = array();
         $tags['STORY_NAME'] = $story->title();
         $tags['STORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/article.php?storyid=' . $story->storyid();
         if (1 == $approve && 0 == $oldapprove && $story->published <= time()) {
-            $notification_handler->triggerEvent('global', 0, 'new_story', $tags);
+            $notificationHandler->triggerEvent('global', 0, 'new_story', $tags);
         } elseif (1 != $approve) {
             $tags['WAITINGSTORIES_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?op=edit&amp;storyid='.$story->storyid();
-            $notification_handler->triggerEvent('global', 0, 'story_submit', $tags);
+            $notificationHandler->triggerEvent('global', 0, 'story_submit', $tags);
 
             // If notify checkbox is set, add subscription for approve
             if ($notifypub) {
                 include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
-                $notification_handler->subscribe('story', $story->storyid(), 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
+                $notificationHandler->subscribe('story', $story->storyid(), 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
             }
         }
 
@@ -396,8 +396,8 @@ case 'post':
             }
         }
     } else {
-        if (true == $story->versionConflict) {
-            include 'include/versionconflict.inc.php';
+        if (true === $story->versionConflict) {
+            include __DIR__ . '/include/versionconflict.inc.php';
             break;
         } else {
             $message = $story->renderErrors();
@@ -506,7 +506,7 @@ case 'post':
         }
         $banner = '';
         $edit = false;
-        include 'include/storyform.inc.php';
+        include __DIR__ . '/include/storyform.inc.php';
         break;
 }
 include XOOPS_ROOT_PATH.'/footer.php';

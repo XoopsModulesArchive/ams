@@ -23,7 +23,7 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 
 $storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
 if (empty($storyid)) {
@@ -37,15 +37,15 @@ function PrintPage($storyid)
     $myts = MyTextSanitizer::getInstance();
     $story = new AmsStory($storyid);
     $datetime = formatTimestamp($story->published());
-    $gperm_handler = xoops_getHandler('groupperm');
+    $gpermHandler = xoops_getHandler('groupperm');
     if (is_object($xoopsUser)) {
         $groups = $xoopsUser->getGroups();
     } else {
         $groups = XOOPS_GROUP_ANONYMOUS;
     }
-    if (!$gperm_handler->checkRight('ams_view', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-        if (!$gperm_handler->checkRight('ams_submit', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-            if (!$gperm_handler->checkRight('ams_approve', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gpermHandler->checkRight('ams_view', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+        if (!$gpermHandler->checkRight('ams_submit', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+            if (!$gpermHandler->checkRight('ams_approve', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
                 redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
                 exit();
             }

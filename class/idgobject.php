@@ -194,7 +194,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     public function getList($criteria = null, $limit = 0, $start = 0)
     {
         if ($limit > 0 || $start > 0) {
-            if (null == $criteria) {
+            if (null === $criteria) {
                 $criteria = new Criteria($this->keyName, -1, '!=');
             }
             $criteria->setLimit($limit);
@@ -231,7 +231,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          if (!$result) {
              return 0;
          }
-         if (false == $groupby) {
+         if (false === $groupby) {
              list($count) = $this->db->fetchRow($result);
              return $count;
          } else {
@@ -255,7 +255,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $force = false;
 
          $sql = sprintf('DELETE FROM %s WHERE %s = %u', $this->table, $this->keyName, $obj->getVar($this->keyName));
-         if (false != $force) {
+         if (false !== $force) {
              $result = $this->db->queryF($sql);
          } else {
              $result = $this->db->query($sql);
@@ -280,7 +280,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          $force = false;
          $checkObject = true;
 
-         if (false != $checkObject) {
+         if (false !== $checkObject) {
              /**
         * @TODO: Change to if (!(class_exists($this->className) && $obj instanceof $this->className)) when going fully PHP5
         */
@@ -326,7 +326,7 @@ class IdgObjectHandler extends XoopsObjectHandler
              $sql .= ' WHERE ' . $this->keyName . ' = ' . $obj->getVar($this->keyName);
          }
         //echo "<script type=\"text/javascript\">alert(\"$sql\");</script>";
-        if (false != $force) {
+        if (false !== $force) {
             $result = $this->db->queryF($sql);
         } else {
             $result = $this->db->query($sql);
@@ -356,7 +356,7 @@ class IdgObjectHandler extends XoopsObjectHandler
          if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
              $sql .= ' '.$criteria->renderWhere();
          }
-         if (false != $force) {
+         if (false !== $force) {
              $result = $this->db->queryF($sql);
          } else {
              $result = $this->db->query($sql);

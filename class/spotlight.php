@@ -211,8 +211,8 @@ class AmsSpotlightHandler extends IdgObjectHandler
             }
             $spotarticles[] = $article;
         }
-        $member_handler = xoops_getHandler('member');
-        $users = $member_handler->getUsers(new Criteria('uid', '(' . implode(',', array_unique($uids)) . ')', 'IN'), true);
+        $memberHandler = xoops_getHandler('member');
+        $users = $memberHandler->getUsers(new Criteria('uid', '(' . implode(',', array_unique($uids)) . ')', 'IN'), true);
         foreach (array_keys($spotarticles) as $i) {
             $article = $spotarticles[$i];
             $image = $spots[$i]->getImage($article);

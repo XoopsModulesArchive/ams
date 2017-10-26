@@ -81,8 +81,8 @@ function AMS_updateCache()
 {
     global $xoopsModule;
     if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
-        $mod_handler = xoops_getHandler('module');
-        $amsModule = $mod_handler->getByDirname('AMS');
+        $moduleHandler = xoops_getHandler('module');
+        $amsModule = $moduleHandler->getByDirname('AMS');
     } else {
         $amsModule = $xoopsModule;
     }
@@ -92,8 +92,8 @@ function AMS_updateCache()
         include_once XOOPS_ROOT_PATH.'/class/xoopsblock.php';
     }
     include_once XOOPS_ROOT_PATH.'/class/template.php';
-    $tplfile_handler = xoops_getHandler('tplfile');
-    $tpllist = $tplfile_handler->find(null, null, null, $folder);
+    $tplfileHandler = xoops_getHandler('tplfile');
+    $tpllist = $tplfileHandler->find(null, null, null, $folder);
     $xoopsTpl = new XoopsTpl();
     xoops_template_clear_module_cache($amsModule->getVar('mid'));            // Clear module's blocks cache
 
@@ -305,7 +305,7 @@ function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
 {
     $urltemplate=AMS_SEO_friendlyURLIsEnable();
 
-    if (!(false == $urltemplate)) { //if friendly url is enabled
+    if (!(false === $urltemplate)) { //if friendly url is enabled
          //remove prefix slash
         $pattern = "/^\//";
         $rep_pat = '';
@@ -330,8 +330,8 @@ function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
 
 function AMS_SEO_friendlyURLIsEnable()
 {
-    $SEO_handler = xoops_getModuleHandler('seo', 'AMS');
-    $thisSEO= $SEO_handler->read_setting();
+    $SEOHandler = xoops_getModuleHandler('seo', 'AMS');
+    $thisSEO= $SEOHandler->read_setting();
     if (1 == (int)$thisSEO['friendlyurl_enable']) {
         return $thisSEO['urltemplate'];
     } else {
@@ -353,11 +353,11 @@ function ams_getmoduleoption($option, $repmodule='AMS')
             $retval= $xoopsModuleConfig[$option];
         }
     } else {
-        $module_handler = xoops_getHandler('module');
-        $module = $module_handler->getByDirname($repmodule);
-        $config_handler = xoops_getHandler('config');
+        $moduleHandler = xoops_getHandler('module');
+        $module = $moduleHandler->getByDirname($repmodule);
+        $configHandler = xoops_getHandler('config');
         if ($module) {
-            $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+            $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
             if (isset($moduleConfig[$option])) {
                 $retval= $moduleConfig[$option];
             }

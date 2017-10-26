@@ -1,7 +1,7 @@
 <?php
-include '../../mainfile.php';
-include_once 'class/class.sfiles.php';
-include_once 'class/class.newsstory.php';
+include __DIR__ . '/../../mainfile.php';
+include_once __DIR__ . '/class/class.sfiles.php';
+include_once __DIR__ . '/class/class.newsstory.php';
 
 $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $fileid = isset($_GET['fileid']) ? (int)$_GET['fileid'] : 0;
@@ -27,13 +27,13 @@ if ( $article->expired() != 0 && $article->expired() < time() ) {
     exit();
 }
 */
-$gperm_handler = xoops_getHandler('groupperm');
+$gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-if (!$gperm_handler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
+if (!$gpermHandler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
     exit();
 }

@@ -4,7 +4,7 @@
  * Author: Sudhaker Raj <http://xoops.biz>, NovaSmart Technology
  * Licence: GNU
  */
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 //$seoOp = $_GET['seoOp'];
 //$seoArg = $_GET['seoArg'];
 

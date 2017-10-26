@@ -1,5 +1,5 @@
 <?php
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 if (empty($_POST['submit'])) {
     $_POST['submit'] = '';
@@ -20,9 +20,9 @@ if ('' != $_POST['submit'] && $storyid > 0) {
     redirect_header(XOOPS_URL . '/modules/AMS/article.php?storyid=' . $article->storyid(), 3, $ratemessage);
     exit();
 } else {
-    $xoopsOption['template_main'] = 'ams_ratearticle.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_ratearticle.html';
     include XOOPS_ROOT_PATH . '/header.php';
-    include 'include/ratingform.inc.php';
+    include __DIR__ . '/include/ratingform.inc.php';
 }
 $xoopsTpl->assign('breadcrumb', $article->getPath(true) . ' > ' . _AMS_NW_RATE);
-include '../../footer.php';
+include __DIR__ . '/../../footer.php';

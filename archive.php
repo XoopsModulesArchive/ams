@@ -28,8 +28,8 @@
 # [11-may-2001] Kenneth Lee - http://www.nexgear.com/
 ######################################################################
 
-include '../../mainfile.php';
-$xoopsOption['template_main'] = 'ams_archive.html';
+include __DIR__ . '/../../mainfile.php';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_archive.html';
 include XOOPS_ROOT_PATH.'/header.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
 include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php';

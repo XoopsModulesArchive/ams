@@ -126,19 +126,19 @@ class AmsTopic extends AmsXoopsTopic
         static $topics_arr = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $table = $db->prefix('ams_topics');
-        if ((!isset($topics_arr['checked']) && false != $checkRight) || (!isset($topics_arr['unchecked']) && false == $checkRight)) {
+        if ((!isset($topics_arr['checked']) && false !== $checkRight) || (!isset($topics_arr['unchecked']) && false === $checkRight)) {
             $sql = 'SELECT * FROM ' . $table;
-            if (false != $checkRight) {
+            if (false !== $checkRight) {
                 global $xoopsUser, $xoopsModule;
                 if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
-                    $module_handler = xoops_getHandler('module');
-                    $newsModule = $module_handler->getByDirname('AMS');
+                    $moduleHandler = xoops_getHandler('module');
+                    $newsModule = $moduleHandler->getByDirname('AMS');
                 } else {
                     $newsModule = $xoopsModule;
                 }
                 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-                $gperm_handler = xoops_getHandler('groupperm');
-                $topics = $gperm_handler->getItemIds($permission, $groups, $newsModule->getVar('mid'));
+                $gpermHandler = xoops_getHandler('groupperm');
+                $topics = $gpermHandler->getItemIds($permission, $groups, $newsModule->getVar('mid'));
                 if (0 == count($topics)) {
                     return array();
                 }
@@ -168,12 +168,12 @@ class AmsTopic extends AmsXoopsTopic
         if (0 == count($authors)) {
             $sql = 'SELECT DISTINCT u.uid, u.uname, u.name FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('ams_text') . ' t
                 WHERE u.uid = t.uid';
-            if (false != $byName) {
+            if (false !== $byName) {
                 $sql .= ' ORDER BY uname ASC';
             }
             $result = $db->query($sql);
             while ($array = $db->fetchArray($result)) {
-                if (false != $byName) {
+                if (false !== $byName) {
                     $authors[] = $array;
                 } else {
                     $authors[$array['uid']] = $array;

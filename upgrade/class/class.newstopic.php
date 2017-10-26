@@ -47,11 +47,11 @@ class OldNewsTopic
     public function copyPermissions($mid)
     {
         $criteria = new Criteria('gperm_modid', (int)$mid);
-        $gperm_handler = xoops_getHandler('groupperm');
-        $gperm_items = $gperm_handler->getObjects($criteria);
+        $gpermHandler = xoops_getHandler('groupperm');
+        $gperm_items = $gpermHandler->getObjects($criteria);
 
-        $mod_handler = xoops_getHandler('module');
-        $amsModule = $mod_handler->getByDirname('AMS');
+        $moduleHandler = xoops_getHandler('module');
+        $amsModule = $moduleHandler->getByDirname('AMS');
         $amsmid = $amsModule->getVar('mid');
         foreach (array_keys($gperm_items) as $i) {
             $gperm_items[$i]->setNew();
@@ -67,7 +67,7 @@ class OldNewsTopic
                    $gperm_items[$i]->setVar('gperm_name', 'ams_view');
                    break;
             }
-            if (!$gperm_handler->insert($gperm_items[$i])) {
+            if (!$gpermHandler->insert($gperm_items[$i])) {
                 return false;
             }
         }

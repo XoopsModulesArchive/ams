@@ -85,12 +85,12 @@ class AMSLinkHandler extends IdgObjectHandler
     {
         global $xoopsModule;
         $ret = array();
-        $module_handler = xoops_getHandler('module');
+        $moduleHandler = xoops_getHandler('module');
         $link = 'article.php?storyid=' . (int)$storyid;
         $myts = MyTextSanitizer::getInstance();
 
         if ('AMS' !== $xoopsModule->getVar('dirname')) {
-            $newsmodule = $module_handler->getByDirname('AMS');
+            $newsmodule = $moduleHandler->getByDirname('AMS');
         } else {
             $newsmodule = $xoopsModule;
         }
@@ -123,7 +123,7 @@ class AMSLinkHandler extends IdgObjectHandler
         }
         if (isset($moduleids)) {
             $moduleids = '(' . implode(',', array_keys($moduleids)) . ')';
-            $modules = $module_handler->getList(new Criteria('mid', $moduleids, 'IN'));
+            $modules = $moduleHandler->getList(new Criteria('mid', $moduleids, 'IN'));
         }
         $modules[$newsmodule->getVar('mid')] = $newsmodule->getVar('name');
         foreach ($ret as $position => $links) {

@@ -19,7 +19,7 @@
  * @author          Kazumi Ono <onokazu@xoops.org>
  * @version         $Id$
  */
-include 'mainfile.php';
+include __DIR__ . '/mainfile.php';
 
 $GLOBALS['xoopsLogger']->activated = false;
 if (function_exists('mb_http_output')) {

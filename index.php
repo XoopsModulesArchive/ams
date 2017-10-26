@@ -26,7 +26,7 @@ use Xmf\Module\Helper;
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 
@@ -63,9 +63,9 @@ $myts = MyTextSanitizer::getInstance();
 $pagetitle = $myts->htmlSpecialChars($xoopsModule->name());
 $column_count = $xoopsModuleConfig['columnmode'];
 if ($showclassic) {
-    $xoopsOption['template_main'] = 'ams_index.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_index.html';
 } else {
-    $xoopsOption['template_main'] = 'ams_by_topic.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_by_topic.html';
 }
 include XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('columnwidth', (int)(1 / $column_count * 100));
@@ -113,8 +113,8 @@ if ($showclassic) {
         foreach ($sarray as $storyid => $thisstory) {
             $uids[$thisstory->uid()] = $thisstory->uid();
         }
-        $member_handler = xoops_getHandler('member');
-        $user_arr = $member_handler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
+        $memberHandler = xoops_getHandler('member');
+        $user_arr = $memberHandler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($sarray as $storyid => $thisstory) {
             $stories[] = $thisstory->toArray(false, false, 0, $user_arr);
         }
@@ -165,8 +165,8 @@ if ($showclassic) {
         }
     }
     if (count($uids) > 0) {
-        $member_handler = xoops_getHandler('member');
-        $user_arr = $member_handler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
+        $memberHandler = xoops_getHandler('member');
+        $user_arr = $memberHandler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($alltopics as $topicid => $topic) {
             $topicstories = array();
             foreach ($allstories[$topicid] as $thisstory) {

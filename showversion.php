@@ -24,7 +24,7 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include '../../mainfile.php';
+include __DIR__ . '/../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
 include_once XOOPS_ROOT_PATH . '/class/template.php';
 $xoopsOption['theme_use_smarty'] = 1;
@@ -50,19 +50,19 @@ $myts = MyTextSanitizer::getInstance();
 
 $article = new AmsStory();
 $article->getNewsVersion($storyid, $version, $revision, $revisionminor);
-$gperm_handler = xoops_getHandler('groupperm');
+$gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-if (!$gperm_handler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
     exit();
 }
 
 
-$xoopsOption['template_main'] = 'ams_article.html';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_article.html';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray(true, false, -1));
 $banner = $myts->displayTarea($article->getBanner(), 1);
