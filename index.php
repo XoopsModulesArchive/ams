@@ -2,7 +2,6 @@
 
 use Xmf\Module\Helper;
 
-// $Id: index.php,v 1.15 2004/05/25 10:53:08 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

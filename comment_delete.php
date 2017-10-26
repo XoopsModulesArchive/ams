@@ -1,5 +1,4 @@
 <?php
-// $Id: comment_delete.php,v 1.2 2004/01/29 17:15:54 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

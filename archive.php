@@ -1,5 +1,4 @@
 <?php
-// $Id: archive.php,v 1.4 2004/04/11 15:05:17 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

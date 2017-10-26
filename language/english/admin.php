@@ -1,5 +1,4 @@
 <?php
-// $Id: admin.php,v 1.18 2004/07/26 17:51:25 hthouzard Exp $
 //%%%%%%	Admin Module Name  Articles 	%%%%%
 define("_AMS_AM_DBUPDATED", "Database Updated Successfully!");
 define("_AMS_AM_CONFIG", "AMS Configuration");

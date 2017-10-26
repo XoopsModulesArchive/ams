@@ -1,5 +1,4 @@
 <?php
-// $Id: news_top.php,v 1.13 2004/06/27 08:08:11 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -46,11 +45,11 @@ function b_ams_top_show($options)
             case "rating":
                 $stat = $story->rating;
                 break;
-                
+
             case "counter":
                 $stat = $story->counter();
                 break;
-                
+
             case "published":
                 $stat = formatTimestamp($story->published(), "s");
                 break;
@@ -82,19 +81,19 @@ function b_ams_top_edit($options)
     global $xoopsDB;
     include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
     $form = new XoopsFormElementTray('', '<br/><br />');
-    
+
     $order_select = new XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);
     $order_select->addOption('published', _AMS_MB_NEWS_DATE);
     $order_select->addOption('counter', _AMS_MB_NEWS_HITS);
     $order_select->addOption('rating', _AMS_MB_NEWS_RATING);
     $form->addElement($order_select);
-    
+
     $form->addElement(new XoopsFormText(_AMS_MB_NEWS_DISP." x "._AMS_MB_NEWS_ARTCLS, 'options[1]', 10, 10, $options[1]));
-    
+
     $form->addElement(new XoopsFormText(_AMS_MB_NEWS_CHARS." x "._AMS_MB_NEWS_LENGTH, 'options[2]', 10, 10, $options[2]));
 
     $form->addElement(new XoopsFormText(_AMS_MB_NEWS_TEASER, 'options[3]', 10, 10, $options[3]));
-    
+
     if (!isset($options[4])) {
         $topics = array(0);
     }
@@ -104,14 +103,14 @@ function b_ams_top_edit($options)
     } else {
         $topics = array_slice($options, 4);
     }
-    
+
     $topics_select = new XoopsFormSelect(_AMS_MB_TOPIC, 'options[4]', $topics, 7, true);
-    
+
     include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newstopic.php";
     $xt = new AmsTopic($xoopsDB->prefix("ams_topics"));
     $alltopics = $xt->getAllTopics();
     $topics_select->addOption(0, _AMS_MB_NEWS_ALLTOPICS);
-    
+
     foreach ($alltopics as $topicid => $topic) {
         $topics_select->addOption($topicid, $topic->topic_title());
     }

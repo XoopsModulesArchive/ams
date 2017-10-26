@@ -1,6 +1,5 @@
 <?php
 /*
- * $Id: seo.php 331 2007-12-23 16:01:11Z malanciault $
  * Module: AMS SEO, modified from SmartSection/
  * Author: Sudhaker Raj <http://xoops.biz>, NovaSmart Technology
  * Licence: GNU

@@ -1,5 +1,4 @@
 <?php
-// $Id: searchform.php,v 1.9 2004/06/14 14:22:13 skalpa Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

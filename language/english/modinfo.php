@@ -1,5 +1,4 @@
 <?php
-// $Id: modinfo.php,v 1.16 2004/06/09 09:57:33 mithyt2 Exp $
 // Module Info
 
 // The name of this module

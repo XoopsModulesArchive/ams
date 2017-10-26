@@ -1,5 +1,4 @@
 <?php
-// $Id: print.php,v 1.6 2004/05/25 08:20:00 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

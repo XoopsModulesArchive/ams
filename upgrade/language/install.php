@@ -1,5 +1,4 @@
 <?php
-// $Id: install.php,v 1.8 2003/10/08 10:23:22 okazu Exp $
 define("_INSTALL_L0", "Welcome to the Install Wizard for XOOPS 2.0");
 define("_INSTALL_L70", "Please change the file permission for mainfile.php so that it is writeable by the server (i.e. chmod 777 mainfile.php on a UNIX/LINUX server, or check the properties of the file and make sure the read-only flag is not set on a Windows server ). Reload this page once you have changed the permission setting.");
 //define("_INSTALL_L71","Click on the button below to begin the installation.");

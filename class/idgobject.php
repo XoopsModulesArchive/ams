@@ -1,5 +1,4 @@
 <?php
-// $Id: idgobject.php,v 1.16 2005/02/23 12:27:37 jkp Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

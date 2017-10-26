@@ -32,7 +32,6 @@ include_once XOOPS_ROOT_PATH.'/class/database/sqlutility.php';
 * database manager for XOOPS installer
 *
 * @author Haruki Setoyama  <haruki@planewave.org>
-* @version $Id: dbmanager.php,v 1.11 2003/09/23 18:51:50 okazu Exp $
 * @access public
 **/
 class db_manager
@@ -52,18 +51,18 @@ class db_manager
     {
         return ($this->db->connect(false) != false) ? true : false;
     }
-    
+
     public function dbExists()
     {
         return ($this->db->connect() != false) ? true : false;
     }
-    
+
     public function createDB()
     {
         $this->db->connect(false);
-    
+
         $result = $this->db->query("CREATE DATABASE ".XOOPS_DB_NAME);
-    
+
         return ($result != false) ? true : false;
     }
 

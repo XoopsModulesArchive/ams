@@ -1,5 +1,4 @@
 <?php
-// $Id: news_moderate.php,v 1.5 2004/05/29 16:36:26 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

@@ -1,5 +1,4 @@
 <?php
-// $Id: class.newsstory.php,v 1.18 2004/05/29 16:36:27 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

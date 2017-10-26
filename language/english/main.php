@@ -1,5 +1,4 @@
 <?php
-// $Id: main.php,v 1.3 2004/04/10 16:04:12 hthouzard Exp $
 //%%%%%%		File Name index.php 		%%%%%
 define("_AMS_NW_PRINTER", "Printer Friendly Page");
 define("_AMS_NW_SENDSTORY", "Send this Article to a Friend");

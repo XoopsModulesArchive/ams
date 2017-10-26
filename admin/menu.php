@@ -1,5 +1,4 @@
 <?php
-// $Id: menu.php,v 1.3 2004/02/28 01:35:23 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

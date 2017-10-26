@@ -1,5 +1,4 @@
 <?php
-// $Id: functions.inc.php,v 1.00 2008/08/09 15:10:18 NovaSmart Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

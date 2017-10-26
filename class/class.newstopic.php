@@ -1,5 +1,4 @@
 <?php
-// $Id: class.newstopic.php,v 1.5 2004/07/26 17:51:25 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

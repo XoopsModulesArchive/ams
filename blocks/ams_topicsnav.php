@@ -1,5 +1,4 @@
 <?php
-// $Id: news_topicsnav.php,v 1.3 2004/05/25 08:19:59 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -43,6 +42,6 @@ function b_ams_topicsnav_edit($options)
     $form = new XoopsFormElementTray('', '<br/>');
     $restrict_select = new XoopsFormRadioYN(_AMS_MB_NEWS_RESTRICTTOPICS, 'options[0]', $options[0]);
     $form->addElement($restrict_select);
-    
+
     return $form->render();
 }

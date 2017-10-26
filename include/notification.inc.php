@@ -1,5 +1,4 @@
 <?php
-// $Id: notification.inc.php,v 1.3 2004/05/09 12:56:07 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -30,7 +29,7 @@ function ams_notify_iteminfo($category, $item_id)
     //Ain't working on Windows
     //$pathparts = explode("/", dirname(__FILE__));
     //$moduleDirName = $pathparts[array_search('modules', $pathparts)+1];
-    
+
     $moduleDirName = "AMS";
     if ($category=='global') {
         $item['name'] = '';

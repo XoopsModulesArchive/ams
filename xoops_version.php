@@ -1,5 +1,4 @@
 <?php
-// $Id: xoops_version.php,v 1.22 2004/05/29 15:10:18 mithyt2 Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

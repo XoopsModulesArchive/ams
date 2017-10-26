@@ -1,5 +1,4 @@
 <?php
-// $Id: article.php,v 1.6 2004/04/25 15:26:56 hthouzard Exp $
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
