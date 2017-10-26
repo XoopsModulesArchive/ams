@@ -25,7 +25,7 @@
 //  ------------------------------------------------------------------------ //
 include '../../mainfile.php';
 
-$lid = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
+$lid = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
 $rev = isset($_GET['rev']) ? true : false;
 
 $linkHandler = xoops_getModuleHandler('link', 'AMS');

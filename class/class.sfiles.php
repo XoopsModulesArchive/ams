@@ -217,8 +217,8 @@ class sFiles
         $downloadname = $myts->addSlashes($this->downloadname);
         $date = time();
         $mimetype = $myts->addSlashes($this->mimetype);
-        $counter = intval($this->counter);
-        $storyid = intval($this->storyid);
+        $counter = (int)$this->counter;
+        $storyid = (int)$this->storyid;
 
         if (!isset($this->fileid)) {
             $newid = $this->db->genId($this->table . '_fileid_seq');

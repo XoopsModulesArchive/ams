@@ -49,7 +49,7 @@ class Link extends XoopsObject
 
     public function get($id)
     {
-        $sql = 'SELECT * FROM ' . $this->table . ' WHERE linkid = ' . intval($id) . ' LIMIT 1';
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE linkid = ' . (int)$id . ' LIMIT 1';
         $result = $this->db->query($sql);
         $row = $this->db->fetchArray($result);
         $this->assignVars($row);
@@ -62,7 +62,7 @@ class Link extends XoopsObject
     */
     public function increment()
     {
-        $sql = 'UPDATE ' . $this->table . ' SET link_counter=link_counter+1 WHERE linkid=' . intval($this->getVar('linkid'));
+        $sql = 'UPDATE ' . $this->table . ' SET link_counter=link_counter+1 WHERE linkid=' . (int)$this->getVar('linkid');
         return $this->db->queryF($sql);
     }
 }
@@ -86,7 +86,7 @@ class AMSLinkHandler extends IdgObjectHandler
         global $xoopsModule;
         $ret = array();
         $module_handler = xoops_getHandler('module');
-        $link = 'article.php?storyid=' . intval($storyid);
+        $link = 'article.php?storyid=' . (int)$storyid;
         $myts = MyTextSanitizer::getInstance();
 
         if ("AMS" != $xoopsModule->getVar('dirname')) {
@@ -97,7 +97,7 @@ class AMSLinkHandler extends IdgObjectHandler
         $sql = 'SELECT n.title, n.storyid, l.* FROM '
                . $this->table . ' l, '
                . $this->db->prefix('ams_article') . " n WHERE n.storyid=l.storyid AND ((link_link='$link' AND link_module=" . $newsmodule->mid() . ') OR (l.storyid = '
-               . intval($storyid) . '))';
+               . (int)$storyid . '))';
         $directresult = $this->db->query($sql);
         //$moduleids[$newsmodule->getVar('mid')] = $newsmodule->getVar('mid');
         while ($row = $this->db->fetchArray($directresult)) {

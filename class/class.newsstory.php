@@ -67,7 +67,7 @@ class AmsStory extends AmsXoopsStory
             $this->makeStory($storyid);
             $this->newstopic = $this->topic();
         } elseif ($storyid != -1) {
-            $this->getStory(intval($storyid));
+            $this->getStory((int)$storyid);
             $this->newstopic = $this->topic(true);
             if (false != $getRating) {
                 $this->getRatings();
@@ -178,7 +178,7 @@ class AmsStory extends AmsXoopsStory
                . time() . ')';
         if (0 != $topic) {
             if (!is_array($topic)) {
-                $sql .= ' AND topicid=' . intval($topic) . ' AND (ihome=1 OR ihome=0)';
+                $sql .= ' AND topicid=' . (int)$topic . ' AND (ihome=1 OR ihome=0)';
             } else {
                 $sql .= ' AND topicid IN (' . implode(',', $topic) . ')';
             }
@@ -206,7 +206,7 @@ class AmsStory extends AmsXoopsStory
         }
         $sql .= ' AND t.current=1';
         $sql .= " ORDER BY $order $orderdir";
-        $result = $db->query($sql, intval($limit), intval($start));
+        $result = $db->query($sql, (int)$limit, (int)$start);
         while ($myrow = $db->fetchArray($result)) {
             if ($asobject) {
                 $ret[] = new AmsStory($myrow);
@@ -275,10 +275,10 @@ class AmsStory extends AmsXoopsStory
                . $db->prefix('ams_article') . ' n, '
                . $db->prefix('ams_text') . ' t, '
                . $db->prefix('ams_audience') . ' a WHERE n.storyid=t.storyid AND n.audienceid=a.audienceid AND t.current=1 AND topicid='
-               . intval($topicid) . ' AND published > 0 AND published <= '
+               . (int)$topicid . ' AND published > 0 AND published <= '
                . time() . ' AND (expired = 0 OR expired > '
                . time() . ') ORDER BY published DESC';
-        $result = $db->query($sql, intval($limit), 0);
+        $result = $db->query($sql, (int)$limit, 0);
         while ($myrow = $db->fetchArray($result)) {
             $ret[] = new AmsStory($myrow);
         }
@@ -291,7 +291,7 @@ class AmsStory extends AmsXoopsStory
         $sql = 'SELECT COUNT(*) FROM ' . $db->prefix('ams_article') . '
         WHERE expired >= ' . time() . '';
         if (0 != $topicid) {
-            $sql .= ' AND  topicid=' . intval($topicid);
+            $sql .= ' AND  topicid=' . (int)$topicid;
         }
         $result = $db->query($sql);
         list($count) = $db->fetchRow($result);
@@ -306,7 +306,7 @@ class AmsStory extends AmsXoopsStory
                . time() . ' AND (expired = 0 OR expired > '
                . time() . ')';
         if (!empty($topicid)) {
-            $sql .= ' AND topicid=' . intval($topicid);
+            $sql .= ' AND topicid=' . (int)$topicid;
         } else {
             $sql .= ' AND ihome=0';
             if ($checkRight) {
@@ -337,7 +337,7 @@ class AmsStory extends AmsXoopsStory
                . time() . ' AND (expired = 0 OR expired > '
                . time() . ')';
         if (!empty($topicid)) {
-            $sql .= ' AND topicid=' . intval($topicid);
+            $sql .= ' AND topicid=' . (int)$topicid;
         } else {
             $sql .= ' AND ihome=0';
             if ($checkRight) {
@@ -543,9 +543,9 @@ class AmsStory extends AmsXoopsStory
 
     public function setCurrentVersion($version, $revision, $revisionminor)
     {
-        $version = intval($version);
-        $revision = intval($revision);
-        $revisionminor = intval($revisionminor);
+        $version = (int)$version;
+        $revision = (int)$revision;
+        $revisionminor = (int)$revisionminor;
         $sql = 'UPDATE ' . $this->texttable . ' SET current=0 WHERE storyid=' . $this->storyid;
         if (!$this->db->query($sql)) {
             $this->_errors[] = _AMS_NW_COULDNOTRESET;
@@ -712,7 +712,7 @@ class AmsStory extends AmsXoopsStory
     public function rateStory($rating)
     {
         global $xoopsUser, $xoopsModuleConfig;
-        $rating = intval($rating);
+        $rating = (int)$rating;
         if (empty($this->ratings)) {
             $this->getRatings();
         }
@@ -758,8 +758,8 @@ class AmsStory extends AmsXoopsStory
 
     public function saveRating($rating, $uid, $hostname)
     {
-        $rating = intval($rating);
-        $uid = intval($uid);
+        $rating = (int)$rating;
+        $uid = (int)$uid;
         $sql = 'INSERT INTO '
                . $this->db->prefix('ams_rating') . ' (storyid, ratinguser, rating, ratinghostname, ratingtimestamp) VALUES ('
                . $this->storyid . ", $uid, $rating, " . $this->db->quoteString($hostname) . ', '
@@ -801,7 +801,7 @@ class AmsStory extends AmsXoopsStory
         $linkHandler = xoops_getModuleHandler('link', 'AMS');
         $thisLink = $linkHandler->create();
         $thisLink->setVar('storyid', $this->storyid);
-        $thisLink->setVar('link_module', intval($moduleid));
+        $thisLink->setVar('link_module', (int)$moduleid);
         $thisLink->setVar('link_link', $link);
         $thisLink->setVar('link_title', $title);
         $thisLink->setVar('link_position', $position);
@@ -817,7 +817,7 @@ class AmsStory extends AmsXoopsStory
     {
         $linkHandler = xoops_getModuleHandler('link', 'AMS');
         $link = $linkHandler->create(false);
-        $link->setVar('linkid', intval($linkid));
+        $link->setVar('linkid', (int)$linkid);
         if (!$linkHandler->delete($link)) {
             $this->_errors[] = _AMS_NW_COULDNOTDELLINK;
             return false;
@@ -933,10 +933,10 @@ class AmsStory extends AmsXoopsStory
 
     public function delversions($version, $revision, $minor)
     {
-        $version = intval($version);
-        $revision = intval($revision);
-        $minor = intval($minor);
-        $sql = 'DELETE FROM ' . $this->db->prefix('ams_text') . ' WHERE storyid=' . intval($this->storyid) . "
+        $version = (int)$version;
+        $revision = (int)$revision;
+        $minor = (int)$minor;
+        $sql = 'DELETE FROM ' . $this->db->prefix('ams_text') . ' WHERE storyid=' . (int)$this->storyid . "
                 AND (
                (version < $version) OR 
                (version = $version AND revision < $revision) OR 
@@ -953,7 +953,7 @@ class AmsStory extends AmsXoopsStory
         if (!$this->setCurrentVersion($version, $revision, $minor)) {
             return false;
         }
-        $sql = 'DELETE FROM ' . $this->db->prefix('ams_text') . ' WHERE storyid=' . intval($this->storyid) . ' AND current=0';
+        $sql = 'DELETE FROM ' . $this->db->prefix('ams_text') . ' WHERE storyid=' . (int)$this->storyid . ' AND current=0';
         if ($this->db->query($sql)) {
             return true;
         }
@@ -987,10 +987,10 @@ class AmsStory extends AmsXoopsStory
     {
         $sql = 'SELECT * FROM ' . $this->db->prefix('ams_article') . ' n, ' . $this->db->prefix('ams_text') . ' t
                   WHERE t.storyid=n.storyid 
-                  AND t.storyid=' . intval($storyid) . '
-                  AND t.version=' . intval($version) . '
-                  AND t.revision=' . intval($revision) . '
-                  AND t.revisionminor=' . intval($revisionminor);
+                  AND t.storyid=' . (int)$storyid . '
+                  AND t.version=' . (int)$version . '
+                  AND t.revision=' . (int)$revision . '
+                  AND t.revisionminor=' . (int)$revisionminor;
         $result = $this->db->query($sql);
         $row = $this->db->fetchArray($result);
         $this->makeStory($row);
@@ -1067,7 +1067,7 @@ class AmsStory extends AmsXoopsStory
     */
     public function getAuthors($limit = 5, $sort = 'count', $name = 'uname', $compute_method = 'average')
     {
-        $limit = intval($limit);
+        $limit = (int)$limit;
         if ("uname" != $name) {
             $name = 'name'; //making sure that there is not invalid information in field value
         }

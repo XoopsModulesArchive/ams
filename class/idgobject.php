@@ -100,7 +100,7 @@ class IdgObjectHandler extends XoopsObjectHandler
      */
      public function get($id, $as_object = true)
      {
-         $criteria = new Criteria($this->keyName, intval($id));
+         $criteria = new Criteria($this->keyName, (int)$id);
          $criteria->setLimit(1);
          $obj_array = $this->getObjects($criteria, false, $as_object);
          if (1 != count($obj_array)) {
@@ -298,7 +298,7 @@ class IdgObjectHandler extends XoopsObjectHandler
 
          foreach ($obj->cleanVars as $k => $v) {
              if (XOBJ_DTYPE_INT == $obj->vars[$k]['data_type']) {
-                 $cleanvars[$k] = intval($v);
+                 $cleanvars[$k] = (int)$v;
              } else {
                  $cleanvars[$k] = $this->db->quoteString($v);
              }

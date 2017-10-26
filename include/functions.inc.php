@@ -42,7 +42,7 @@ function AMS_setcookie($name, $string = '', $expire = 0)
         }
         $string = implode(',', $value);
     }
-    setcookie($AMSCookie['prefix'].$name, $string, intval($expire), $AMSCookie['path'], $AMSCookie['domain'], $AMSCookie['secure']);
+    setcookie($AMSCookie['prefix'].$name, $string, (int)$expire, $AMSCookie['path'], $AMSCookie['domain'], $AMSCookie['secure']);
 }
 
 //create in AMS 2.50 but for future CLONEABLE ability

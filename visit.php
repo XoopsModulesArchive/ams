@@ -4,7 +4,7 @@ include_once 'class/class.sfiles.php';
 include_once 'class/class.newsstory.php';
 
 $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
-$fileid = isset($_GET['fileid']) ? intval($_GET['fileid']) : 0;
+$fileid = isset($_GET['fileid']) ? (int)$_GET['fileid'] : 0;
 if (empty($fileid)) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _ERRORS);
     exit();

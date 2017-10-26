@@ -48,8 +48,8 @@ function b_ams_spotlight_show($options)
     $GLOBALS['xoopsTpl']->clear_assign('spotlights');
 
     if (count($options) > 0) {
-        if (intval($options[0]) > 0) {
-            $stories = AmsStory::getAllPublished(intval($options[0]), 0, false, 0, 1, true, 'published', $block['ids']);
+        if ((int)$options[0] > 0) {
+            $stories = AmsStory::getAllPublished((int)$options[0], 0, false, 0, 1, true, 'published', $block['ids']);
             $count = 0;
             foreach (array_keys($stories) as $i) {
                 $block['stories'][] = array('id' => $stories[$i]->storyid(), 'title' => $stories[$i]->title(), 'hits' => $stories[$i]->counter(), 'friendlyurl_enable'=>$stories[$i]->friendlyurl_enable, 'friendlyurl'=>$stories[$i]->friendlyurl );
@@ -64,7 +64,7 @@ function b_ams_spotlight_show($options)
             $block['total_comments'] = $comment_handler->getCount(new Criteria('com_modid', $amsModule->getVar('mid')));
         }
         $block['showministats'] = $options[1];
-        $block['showother'] = intval($options[0]) > 0;
+        $block['showother'] = (int)$options[0] > 0;
     }
 
     return $block;

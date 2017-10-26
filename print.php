@@ -25,7 +25,7 @@
 //  ------------------------------------------------------------------------ //
 include '../../mainfile.php';
 
-$storyid = isset($_GET['storyid']) ? intval($_GET['storyid']) : 0;
+$storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
 if (empty($storyid)) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php');
 }

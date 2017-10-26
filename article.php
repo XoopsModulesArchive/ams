@@ -37,7 +37,7 @@ if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'
 }
 */
 $storyid = isset($_GET['storyid']) ? $_GET['storyid'] : 0;
-$storyid = intval($storyid);
+$storyid = (int)$storyid;
 if (empty($storyid)) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();
@@ -76,7 +76,7 @@ if (!$gperm_handler->checkRight('ams_approve', $article->topicid(), $groups, $xo
     $admin = true;
 }
 
-$storypage = isset($_GET['page']) ? intval($_GET['page']) : 0;
+$storypage = isset($_GET['page']) ? (int)$_GET['page'] : 0;
 // update counter only when viewing top page
 if (empty($_GET['com_id']) && 0 == $storypage) {
     $article->updateCounter();

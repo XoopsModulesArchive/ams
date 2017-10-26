@@ -25,7 +25,7 @@
 //  ------------------------------------------------------------------------ //
 include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
-$com_itemid = isset($_GET['com_itemid']) ? intval($_GET['com_itemid']) : 0;
+$com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 if ($com_itemid > 0) {
     $article = new AmsStory($com_itemid);
     $article->uname();

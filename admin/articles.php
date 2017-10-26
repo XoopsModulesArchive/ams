@@ -209,7 +209,7 @@ function topicsmanager()
     include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     //$uploadfolder=sprintf(_AMS_AM_UPLOAD_WARNING,XOOPS_URL . "/modules/" . $xoopsModule -> dirname().'/assets/images/topics');
     $uploadirectory= '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
-    $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+    $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
 
     include_once XOOPS_ROOT_PATH . '/class/tree.php';
     $xt = new AmsTopic($xoopsDB -> prefix('ams_topics'));
@@ -262,7 +262,7 @@ function topicsmanager()
         echo $pagenav->renderNav().'</div><br />';
     }
 
-    $topic_id = isset($_GET['topic_id']) ? intval($_GET['topic_id']) : 0;
+    $topic_id = isset($_GET['topic_id']) ? (int)$_GET['topic_id'] : 0;
     if ($topic_id>0) {
         $xtmod = $topics_arr[$topic_id];
         $topic_title=$xtmod->topic_title('E');
@@ -442,7 +442,7 @@ function modTopicS()
 
     $xt->banner_inherit = isset($_POST['banner_inherit']) ? 1 : 0;
     $xt->banner = $_POST['banner'];
-    $xt->forum_id = isset($_POST['forum_id']) ? intval($_POST['forum_id']) : 0;
+    $xt->forum_id = isset($_POST['forum_id']) ? (int)$_POST['forum_id'] : 0;
 
     if (isset($_POST['xoops_upload_file'])) {
         $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
@@ -521,10 +521,10 @@ function delTopic()
     global $xoopsDB, $xoopsModule;
     if (!isset($_POST['ok'])) {
         echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
-        $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), intval($_GET['topic_id']));
-        xoops_confirm(array( 'op' => 'delTopic', 'topic_id' => intval($_GET['topic_id']), 'ok' => 1 ), 'articles.php', _AMS_AM_WAYSYWTDTTAL . '<br />' . $xt->topic_title('S'));
+        $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), (int)$_GET['topic_id']);
+        xoops_confirm(array('op' => 'delTopic', 'topic_id' => (int)$_GET['topic_id'], 'ok' => 1 ), 'articles.php', _AMS_AM_WAYSYWTDTTAL . '<br />' . $xt->topic_title('S'));
     } else {
-        $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), intval($_POST['topic_id']));
+        $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), (int)$_POST['topic_id']);
         // get all subtopics under the specified topic
         $topic_arr = $xt -> getAllChildTopics();
         array_push($topic_arr, $xt);
@@ -553,7 +553,7 @@ function delTopic()
 function addTopic()
 {
     global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
-    $topicpid = isset($_POST['topic_pid']) ? intval($_POST['topic_pid']) : 0;
+    $topicpid = isset($_POST['topic_pid']) ? (int)$_POST['topic_pid'] : 0;
     $xt = new AmsTopic($xoopsDB -> prefix('ams_topics'));
     if (!$xt -> topicExists($topicpid, $_POST['topic_title'])) {
         $xt -> setTopicPid($topicpid);
@@ -589,7 +589,7 @@ function addTopic()
 
         $xt->banner_inherit = isset($_POST['banner_inherit']) ? 1 : 0;
         $xt->banner = $_POST['banner'];
-        $xt->forum_id = isset($_POST['forum_id']) ? intval($_POST['forum_id']) : 0;
+        $xt->forum_id = isset($_POST['forum_id']) ? (int)$_POST['forum_id'] : 0;
         if ($xt -> store()) {
             //This will set default audience
             global $xoopsModule;
@@ -611,7 +611,7 @@ function addTopic()
                     $group_id_ref = $member_handler->getGroups(null, true);
                     //insert all groups into default audience
                     foreach (array_keys($group_id_ref) as $i) {
-                        $gperm_handler->addRight('ams_audience', 1, intval($group_id_ref[$i]->getVar('groupid')), intval($amsModule->getVar('mid')));
+                        $gperm_handler->addRight('ams_audience', 1, (int)$group_id_ref[$i]->getVar('groupid'), (int)$amsModule->getVar('mid'));
                     }
                 }
             }
@@ -675,7 +675,7 @@ function listAudience()
 
 function audienceForm($id = 0)
 {
-    $id = intval($id);
+    $id = (int)$id;
     if ($id > 0) {
         global $xoopsModule;
         $audience_handler = xoops_getModuleHandler('audience', 'AMS');
@@ -726,8 +726,8 @@ switch ($op) {
                 $audid = $audience->getVar('audienceid');
                 global $xoopsModule;
                 $criteria = new CriteriaCompo(new Criteria('gperm_name', 'ams_audience'));
-                $criteria->add(new Criteria('gperm_modid', intval($xoopsModule->getVar('mid'))));
-                $criteria->add(new Criteria('gperm_itemid', intval($audid)));
+                $criteria->add(new Criteria('gperm_modid', (int)$xoopsModule->getVar('mid')));
+                $criteria->add(new Criteria('gperm_itemid', (int)$audid));
                 $gperm_handler->deleteAll($criteria);
                 foreach ($_POST['groups'] as $groupid) {
                     $gperm_handler->addRight('ams_audience', $audid, $groupid, $xoopsModule->getVar('mid'));
@@ -735,7 +735,7 @@ switch ($op) {
                 echo "<div class='confirmMsg'><h3>" . $audience->getVar('audience') . ' Saved</h3></div>';
             }
         }
-        $audid = isset($_GET['audid']) ? intval($_GET['audid']) : 0;
+        $audid = isset($_GET['audid']) ? (int)$_GET['audid'] : 0;
         audienceForm($audid);
         echo listAudience();
         break;

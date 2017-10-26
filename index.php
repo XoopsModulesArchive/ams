@@ -33,12 +33,12 @@ include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 $moduleHelper = Helper::getHelper(basename(__DIR__));
 
 if (isset($_GET['storytopic'])) {
-    $xoopsOption['storytopic'] = intval($_GET['storytopic']);
+    $xoopsOption['storytopic'] = (int)$_GET['storytopic'];
 } else {
     $xoopsOption['storytopic'] = 0;
 }
 if (isset($_GET['storynum'])) {
-    $xoopsOption['storynum'] = intval($_GET['storynum']);
+    $xoopsOption['storynum'] = (int)$_GET['storynum'];
     if ($xoopsOption['storynum'] > $xoopsModuleConfig['max_items']) {
         $xoopsOption['storynum'] = $xoopsModuleConfig['max_items'];
     }
@@ -49,7 +49,7 @@ if (isset($_GET['storynum'])) {
 }
 
 if (isset($_GET['start'])) {
-    $start = intval($_GET['start']);
+    $start = (int)$_GET['start'];
 } else {
     $start = 0;
 }
@@ -68,7 +68,7 @@ if ($showclassic) {
     $xoopsOption['template_main'] = 'ams_by_topic.html';
 }
 include XOOPS_ROOT_PATH.'/header.php';
-$xoopsTpl->assign('columnwidth', intval(1/$column_count*100));
+$xoopsTpl->assign('columnwidth', (int)(1 / $column_count * 100));
 if (1 == $xoopsModuleConfig['displaynav']) {
     $xoopsTpl->assign('displaynav', true);
     $xt = new AmsTopic($xoopsDB->prefix('ams_topics'));

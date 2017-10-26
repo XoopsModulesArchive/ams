@@ -88,7 +88,7 @@ class OldNewsStory extends XoopsStory
         $mid = $amsModule->getVar('mid');
         $old_mid = $newsModule->getVar('mid');
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = 'UPDATE '.$db->prefix('xoopscomments').' SET com_modid='.intval($mid).' WHERE com_modid='.intval($old_mid);
+        $sql = 'UPDATE '.$db->prefix('xoopscomments').' SET com_modid=' . (int)$mid . ' WHERE com_modid=' . (int)$old_mid;
         return $db->query($sql);
     }
 

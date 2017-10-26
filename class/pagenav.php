@@ -6,9 +6,9 @@ class AMSPageNav extends XoopsPageNav
     public $friendlyurl;
     public function __construct($total_items, $items_perpage, $current_start, $start_name= 'start', $extra_arg= '', $friendlyurl_enable=0, $friendlyurl= '')
     {
-        $this->total = intval($total_items);
-        $this->perpage = intval($items_perpage);
-        $this->current = intval($current_start);
+        $this->total = (int)$total_items;
+        $this->perpage = (int)$items_perpage;
+        $this->current = (int)$current_start;
         $this->friendlyurl_enable = $friendlyurl_enable;
         $this->friendlyurl = substr($friendlyurl, 0, strlen($friendlyurl)-5);
         if ('' != $extra_arg && ('&amp;' != substr($extra_arg, -5) || '&' != substr($extra_arg, -1))) {
@@ -38,7 +38,7 @@ class AMSPageNav extends XoopsPageNav
                 }
             }
             $counter = 1;
-            $current_page = intval(floor(($this->current + $this->perpage) / $this->perpage));
+            $current_page = (int)floor(($this->current + $this->perpage) / $this->perpage);
             while ($counter <= $total_pages) {
                 if ($counter == $current_page) {
                     $ret .= '<b>('.$counter.')</b> ';

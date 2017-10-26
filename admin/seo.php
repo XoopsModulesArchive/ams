@@ -45,7 +45,7 @@ $SEO_handler = xoops_getModuleHandler('seo', 'AMS');
 if (isset($_POST['submit'])) {
     AMS_updateCache();
     $myts = MyTextSanitizer::getInstance();
-    $SEO_is_Enable=intval($_POST['friendlyurl_enable']);
+    $SEO_is_Enable= (int)$_POST['friendlyurl_enable'];
     $SEO_URL_Template='[XOOPS_URL]/'.$myts->htmlSpecialChars($_POST['urltemplate']);
 
     //Save setting into cache

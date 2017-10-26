@@ -35,15 +35,17 @@ function ams_search($queryarray, $andor, $limit, $offset, $userid, $storyid = fa
         $sql .= ' AND uid=' . $userid . ' ';
     }
     if (false != $storyid) {
-        $sql .= ' AND n.storyid != ' . intval($storyid);
+        $sql .= ' AND n.storyid != ' . (int)$storyid;
     }
     // because count() returns 1 even if a supplied variable
     // is not an array, we must check if $querryarray is really an array
     if (is_array($queryarray) && $count = count($queryarray)) {
-        $sql .= " AND ((hometext LIKE '%$queryarray[0]%' OR bodytext LIKE '%$queryarray[0]%' OR title LIKE '%$queryarray[0]%' OR n.storyid=".intval($queryarray[0]) . ')';
+        $sql .= " AND ((hometext LIKE '%$queryarray[0]%' OR bodytext LIKE '%$queryarray[0]%' OR title LIKE '%$queryarray[0]%' OR n.storyid=" . (int)$queryarray[0]
+                . ')';
         for ($i=1;$i<$count;$i++) {
             $sql .= " $andor ";
-            $sql .= "(hometext LIKE '%$queryarray[$i]%' OR bodytext LIKE '%$queryarray[$i]%' OR title LIKE '%$queryarray[$i]%' OR n.storyid=".intval($queryarray[0]) . ')';
+            $sql .= "(hometext LIKE '%$queryarray[$i]%' OR bodytext LIKE '%$queryarray[$i]%' OR title LIKE '%$queryarray[$i]%' OR n.storyid=" . (int)$queryarray[0]
+                    . ')';
         }
         $sql .= ') ';
     }

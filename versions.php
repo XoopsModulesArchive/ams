@@ -10,7 +10,7 @@ if (!isset($_POST['submit'])) {
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
     $xoopsOption['template_main'] = 'ams_version.html';
     include_once XOOPS_ROOT_PATH . '/header.php';
-    $story = new AmsStory(intval($_GET['storyid']));
+    $story = new AmsStory((int)$_GET['storyid']);
     $gperm_handler = xoops_getHandler('groupperm');
     if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
         redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
@@ -29,7 +29,7 @@ if (!isset($_POST['submit'])) {
 } else {
     switch ($_POST['op']) {
         case 'setversion':
-            $story = new AmsStory(intval($_POST['storyid']));
+            $story = new AmsStory((int)$_POST['storyid']);
             $gperm_handler = xoops_getHandler('groupperm');
             if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
@@ -48,7 +48,7 @@ if (!isset($_POST['submit'])) {
             break;
 
         case 'delversions':
-            $story = new AmsStory(intval($_POST['storyid']));
+            $story = new AmsStory((int)$_POST['storyid']);
             $gperm_handler = xoops_getHandler('groupperm');
             if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
@@ -71,7 +71,7 @@ if (!isset($_POST['submit'])) {
             break;
 
         case 'delallversions':
-            $story = new AmsStory(intval($_POST['storyid']));
+            $story = new AmsStory((int)$_POST['storyid']);
             $gperm_handler = xoops_getHandler('groupperm');
             if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);

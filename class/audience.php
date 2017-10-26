@@ -25,8 +25,8 @@ class AMSAudienceHandler extends IdgObjectHandler
         }
         $sql = 'UPDATE '
                . $this->db->prefix('ams_article') . ' SET audienceid = '
-               . intval($newaudid) . ' WHERE audienceid = '
-               . intval($aud->getVar('audienceid'));
+               . (int)$newaudid . ' WHERE audienceid = '
+               . (int)$aud->getVar('audienceid');
         if (!$this->db->query($sql)) {
             return false;
         }

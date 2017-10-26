@@ -41,7 +41,7 @@ $module_id = $xoopsModule->getVar('mid');
 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
 $gperm_handler = xoops_getHandler('groupperm');
-$perm_itemid = isset($_POST['topic_id']) ? intval($_POST['topic_id']) : 0;
+$perm_itemid = isset($_POST['topic_id']) ? (int)$_POST['topic_id'] : 0;
 
 //If no access
 if (!$gperm_handler->checkRight('ams_submit', $perm_itemid, $groups, $module_id)) {
@@ -66,7 +66,7 @@ if (isset($_REQUEST['bodytext'])) {
 }
 
 if (isset($_REQUEST['storyid'])) {
-    $storyid = intval($_REQUEST['storyid']);
+    $storyid = (int)$_REQUEST['storyid'];
 }
 
 if (isset($_REQUEST['preview'])) {
@@ -89,7 +89,7 @@ if (isset($_REQUEST['preview'])) {
         exit();
     }
     if (isset($_REQUEST['storyid'])) {
-        $storyid = intval($_REQUEST['storyid']);
+        $storyid = (int)$_REQUEST['storyid'];
     }
 }
 
@@ -101,7 +101,7 @@ switch ($op) {
                 redirect_header(XOOPS_URL.'/modules/AMS/index.php?op=newarticle', 2, _AMS_AM_EMPTYNODELETE);
                 exit();
             }
-            $storyid = intval($_POST['storyid']);
+            $storyid = (int)$_POST['storyid'];
             $story = new AmsStory($storyid);
             $story -> delete();
             $sfiles = new sFiles();
@@ -175,9 +175,9 @@ case 'preview':
         $story->setTopicalign($_POST['topicalign']);
         $story->audienceid = $_POST['audience'];
     } else {
-        $noname = isset($_POST['noname']) ? intval($_POST['noname']) : 0;
+        $noname = isset($_POST['noname']) ? (int)$_POST['noname'] : 0;
     }
-    $notifypub = isset($_POST['notifypub']) ? intval($_POST['notifypub']) : 0;
+    $notifypub = isset($_POST['notifypub']) ? (int)$_POST['notifypub'] : 0;
     $story->setNotifyPub($notifypub);
 
     if (isset($_POST['nosmiley']) && (0 == $_POST['nosmiley'] || 1 == $_POST['nosmiley'])) {
@@ -188,7 +188,7 @@ case 'preview':
     if ($approveprivilege) {
         $change = isset($_POST['change']) ? $_POST['change'] : 0;
         $story->setChange($change);
-        $nohtml = isset($_POST['nohtml']) ? intval($_POST['nohtml']) : 0;
+        $nohtml = isset($_POST['nohtml']) ? (int)$_POST['nohtml'] : 0;
         $story->setNohtml($nohtml);
         if (!isset($_POST['approve'])) {
             $story->setApproved(0);
@@ -278,13 +278,13 @@ case 'post':
     $story->setTopicId($_POST['topic_id']);
     $story->setHostname(xoops_getenv('REMOTE_ADDR'));
     $story->setNohtml($nohtml_db);
-    $nosmiley = isset($_POST['nosmiley']) ? intval($_POST['nosmiley']) : 0;
-    $notifypub = isset($_POST['notifypub']) ? intval($_POST['notifypub']) : 0;
+    $nosmiley = isset($_POST['nosmiley']) ? (int)$_POST['nosmiley'] : 0;
+    $notifypub = isset($_POST['notifypub']) ? (int)$_POST['notifypub'] : 0;
     $story->setNosmiley($nosmiley);
     $story->setNotifyPub($notifypub);
     $story->setType($_POST['type']);
     // Set audience id to default
-    $story->audienceid = intval(1);
+    $story->audienceid = (int)1;
     if ($approveprivilege) {
         $approve = isset($_POST['approve']) ? $_POST['approve'] : 0;
         if (!empty($_POST['autodate'])) {
@@ -320,7 +320,7 @@ case 'post':
             $story->setExpired(0);
         }
 
-        $story->audienceid = intval($_POST['audience']);
+        $story->audienceid = (int)$_POST['audience'];
     } elseif (1 == $xoopsModuleConfig['autoapprove'] && !$approveprivilege) {
         $approve = 1;
         $story->setPublished(time());

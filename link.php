@@ -35,7 +35,7 @@ if (!$xoopsUser) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
 }
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
-$storyid = isset($_POST['storyid']) ? intval($_POST['storyid']) : (isset($_GET['storyid']) ? intval($_GET['storyid']) : 0);
+$storyid = isset($_POST['storyid']) ? (int)$_POST['storyid'] : (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0);
 if (!$storyid) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();

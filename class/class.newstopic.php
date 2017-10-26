@@ -44,7 +44,7 @@ class AmsTopic extends AmsXoopsTopic
         if (is_array($topicid)) {
             $this->makeTopic($topicid);
         } elseif (0 != $topicid) {
-            $this->getTopic(intval($topicid));
+            $this->getTopic((int)$topicid);
         } else {
             $this->topic_id = $topicid;
         }

@@ -46,7 +46,7 @@ class OldNewsTopic
 
     public function copyPermissions($mid)
     {
-        $criteria = new Criteria('gperm_modid', intval($mid));
+        $criteria = new Criteria('gperm_modid', (int)$mid);
         $gperm_handler = xoops_getHandler('groupperm');
         $gperm_items = $gperm_handler->getObjects($criteria);
 
