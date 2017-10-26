@@ -47,7 +47,7 @@ function b_ams_topics_moderate()
             $title = $newstory -> title();
             if (!isset($title) || ('' == $title)) {
                 $linktitle = "<a href='" . XOOPS_URL . '/modules/AMS/index.php?op=edit&amp;storyid='
-                             . $newstory-> storyid() . "'>" . _AD_NOSUBJECT . '</a>';
+                             . $newstory-> storyid() . "'>" . _AMS_MB_NOSUBJECT . '</a>';
             } else {
                 $linktitle = "<a href='" . XOOPS_URL . '/modules/AMS/submit.php?op=edit&amp;storyid='
                              . $newstory-> storyid() . "'>" . $title . '</a>';

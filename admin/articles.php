@@ -65,7 +65,7 @@ function newSubmissions()
             echo '<tr class="' . ((++$i % 2) ? 'even' : 'odd') . '"><td>';
             $title = $newstory->title();
             if (!isset($title) || ('' == $title)) {
-                echo '<a href="articles.php?op=edit&amp;storyid=' . $newstory -> storyid() . '">' . _AD_NOSUBJECT . '</a>';
+                echo '<a href="articles.php?op=edit&amp;storyid=' . $newstory -> storyid() . '">' . _AMS_AM_NOSUBJECT . '</a>';
             } else {
                 echo '&nbsp;<a href="../submit.php?op=edit&amp;storyid=' . $newstory -> storyid() . '">' . $title . "</a>\n";
             }

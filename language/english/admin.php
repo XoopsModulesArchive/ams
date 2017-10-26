@@ -195,3 +195,5 @@ define('_AMS_AM_SEO_FRIENDLYURL', 'Friendly URL');
 define('_AMS_AM_SEO_ENABLE', 'Enable');
 define('_AMS_AM_SEO_URLTEMPLATE', 'Custom URL Template');
 define('_AMS_AM_SEO_VALIDTAG', 'Valid Tag');
+//3.20
+define('_AMS_AM_NOSUBJECT', '(no subject)');
