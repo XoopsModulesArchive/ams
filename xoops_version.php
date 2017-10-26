@@ -304,20 +304,21 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_STORYCOUNTADMIN_D
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 10;
-$modversion['config'][$config_count]['options']     = array('1'  => 1,
-                                                            '2'  => 2,
-                                                            '4'  => 4,
-                                                            '5'  => 5,
-                                                            '6'  => 6,
-                                                            '8'  => 8,
-                                                            '9'  => 9,
-                                                            '10' => 10,
-                                                            '15' => 15,
-                                                            '20' => 20,
-                                                            '25' => 25,
-                                                            '30' => 30,
-                                                            '35' => 35,
-                                                            '40' => 40
+$modversion['config'][$config_count]['options']     = array(
+    '1'  => 1,
+    '2'  => 2,
+    '4'  => 4,
+    '5'  => 5,
+    '6'  => 6,
+    '8'  => 8,
+    '9'  => 9,
+    '10' => 10,
+    '15' => 15,
+    '20' => 20,
+    '25' => 25,
+    '30' => 30,
+    '35' => 35,
+    '40' => 40
 );
 $config_count++;
 
@@ -327,20 +328,21 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_STORYCOUNTTOPIC_D
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 10;
-$modversion['config'][$config_count]['options']     = array('1'  => 1,
-                                                            '2'  => 2,
-                                                            '4'  => 4,
-                                                            '5'  => 5,
-                                                            '6'  => 6,
-                                                            '8'  => 8,
-                                                            '9'  => 9,
-                                                            '10' => 10,
-                                                            '15' => 15,
-                                                            '20' => 20,
-                                                            '25' => 25,
-                                                            '30' => 30,
-                                                            '35' => 35,
-                                                            '40' => 40
+$modversion['config'][$config_count]['options']     = array(
+    '1'  => 1,
+    '2'  => 2,
+    '4'  => 4,
+    '5'  => 5,
+    '6'  => 6,
+    '8'  => 8,
+    '9'  => 9,
+    '10' => 10,
+    '15' => 15,
+    '20' => 20,
+    '25' => 25,
+    '30' => 30,
+    '35' => 35,
+    '40' => 40
 );
 $config_count++;
 
@@ -358,16 +360,17 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_SPOTLIGHT_ITEMDES
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 20;
-$modversion['config'][$config_count]['options']     = array('1'   => 1,
-                                                            '5'   => 5,
-                                                            '10'  => 10,
-                                                            '15'  => 15,
-                                                            '20'  => 20,
-                                                            '25'  => 25,
-                                                            '30'  => 30,
-                                                            '50'  => 50,
-                                                            '100' => 100,
-                                                            '500' => 500
+$modversion['config'][$config_count]['options']     = array(
+    '1'   => 1,
+    '5'   => 5,
+    '10'  => 10,
+    '15'  => 15,
+    '20'  => 20,
+    '25'  => 25,
+    '30'  => 30,
+    '50'  => 50,
+    '100' => 100,
+    '500' => 500
 );
 $config_count++;
 
@@ -441,7 +444,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php')) {
     include_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
     //$editorHandler = XoopsEditorHandler::getInstance();
     $editorHandler = new XoopsEditorHandler;
-    $editor_list    = array_flip($editorHandler->getList());
+    $editor_list   = array_flip($editorHandler->getList());
 } else {
     $editor_list = array('_AMS_MI_EDITOR_DEFAULT' => 'textarea', '_AMS_MI_EDITOR_DHTML' => 'dhtmlext');
 }

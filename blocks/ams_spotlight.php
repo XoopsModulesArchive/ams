@@ -52,7 +52,12 @@ function b_ams_spotlight_show($options)
             $stories = AmsStory::getAllPublished((int)$options[0], 0, false, 0, 1, true, 'published', $block['ids']);
             $count = 0;
             foreach (array_keys($stories) as $i) {
-                $block['stories'][] = array('id' => $stories[$i]->storyid(), 'title' => $stories[$i]->title(), 'hits' => $stories[$i]->counter(), 'friendlyurl_enable'=>$stories[$i]->friendlyurl_enable, 'friendlyurl'=>$stories[$i]->friendlyurl );
+                $block['stories'][] = array('id'                 => $stories[$i]->storyid(),
+                                            'title'              => $stories[$i]->title(),
+                                            'hits'               => $stories[$i]->counter(),
+                                            'friendlyurl_enable' => $stories[$i]->friendlyurl_enable,
+                                            'friendlyurl'        => $stories[$i]->friendlyurl
+                );
                 $count ++;
             }
         }

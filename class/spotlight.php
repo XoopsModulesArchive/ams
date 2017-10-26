@@ -244,7 +244,22 @@ class AmsSpotlightHandler extends IdgObjectHandler
                 $poster = '';
                 $teaser = $myts->displayTarea($spots[$i]->getVar('teaser', 'n'), 1);
             }
-            $block['spotlights'][] = array('spotid' => $spots[$i]->getVar('spotlightid'), 'id' => $id, 'title' => $title, 'hits' => $hits, 'image' => $image, 'text' => $teaser, 'weight' => $spots[$i]->getVar('weight'), 'display' => $spots[$i]->getVar('display'), 'posttime' => $posttime, 'poster' => $poster, 'posterid' => $posterid, 'autoteaser' => $spots[$i]->getVar('autoteaser'), 'custom' => $custom, 'friendlyurl_enable' => $friendlyurl_enable, 'friendlyurl' => $friendlyurl);
+            $block['spotlights'][] = array('spotid'             => $spots[$i]->getVar('spotlightid'),
+                                           'id'                 => $id,
+                                           'title'              => $title,
+                                           'hits'               => $hits,
+                                           'image'              => $image,
+                                           'text'               => $teaser,
+                                           'weight'             => $spots[$i]->getVar('weight'),
+                                           'display'            => $spots[$i]->getVar('display'),
+                                           'posttime'           => $posttime,
+                                           'poster'             => $poster,
+                                           'posterid'           => $posterid,
+                                           'autoteaser'         => $spots[$i]->getVar('autoteaser'),
+                                           'custom'             => $custom,
+                                           'friendlyurl_enable' => $friendlyurl_enable,
+                                           'friendlyurl'        => $friendlyurl
+            );
         }
         $block['ids'] = $ids;
         return $block;

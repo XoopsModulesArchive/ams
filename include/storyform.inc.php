@@ -42,7 +42,9 @@ include_once XOOPS_ROOT_PATH . '/class/tree.php';
 
 
 //Added AMS 2.50. Enable user selection Editor. Modify at AMS 3.0 to correctly detect XOOPS 2.3.x scheme
-if (true === $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php'))) {
+if (true === $xoopsModuleConfig['editor_userchoice']
+    && (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php')
+        || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php'))) {
     if (isset($_REQUEST['seditor'])) {
         $editor= $_REQUEST['seditor'];
     } elseif (isset($_REQUEST['editor'])) {
@@ -64,7 +66,10 @@ if (true === $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_
 //Added AMS 2.52. Fix famous BLANK page at submit form
 $wysiwyg_is_exist=0;
 //Include xoopsformloader using CBB Way if framework installed
-if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php')) {
+if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php')
+    || file_exists(XOOPS_ROOT_PATH
+                   . '/class/xoopsform/formselecteditor.php')
+    || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php')) {
     //if phpp/xoopsforge/xoops2.3.x Framework installed. Support multipe wysiwyg editor (FCK, TinyMCE, Koivi etc)
     if (!@include_once XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') {
         include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -175,11 +180,13 @@ $editor_configs['height'] = '400px'; // default value = 400px
 if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormEditor($editor_configs['caption'], $editor, $editor_configs, $story->nohtml(), null));
 } elseif (2 == $wysiwyg_is_exist) {
-    $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
+    $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
+                                                    $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
 } elseif (3 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs, 'hiddenHometext'));
 } else {
-    $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['rows'], $editor_configs['cols'], 'hiddenHometext'));
+    $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
+                                                  $editor_configs['rows'], $editor_configs['cols'], 'hiddenHometext'));
 }
 
 $sform->addElement(new XoopsFormLabel('', '* ' . _MULTIPLE_PAGE_GUIDE), false);
@@ -198,11 +205,13 @@ $editor_configs['height'] = '400px'; // default value = 400px
 if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormEditor($editor_configs['caption'], $editor, $editor_configs, $story->nohtml(), null));
 } elseif (2 == $wysiwyg_is_exist) {
-    $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
+    $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
+                                                    $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
 } elseif (3 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs, 'hiddenBodytext'));
 } else {
-    $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'], $editor_configs['rows'], $editor_configs['cols'], 'hiddenBodytext'));
+    $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
+                                                  $editor_configs['rows'], $editor_configs['cols'], 'hiddenBodytext'));
 }
 
 $sform->addElement(new XoopsFormLabel('', '* ' . _MULTIPLE_PAGE_GUIDE), false);

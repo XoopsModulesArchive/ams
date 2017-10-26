@@ -121,7 +121,13 @@ $filescount=count($filesarr);
 $xoopsTpl->assign('attached_files_count', $filescount);
 if ($filescount>0) {
     foreach ($filesarr as $onefile) {
-        $newsfiles[]=array('file_id'=>$onefile->getFileid(), 'visitlink' => XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/visit.php?fileid='.$onefile->getFileid(),'file_realname'=>$onefile->getFileRealName(), 'file_attacheddate'=>formatTimestamp($onefile->getDate()), 'file_mimetype'=>$onefile->getMimetype(), 'file_downloadname'=>XOOPS_UPLOAD_URL.'/'.$onefile->getDownloadname());
+        $newsfiles[] = array('file_id'           => $onefile->getFileid(),
+                             'visitlink'         => XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/visit.php?fileid=' . $onefile->getFileid(),
+                             'file_realname'     => $onefile->getFileRealName(),
+                             'file_attacheddate' => formatTimestamp($onefile->getDate()),
+                             'file_mimetype'     => $onefile->getMimetype(),
+                             'file_downloadname' => XOOPS_UPLOAD_URL . '/' . $onefile->getDownloadname()
+        );
     }
     $xoopsTpl->assign('attached_files', $newsfiles);
 }

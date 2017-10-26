@@ -165,7 +165,16 @@ class AmsStory extends AmsXoopsStory
     }
 
     // rag - added $orderdir
-    public static function getAllPublished($limit=0, $start=0, $checkRight = false, $topic=0, $ihome=0, $asobject=true, $order = 'published', $ids = false, $orderdir = 'DESC')
+    public static function getAllPublished(
+        $limit = 0,
+        $start = 0,
+        $checkRight = false,
+        $topic = 0,
+        $ihome = 0,
+        $asobject = true,
+        $order = 'published',
+        $ids = false,
+        $orderdir = 'DESC')
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $myts = MyTextSanitizer::getInstance();
@@ -765,11 +774,13 @@ class AmsStory extends AmsXoopsStory
                . $this->storyid . ", $uid, $rating, " . $this->db->quoteString($hostname) . ', '
                . time() . ')';
         if ($this->db->query($sql)) {
-            $this->ratings[] = array('storyid' => $this->storyid,
+            $this->ratings[] = array(
+                'storyid'         => $this->storyid,
             'ratinguser' => $uid,
             'rating' => $rating,
             'ratinghostname' => $hostname,
-            'ratingtimestamp' => time());
+                'ratingtimestamp' => time()
+            );
             return true;
         }
         $this->_errors[] = _AMS_NW_COULDNOTSAVERATING;

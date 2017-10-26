@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 Copyright (C) 2002 Jason Sheets <jsheets@shadonet.com>.
 All rights reserved.
 
@@ -30,9 +30,9 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
-**/
+*/
 
-/**
+/*
    Name: PHP MimeType Class
 
    Version: 1.0
@@ -65,7 +65,7 @@ SUCH DAMAGE.
    License: This script is distributed under the BSD License, you are free
    to use, or modify it however you like.  If you find this script useful please
    e-mail me.
-**/
+*/
 
 class cmimetype
 {

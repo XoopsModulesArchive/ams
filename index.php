@@ -180,7 +180,13 @@ if ($showclassic) {
             foreach (array_keys($subtopics) as $i) {
                 $subs[$i] = array('id' => $i, 'title' => $subtopics[$i]->topic_title(), 'imageurl' => $subtopics[$i]->topic_imgurl());
             }
-            $smarty_topics[] = array('title' => $topic->topic_title(), 'stories' => $topicstories, 'id' => $topicid, 'subtopics' => $subs, 'articlecount' => $article_counts[$topicid], 'subtopiccount' => $subcount);
+            $smarty_topics[] = array('title'         => $topic->topic_title(),
+                                     'stories'       => $topicstories,
+                                     'id'            => $topicid,
+                                     'subtopics'     => $subs,
+                                     'articlecount'  => $article_counts[$topicid],
+                                     'subtopiccount' => $subcount
+            );
             unset($subs);
         }
     }

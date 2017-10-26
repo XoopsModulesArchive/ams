@@ -38,29 +38,29 @@ function AMS_setcookie($name, $string = '', $expire = 0)
     if (is_array($string)) {
         $value = array();
         foreach ($string as $key => $val) {
-            $value[]= $key . '|' . $val;
+            $value[] = $key . '|' . $val;
         }
         $string = implode(',', $value);
     }
-    setcookie($AMSCookie['prefix'].$name, $string, (int)$expire, $AMSCookie['path'], $AMSCookie['domain'], $AMSCookie['secure']);
+    setcookie($AMSCookie['prefix'] . $name, $string, (int)$expire, $AMSCookie['path'], $AMSCookie['domain'], $AMSCookie['secure']);
 }
 
 //create in AMS 2.50 but for future CLONEABLE ability
 function AMS_getcookie($name, $isArray = false)
 {
     global $AMSCookie;
-    $value = !empty($_COOKIE[$AMSCookie['prefix'].$name]) ? $_COOKIE[$AMSCookie['prefix'].$name] : null;
+    $value = !empty($_COOKIE[$AMSCookie['prefix'] . $name]) ? $_COOKIE[$AMSCookie['prefix'] . $name] : null;
     if ($isArray) {
-        $_value = $value ?explode(',', $value):array();
-        $value = array();
-        if (count($_value)>0) {
+        $_value = $value ? explode(',', $value) : array();
+        $value  = array();
+        if (count($_value) > 0) {
             foreach ($_value as $string) {
                 $sep = strpos($string, '|');
                 if (false === $sep) {
-                    $value[]=$string;
+                    $value[] = $string;
                 } else {
-                    $key = substr($string, 0, $sep);
-                    $val = substr($string, $sep + 1);
+                    $key         = substr($string, 0, $sep);
+                    $val         = substr($string, $sep + 1);
                     $value[$key] = $val;
                 }
             }
@@ -73,48 +73,48 @@ function AMS_getcookie($name, $isArray = false)
 /**
  * Remove module's cache
  *
- * @package AMS
- * @author Instant Zero (http://xoops.instant-zero.com)
+ * @package       AMS
+ * @author        Instant Zero (http://xoops.instant-zero.com)
  * @copyright (c) Instant Zero
-*/
+ */
 function AMS_updateCache()
 {
     global $xoopsModule;
     if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
         $moduleHandler = xoops_getHandler('module');
-        $amsModule = $moduleHandler->getByDirname('AMS');
+        $amsModule     = $moduleHandler->getByDirname('AMS');
     } else {
         $amsModule = $xoopsModule;
     }
-    $folder = $amsModule->getVar('dirname');
+    $folder  = $amsModule->getVar('dirname');
     $tpllist = array();
     if (!class_exists('XoopsBlock')) {
-        include_once XOOPS_ROOT_PATH.'/class/xoopsblock.php';
+        include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
     }
-    include_once XOOPS_ROOT_PATH.'/class/template.php';
+    include_once XOOPS_ROOT_PATH . '/class/template.php';
     $tplfileHandler = xoops_getHandler('tplfile');
-    $tpllist = $tplfileHandler->find(null, null, null, $folder);
-    $xoopsTpl = new XoopsTpl();
+    $tpllist        = $tplfileHandler->find(null, null, null, $folder);
+    $xoopsTpl       = new XoopsTpl();
     xoops_template_clear_module_cache($amsModule->getVar('mid'));            // Clear module's blocks cache
 
     //remove RSS cache (XOOPS, ImpressCMS)
     $files_del = array();
-    $files_del = glob(XOOPS_CACHE_PATH.'/*system_rss*');
-    if (count($files_del) >0) {
+    $files_del = glob(XOOPS_CACHE_PATH . '/*system_rss*');
+    if (count($files_del) > 0) {
         foreach ($files_del as $one_file) {
             unlink($one_file);
         }
     }
     $files_del = array();
-    $files_del = glob(XOOPS_COMPILE_PATH.'/*system_rss*');
-    if (count($files_del) >0) {
+    $files_del = glob(XOOPS_COMPILE_PATH . '/*system_rss*');
+    if (count($files_del) > 0) {
         foreach ($files_del as $one_file) {
             unlink($one_file);
         }
     }
     $files_del = array();
-    $files_del = glob($xoopsTpl->cache_dir.'/*system_rss*');
-    if (count($files_del) >0) {
+    $files_del = glob($xoopsTpl->cache_dir . '/*system_rss*');
+    if (count($files_del) > 0) {
         foreach ($files_del as $one_file) {
             unlink($one_file);
         }
@@ -122,22 +122,22 @@ function AMS_updateCache()
 
     //remove RSS cache (XOOPS CUBE)
     $files_del = array();
-    $files_del = glob(XOOPS_CACHE_PATH.'/*legacy_rss*');
-    if (count($files_del) >0) {
+    $files_del = glob(XOOPS_CACHE_PATH . '/*legacy_rss*');
+    if (count($files_del) > 0) {
         foreach ($files_del as $one_file) {
             unlink($one_file);
         }
     }
     $files_del = array();
-    $files_del = glob(XOOPS_COMPILE_PATH.'/*legacy_rss*');
-    if (count($files_del) >0) {
+    $files_del = glob(XOOPS_COMPILE_PATH . '/*legacy_rss*');
+    if (count($files_del) > 0) {
         foreach ($files_del as $one_file) {
             unlink($one_file);
         }
     }
     $files_del = array();
-    $files_del = glob($xoopsTpl->cache_dir.'/*legacy_rss*');
-    if (count($files_del) >0) {
+    $files_del = glob($xoopsTpl->cache_dir . '/*legacy_rss*');
+    if (count($files_del) > 0) {
         foreach ($files_del as $one_file) {
             unlink($one_file);
         }
@@ -148,22 +148,22 @@ function AMS_updateCache()
         if ('module' === $onetemplate->getVar('tpl_type')) {
             // Note, I've been testing all the other methods (like the one of Smarty) and none of them run, that's why I have used this code
             $files_del = array();
-            $files_del = glob(XOOPS_CACHE_PATH.'/*'.$onetemplate->getVar('tpl_file').'*');
-            if (count($files_del) >0) {
+            $files_del = glob(XOOPS_CACHE_PATH . '/*' . $onetemplate->getVar('tpl_file') . '*');
+            if (count($files_del) > 0) {
                 foreach ($files_del as $one_file) {
                     unlink($one_file);
                 }
             }
             $files_del = array();
-            $files_del = glob(XOOPS_COMPILE_PATH.'/*'.$onetemplate->getVar('tpl_file').'*');
-            if (count($files_del) >0) {
+            $files_del = glob(XOOPS_COMPILE_PATH . '/*' . $onetemplate->getVar('tpl_file') . '*');
+            if (count($files_del) > 0) {
                 foreach ($files_del as $one_file) {
                     unlink($one_file);
                 }
             }
             $files_del = array();
-            $files_del = glob($xoopsTpl->cache_dir.'/*'.$onetemplate->getVar('tpl_file').'*');
-            if (count($files_del) >0) {
+            $files_del = glob($xoopsTpl->cache_dir . '/*' . $onetemplate->getVar('tpl_file') . '*');
+            if (count($files_del) > 0) {
                 foreach ($files_del as $one_file) {
                     unlink($one_file);
                 }
@@ -173,7 +173,7 @@ function AMS_updateCache()
 }
 
 //Added AMS 3.0. Source from smartsection code
-function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
+function AMS_SEO_title($title = '', $op = 0, $id = 0, $pg = 0)
 {
     /**
      * if XOOPS ML is present, let's sanitize the title with the current language
@@ -186,7 +186,7 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
 
     // Transformation de la chaine en minuscule
     // Codage de la chaine afin d'�viter les erreurs 500 en cas de caract�res impr�vus
-    $title   = rawurlencode(strtolower($title));
+    $title = rawurlencode(strtolower($title));
 
     // avoid problem caused by rawurlencode which convert % to %25
     //                 Tab     Space      !        "        #        %        &        '        (        )        ,        /        :        ;        <        =        >        ?        @        [        \        ]        ^        {        |        }        ~       .
@@ -251,7 +251,9 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
         '/%7B/',
         '/%7C/',
         '/%7D/',
-        '/%7E/', "/\./");
+        '/%7E/',
+        "/\./"
+    );
     $rep_pat = array('-', '-', '', '', '', '-', '', '-', '', '', '', '-', '', '', '', '-', '', '', '-at-', '', '-', '', '-', '', '-', '', '-', '');
     $title   = preg_replace($pattern, $rep_pat, $title);
 
@@ -278,11 +280,9 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
     $rep_pat = array('-', 'e', 'e', 'e', 'e', 'c', 'a', 'a', 'a', 'i', 'i', 'u', 'u', 'u', 'o', 'o');
     $title   = preg_replace($pattern, $rep_pat, $title);
 
-
-
     $pattern = array('/--/');
     $rep_pat = array('-');
-    $maxloop=0;      // avoid unlimited loop & possibility for DDOS attack
+    $maxloop = 0;      // avoid unlimited loop & possibility for DDOS attack
     while ((preg_match('/--+/', $title) > 0) && ($maxloop < 100)) {
         $title   = preg_replace($pattern, $rep_pat, $title); //remove multiple '-'
         $maxloop += 1;
@@ -292,37 +292,36 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
         //remove trailing dash
         $pattern = "/\-$/";
         $rep_pat = '';
-        $title = preg_replace($pattern, $rep_pat, $title);
+        $title   = preg_replace($pattern, $rep_pat, $title);
 
-        $title .= '-op' .$op. 'id' .$id. 'pg' .$pg. '.htm';
+        $title .= '-op' . $op . 'id' . $id . 'pg' . $pg . '.htm';
         return $title;
     } else {
         return '';
     }
 }
 
-function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
+function AMS_SEO_genURL($title, $audience = '', $topic = '', $op = 0, $id = 0, $pg = 0)
 {
-    $urltemplate=AMS_SEO_friendlyURLIsEnable();
+    $urltemplate = AMS_SEO_friendlyURLIsEnable();
 
     if (!(false === $urltemplate)) { //if friendly url is enabled
         //remove prefix slash
         $pattern = "/^\//";
         $rep_pat = '';
-        $topic = preg_replace($pattern, $rep_pat, $topic);
+        $topic   = preg_replace($pattern, $rep_pat, $topic);
 
         //remove trailing slash
-        $pattern = "/\/$/";
-        $rep_pat = '';
+        $pattern     = "/\/$/";
+        $rep_pat     = '';
         $urltemplate = preg_replace($pattern, $rep_pat, $urltemplate);
 
         //Create link based on URL template
-        $pattern = array("/\[XOOPS_URL\]/","/\[AMS_DIR\]/","/\[AUDIENCE\]/","/\[TOPIC\]/");
-        $rep_pat = array(XOOPS_URL,'modules/AMS',$audience,$topic);
-        $urltemplate   = preg_replace($pattern, $rep_pat, $urltemplate);
+        $pattern     = array("/\[XOOPS_URL\]/", "/\[AMS_DIR\]/", "/\[AUDIENCE\]/", "/\[TOPIC\]/");
+        $rep_pat     = array(XOOPS_URL, 'modules/AMS', $audience, $topic);
+        $urltemplate = preg_replace($pattern, $rep_pat, $urltemplate);
 
-
-        return $urltemplate . '/' . AMS_SEO_title($title, $op, $id, $pg) ; //return url if friendlyurl is enabled
+        return $urltemplate . '/' . AMS_SEO_title($title, $op, $id, $pg); //return url if friendlyurl is enabled
     } else {
         return false; //return false if friendlyurl is disabled
     }
@@ -331,7 +330,7 @@ function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
 function AMS_SEO_friendlyURLIsEnable()
 {
     $SEOHandler = xoops_getModuleHandler('seo', 'AMS');
-    $thisSEO= $SEOHandler->read_setting();
+    $thisSEO    = $SEOHandler->read_setting();
     if (1 == (int)$thisSEO['friendlyurl_enable']) {
         return $thisSEO['urltemplate'];
     } else {
@@ -339,10 +338,10 @@ function AMS_SEO_friendlyURLIsEnable()
     }
 }
 
-function ams_getmoduleoption($option, $repmodule='AMS')
+function ams_getmoduleoption($option, $repmodule = 'AMS')
 {
     global $xoopsModuleConfig, $xoopsModule;
-    static $tbloptions= array();
+    static $tbloptions = array();
     if (is_array($tbloptions) && array_key_exists($option, $tbloptions)) {
         return $tbloptions[$option];
     }
@@ -350,29 +349,29 @@ function ams_getmoduleoption($option, $repmodule='AMS')
     $retval = false;
     if (isset($xoopsModuleConfig) && (is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $repmodule && $xoopsModule->getVar('isactive'))) {
         if (isset($xoopsModuleConfig[$option])) {
-            $retval= $xoopsModuleConfig[$option];
+            $retval = $xoopsModuleConfig[$option];
         }
     } else {
         $moduleHandler = xoops_getHandler('module');
-        $module = $moduleHandler->getByDirname($repmodule);
+        $module        = $moduleHandler->getByDirname($repmodule);
         $configHandler = xoops_getHandler('config');
         if ($module) {
             $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
             if (isset($moduleConfig[$option])) {
-                $retval= $moduleConfig[$option];
+                $retval = $moduleConfig[$option];
             }
         }
     }
-    $tbloptions[$option]=$retval;
+    $tbloptions[$option] = $retval;
     return $retval;
 }
 
 function ams_isaudiencesetup($mid)
 {
     global $xoopsDB;
-    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('group_permission') . ' WHERE gperm_modid=' . $mid . " AND gperm_name='ams_audience'";
-    $result=$xoopsDB->query($sql);
-    $count=$xoopsDB->fetchRow($result);
+    $sql    = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('group_permission') . ' WHERE gperm_modid=' . $mid . " AND gperm_name='ams_audience'";
+    $result = $xoopsDB->query($sql);
+    $count  = $xoopsDB->fetchRow($result);
     if ($count[0] > 0) {
         return true;
     } else {

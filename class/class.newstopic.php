@@ -57,7 +57,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public function getAllTopicsCount()
     {
-        $sql = 'SELECT count(topic_id) as cpt FROM ' . $this->table;
+        $sql   = 'SELECT count(topic_id) AS cpt FROM ' . $this->table;
         $array = $this->db->fetchArray($this->db->query($sql));
         return $array['cpt'];
     }
