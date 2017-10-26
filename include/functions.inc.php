@@ -332,7 +332,7 @@ function AMS_SEO_friendlyURLIsEnable()
 {
     $SEO_handler = xoops_getModuleHandler('seo', 'AMS');
     $thisSEO= $SEO_handler->read_setting();
-    if (1 == intval($thisSEO['friendlyurl_enable'])) {
+    if (1 == (int)$thisSEO['friendlyurl_enable']) {
         return $thisSEO['urltemplate'];
     } else {
         return false;

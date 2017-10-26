@@ -147,7 +147,7 @@ switch ($op) {
         break;
 
     case 'delete':
-        if (isset($_REQUEST['ok']) && 1 === intval($_REQUEST['ok'])) {
+        if (isset($_REQUEST['ok']) && 1 === (int)$_REQUEST['ok']) {
             $spot = $spotlight_handler->get($_REQUEST['id']);
             if ($spotlight_handler->delete($spot)) {
                 redirect_header('spotlight.php', 3, _AMS_AM_SPOT_DELETESUCCESS);
