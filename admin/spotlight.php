@@ -23,7 +23,7 @@
 // along with this program; if not, write to the Free Software              //
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------ //
-require dirname(__FILE__) . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('spotlight.php');
@@ -181,4 +181,4 @@ switch ($op) {
         break;
 }
 
-require dirname(__FILE__) . '/admin_footer.php';
+require __DIR__ . '/admin_footer.php';

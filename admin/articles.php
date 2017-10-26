@@ -26,7 +26,7 @@
 
 use Xmf\Request;
 
-require dirname(__FILE__) . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
 include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newstopic.php';
@@ -850,4 +850,4 @@ switch ($op) {
 
 }
 
-require dirname(__FILE__) . '/admin_footer.php';
+require __DIR__ . '/admin_footer.php';
