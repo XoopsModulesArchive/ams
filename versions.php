@@ -8,7 +8,7 @@ if (!isset($_POST['submit'])) {
         exit();
     }
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
-    $GLOBALS['xoopsOption']['template_main'] = 'ams_version'CriteriaElement'';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_version.tpl';
     include_once XOOPS_ROOT_PATH . '/header.php';
     $story = new AmsStory((int)$_GET['storyid']);
     $gpermHandler = xoops_getHandler('groupperm');

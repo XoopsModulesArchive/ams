@@ -63,9 +63,9 @@ $myts = MyTextSanitizer::getInstance();
 $pagetitle = $myts->htmlSpecialChars($xoopsModule->name());
 $column_count = $xoopsModuleConfig['columnmode'];
 if ($showclassic) {
-    $GLOBALS['xoopsOption']['template_main'] = 'ams_index'CriteriaElement'';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_index.tpl';
 } else {
-    $GLOBALS['xoopsOption']['template_main'] = 'ams_by_topic'CriteriaElement'';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_by_topic.tpl';
 }
 include XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('columnwidth', (int)(1 / $column_count * 100));
