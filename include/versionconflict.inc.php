@@ -40,5 +40,5 @@ $submit_tray->addElement(new XoopsFormButton('', 'op', _AMS_NW_FINDVERSION, 'sub
 $cancel_button = new XoopsFormButton('', 'cancel', _CANCEL, 'button');
 $cancel_button->setExtra('onclick="javascript:history.go(-1);"');
 $submit_tray->addElement($cancel_button);
-$sform->addelement($submit_tray);
+$sform->addElement($submit_tray);
 $sform->display();

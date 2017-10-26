@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
         }
         if ($error == 0) {
             // Import attachments if News version 1.2
-            $mod_handler = xoops_gethandler('module');
+            $mod_handler = xoops_getHandler('module');
             $newsModule = $mod_handler->getByDirname('news');
             if (is_object($newsModule) && $newsModule->getVar('version') > 110) {
                 if (!OldNewsStory::importFiles()) {
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
         break;
 
         case "Permissions":
-        $mod_handler = xoops_gethandler('module');
+        $mod_handler = xoops_getHandler('module');
         $newsModule = $mod_handler->getByDirname('news');
         if ($newsModule->getVar('version') > 110) {
             if (OldNewsTopic::copyPermissions($newsModule->getVar('mid'))) {
@@ -89,7 +89,7 @@ if (!isset($_POST['submit'])) {
     $upgrade_form->addElement(new XoopsFormButton('Articles and Topics ARE Imported Earlier, Proceed to Next Step', 'submit', 'Proceed', 'submit'));
 } else {
     $upgrade_form->addElement(new XoopsFormButton('MOVE Comments From News Articles to AMS Articles', 'submit', 'Comments', 'submit'));
-    $mod_handler = xoops_gethandler('module');
+    $mod_handler = xoops_getHandler('module');
     $newsModule = $mod_handler->getByDirname('news');
     if (is_object($newsModule) && $newsModule->getVar('version') > 110) {
         $upgrade_form->addElement(new XoopsFormButton('Copy Permissions From News to AMS', 'submit', 'Permissions', 'submit'));

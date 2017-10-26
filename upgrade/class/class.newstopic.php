@@ -44,10 +44,10 @@ class OldNewsTopic
     public function copyPermissions($mid)
     {
         $criteria = new Criteria('gperm_modid', intval($mid));
-        $gperm_handler = xoops_gethandler('groupperm');
+        $gperm_handler = xoops_getHandler('groupperm');
         $gperm_items = $gperm_handler->getObjects($criteria);
 
-        $mod_handler = xoops_gethandler('module');
+        $mod_handler = xoops_getHandler('module');
         $amsModule = $mod_handler->getByDirname('AMS');
         $amsmid = $amsModule->getVar('mid');
         foreach (array_keys($gperm_items) as $i) {

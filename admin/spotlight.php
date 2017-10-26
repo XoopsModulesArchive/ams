@@ -28,13 +28,13 @@ require dirname(__FILE__) . '/admin_header.php';
 $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('spotlight.php');
 
-$spotlight_handler = xoops_getmodulehandler('spotlight', $xoopsModule->getVar('dirname'));
+$spotlight_handler = xoops_getModuleHandler('spotlight', $xoopsModule->getVar('dirname'));
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
 
 switch ($op) {
     case "list":
     default:
-        $block_handler = xoops_gethandler('block');
+        $block_handler = xoops_getHandler('block');
         $spotlightBlock = $block_handler->getObjects(new Criteria('b.func_file', "ams_spotlight.php"));
         $spotlightBlock = isset($spotlightBlock[0]) ? $spotlightBlock[0] : null;
         $block = $spotlight_handler->getSpotlightBlock(false);

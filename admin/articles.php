@@ -57,7 +57,7 @@ function newSubmissions()
         foreach ($storyarray as $newstory) {
             $uids[] = $newstory->uid();
         }
-        $member_handler = xoops_gethandler('member');
+        $member_handler = xoops_getHandler('member');
         $users = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
         $i = 0;
         foreach ($storyarray as $newstory) {
@@ -168,7 +168,7 @@ function lastStories()
         $uids[] = $eachstory->uid();
     }
     if (!(empty($uids))) {
-        $member_handler = xoops_gethandler('member');
+        $member_handler = xoops_getHandler('member');
         $users = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
         $i = 0;
         foreach ($storyarray as $storyid => $eachstory) {
@@ -324,10 +324,10 @@ function topicsmanager()
     $sform->addElement($imgtray);
 
     //Forum linking
-    $module_handler = xoops_gethandler('module');
+    $module_handler = xoops_getHandler('module');
     $forum_module = $module_handler->getByDirname('newbb');
     if (is_object($forum_module) && $forum_module->getVar('version') >= 200) {
-        $forum_handler = xoops_getmodulehandler('forum', 'newbb', true);
+        $forum_handler = xoops_getModuleHandler('forum', 'newbb', true);
         if (is_object($forum_handler)) {
             $forums = $forum_handler->getForums();
             if (count($forums) > 0) {
@@ -347,9 +347,9 @@ function topicsmanager()
     //Added in AMS 2.50 Final. Use News 1.62 permission style
     //Enhance in AMS 3.0 Beta 1. Add default permission for approval=admin, submit=admin,User.
     // Permissions
-    $member_handler = xoops_gethandler('member');
+    $member_handler = xoops_getHandler('member');
     $group_list = $member_handler->getGroupList();
-    $gperm_handler = xoops_gethandler('groupperm');
+    $gperm_handler = xoops_getHandler('groupperm');
     $group_type_ref = $member_handler->getGroups(null, true);
 
     $admin_list = array();
@@ -468,7 +468,7 @@ function modTopicS()
 
     //Added in AMS 2.50 Final. Use News 1.62 permission style
     // Permissions
-    $gperm_handler = xoops_gethandler('groupperm');
+    $gperm_handler = xoops_getHandler('groupperm');
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('gperm_itemid', $xt->topic_id(), '='));
     $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
@@ -596,7 +596,7 @@ function addTopic()
             if ($totaltopics=1) {
                 //Make sure xoopsModule is AMS.
                 if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-                    $mod_handler = xoops_gethandler('module');
+                    $mod_handler = xoops_getHandler('module');
                     $amsModule = $mod_handler->getByDirname('AMS');
                 } else {
                     $amsModule = $xoopsModule;
@@ -604,8 +604,8 @@ function addTopic()
 
                 // Check audience, and set default value if not yet exist
                 if (!(ams_isaudiencesetup($amsModule->getVar('mid')))) {
-                    $gperm_handler = xoops_gethandler('groupperm');
-                    $member_handler = xoops_gethandler('member');
+                    $gperm_handler = xoops_getHandler('groupperm');
+                    $member_handler = xoops_getHandler('member');
                     $group_id_ref = $member_handler->getGroups(null, true);
                     //insert all groups into default audience
                     foreach (array_keys($group_id_ref) as $i) {
@@ -616,7 +616,7 @@ function addTopic()
 
             //Added in AMS 2.50 Final. Use News 1.62 permission style
             // Permissions
-            $gperm_handler = xoops_gethandler('groupperm');
+            $gperm_handler = xoops_getHandler('groupperm');
             if (isset($_POST['groups_AMS_can_approve'])) {
                 foreach ($_POST['groups_AMS_can_approve'] as $onegroup_id) {
                     $gperm_handler->addRight('ams_approve', $xt->topic_id(), $onegroup_id, $xoopsModule->getVar('mid'));
@@ -636,7 +636,7 @@ function addTopic()
             }
             AMS_updateCache();
 
-            $notification_handler = xoops_gethandler('notification');
+            $notification_handler = xoops_getHandler('notification');
             $tags = array();
             $tags['TOPIC_NAME'] = $_POST['topic_title'];
             $notification_handler -> triggerEvent('global', 0, 'new_category', $tags);
@@ -651,7 +651,7 @@ function addTopic()
 
 function listAudience()
 {
-    $audience_handler = xoops_getmodulehandler('audience', 'AMS');
+    $audience_handler = xoops_getModuleHandler('audience', 'AMS');
     $all_audiences = $audience_handler->getAllAudiences();
     $output = "";
     if (is_array($all_audiences) && count($all_audiences) > 0) {
@@ -676,10 +676,10 @@ function audienceForm($id = 0)
     $id = intval($id);
     if ($id > 0) {
         global $xoopsModule;
-        $audience_handler = xoops_getmodulehandler('audience', 'AMS');
+        $audience_handler = xoops_getModuleHandler('audience', 'AMS');
         $thisaudience = $audience_handler->get($id);
         $audience = $thisaudience->getVar('audience');
-        $gperm_handler = xoops_gethandler('groupperm');
+        $gperm_handler = xoops_getHandler('groupperm');
         $groups = $gperm_handler->getGroupIds("ams_audience", $id, $xoopsModule->getVar('mid'));
     } else {
         $audience = "";
@@ -712,8 +712,8 @@ switch ($op) {
     case "audience":
         $moduleAdmin->displayNavigation('articles.php?op=audience');
         if (isset($_POST['submitaud'])) {
-            $audience_handler = xoops_getmodulehandler('audience', 'AMS');
-            $gperm_handler = xoops_gethandler('groupperm');
+            $audience_handler = xoops_getModuleHandler('audience', 'AMS');
+            $gperm_handler = xoops_getHandler('groupperm');
             if (isset($_POST['aid'])) {
                 $audience = $audience_handler->get($_POST['aid']);
             } else {
@@ -791,7 +791,7 @@ switch ($op) {
         if ($_GET['audienceid'] == 1) {
             redirect_header('articles.php?op=audience', 2, _AMS_AM_CANNOTDELETEDEFAULTAUDIENCE);
         }
-        $audience_handler = xoops_getmodulehandler('audience', 'AMS');
+        $audience_handler = xoops_getModuleHandler('audience', 'AMS');
         $audiences = $audience_handler->getAllAudiences();
         $thisaudience = $audiences[$_GET['audienceid']];
         unset($audiences[$_GET['audienceid']]);
@@ -810,7 +810,7 @@ switch ($op) {
         if (!isset($_POST['audienceid']) || !isset($_POST['newaudience'])) {
             redirect_header('javascript:history.go(-1)', 2, _AMS_AM_PLEASESELECTNEWAUDIENCE);
         }
-        $audience_handler = xoops_getmodulehandler('audience', 'AMS');
+        $audience_handler = xoops_getModuleHandler('audience', 'AMS');
         $thisaudience = $audience_handler->get($_POST['audienceid']);
         if ($audience_handler->deleteReplace($thisaudience, $_POST['newaudience'])) {
             redirect_header('articles.php?op=audience', 3, _AMS_AM_AUDIENCEDELETED);

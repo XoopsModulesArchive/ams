@@ -177,13 +177,13 @@ class AmsStory extends AmsXoopsStory
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
                 if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-                    $module_handler = xoops_gethandler('module');
+                    $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
                     $newsModule = $xoopsModule;
                 }
                 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-                $gperm_handler = xoops_gethandler('groupperm');
+                $gperm_handler = xoops_getHandler('groupperm');
                 $topics = $gperm_handler->getItemIds('ams_view', $groups, $newsModule->getVar('mid'));
                 $topics = implode(',', $topics);
                 $sql .= " AND topicid IN (".$topics.")";
@@ -227,10 +227,10 @@ class AmsStory extends AmsXoopsStory
                 return $ret;
             }
             $groups = $xoopsUser->getGroups();
-            $gperm_handler = xoops_gethandler('groupperm');
+            $gperm_handler = xoops_getHandler('groupperm');
             global $xoopsModule;
             if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-                $module_handler = xoops_gethandler('module');
+                $module_handler = xoops_getHandler('module');
                 $newsmodule = $module_handler->getByDirname('AMS');
             } else {
                 $newsmodule = $xoopsModule;
@@ -294,13 +294,13 @@ class AmsStory extends AmsXoopsStory
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
                 if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-                    $module_handler = xoops_gethandler('module');
+                    $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
                     $newsModule = $xoopsModule;
                 }
                 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-                $gperm_handler = xoops_gethandler('groupperm');
+                $gperm_handler = xoops_getHandler('groupperm');
                 $topics = $gperm_handler->getItemIds('ams_view', $groups, $newsModule->getVar('mid'));
                 $topics = implode(',', $topics);
                 $sql .= " AND topicid IN (".$topics.")";
@@ -322,13 +322,13 @@ class AmsStory extends AmsXoopsStory
             if ($checkRight) {
                 global $xoopsUser, $xoopsModule;
                 if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-                    $module_handler = xoops_gethandler('module');
+                    $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
                     $newsModule = $xoopsModule;
                 }
                 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-                $gperm_handler = xoops_gethandler('groupperm');
+                $gperm_handler = xoops_getHandler('groupperm');
                 $topics = $gperm_handler->getItemIds('ams_view', $groups, $newsModule->getVar('mid'));
                 $topics = implode(',', $topics);
                 $sql .= " AND topicid IN (".$topics.")";
@@ -361,7 +361,7 @@ class AmsStory extends AmsXoopsStory
         $ret = '';
         if (false != $show_avatar && $this->uid() > 0) {
             if (!isset($users[$this->uid()])) {
-                $member_handler = xoops_gethandler('member');
+                $member_handler = xoops_getHandler('member');
                 $author = $member_handler->getUser($this->uid);
             } else {
                 $author = $users[$this->uid()];
@@ -387,9 +387,9 @@ class AmsStory extends AmsXoopsStory
         }
         global $xoopsModule, $xoopsModuleConfig;
         if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-            $module_handler = xoops_gethandler('module');
+            $module_handler = xoops_getHandler('module');
             $module = $module_handler->getByDirname("AMS");
-            $config_handler = xoops_gethandler('config');
+            $config_handler = xoops_getHandler('config');
             if ($module) {
                 $moduleConfig = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
                 $option= $moduleConfig['displayname'];
@@ -746,7 +746,7 @@ class AmsStory extends AmsXoopsStory
 
     public function addLink($moduleid, $link, $title, $position)
     {
-        $linkHandler = xoops_getmodulehandler('link', 'AMS');
+        $linkHandler = xoops_getModuleHandler('link', 'AMS');
         $thisLink = $linkHandler->create();
         $thisLink->setVar('storyid', $this->storyid);
         $thisLink->setVar('link_module', intval($moduleid));
@@ -763,7 +763,7 @@ class AmsStory extends AmsXoopsStory
 
     public function deleteLink($linkid)
     {
-        $linkHandler = xoops_getmodulehandler('link', 'AMS');
+        $linkHandler = xoops_getModuleHandler('link', 'AMS');
         $link = $linkHandler->create(false);
         $link->setVar('linkid', intval($linkid));
         if (!$linkHandler->delete($link)) {
@@ -775,7 +775,7 @@ class AmsStory extends AmsXoopsStory
 
     public function getLinks()
     {
-        $linkHandler = xoops_getmodulehandler('link', 'AMS');
+        $linkHandler = xoops_getModuleHandler('link', 'AMS');
         return $linkHandler->getByStory($this->storyid);
     }
 

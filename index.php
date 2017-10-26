@@ -113,7 +113,7 @@ if ($showclassic) {
         foreach ($sarray as $storyid => $thisstory) {
             $uids[$thisstory->uid()] = $thisstory->uid();
         }
-        $member_handler = xoops_gethandler('member');
+        $member_handler = xoops_getHandler('member');
         $user_arr = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
         foreach ($sarray as $storyid => $thisstory) {
             $stories[] = $thisstory->toArray(false, false, 0, $user_arr);
@@ -165,7 +165,7 @@ if ($showclassic) {
         }
     }
     if (count($uids) > 0) {
-        $member_handler = xoops_gethandler('member');
+        $member_handler = xoops_getHandler('member');
         $user_arr = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
         foreach ($alltopics as $topicid => $topic) {
             $topicstories = array();

@@ -40,7 +40,7 @@ include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/inclu
 $module_id = $xoopsModule->getVar('mid');
 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
-$gperm_handler = xoops_gethandler('groupperm');
+$gperm_handler = xoops_getHandler('groupperm');
 $perm_itemid = isset($_POST['topic_id']) ? intval($_POST['topic_id']) : 0;
 
 //If no access
@@ -336,7 +336,7 @@ case "post":
 
     if ($result) {
         // Notification
-        $notification_handler = xoops_gethandler('notification');
+        $notification_handler = xoops_getHandler('notification');
         $tags = array();
         $tags['STORY_NAME'] = $story->title();
         $tags['STORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/article.php?storyid=' . $story->storyid();
@@ -491,7 +491,7 @@ case "post":
         $noname = 0;
         $story->setNohtml(0);
         $story->setNosmiley(0);
-        $story->setNotifypub(1);
+        $story->setNotifyPub(1);
         $story->setTopicId(0);
         if ($approveprivilege) {
             $story->setTopicdisplay(0);

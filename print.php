@@ -37,7 +37,7 @@ function PrintPage($storyid)
     $myts = MyTextSanitizer::getInstance();
     $story = new AmsStory($storyid);
     $datetime = formatTimestamp($story->published());
-    $gperm_handler = xoops_gethandler('groupperm');
+    $gperm_handler = xoops_getHandler('groupperm');
     if (is_object($xoopsUser)) {
         $groups = $xoopsUser->getGroups();
     } else {

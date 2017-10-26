@@ -40,7 +40,7 @@ function b_ams_topics_moderate()
         foreach ($storyarray as $thisstory) {
             $uids[$thisstory->uid()] = $thisstory->uid();
         }
-        $member_handler = xoops_gethandler('member');
+        $member_handler = xoops_getHandler('member');
         $user_arr = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
         foreach ($storyarray as $newstory) {
             $newstory->uname($user_arr);

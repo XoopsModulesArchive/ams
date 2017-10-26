@@ -55,7 +55,7 @@ if ($article->published() == 0 || $article->published() > time()) {
     exit();
 }
 $admin = false;
-$gperm_handler = xoops_gethandler('groupperm');
+$gperm_handler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {

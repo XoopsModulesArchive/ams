@@ -42,7 +42,7 @@ if (!$storyid) {
 }
 $article = new AmsStory($storyid);
 if ($xoopsUser->getVar('uid') != $article->uid()) {
-    $gperm_handler = xoops_gethandler('groupperm');
+    $gperm_handler = xoops_getHandler('groupperm');
     $groups = $xoopsUser->getGroups();
     if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
@@ -88,9 +88,9 @@ switch ($op) {
         }
         $queries = array($myts->addSlashes($query));
     }
-    $module_handler = xoops_gethandler('module');
+    $module_handler = xoops_getHandler('module');
     if ($username != "") {
-        $member_handler = xoops_gethandler('member');
+        $member_handler = xoops_getHandler('member');
         $criteria = new Criteria('uname', '%'.$username.'%', 'LIKE');
         $users = $member_handler->getUserList($criteria);
     } else {

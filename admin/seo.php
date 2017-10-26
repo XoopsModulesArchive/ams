@@ -29,7 +29,7 @@ include_once XOOPS_ROOT_PATH."/modules/AMS/include/functions.inc.php";
 
 global $xoopsModule;
 if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-    $mod_handler = xoops_gethandler('module');
+    $mod_handler = xoops_getHandler('module');
     $amsModule = $mod_handler->getByDirname('AMS');
 } else {
     $amsModule = $xoopsModule;
@@ -39,7 +39,7 @@ $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('seo.php');
 
 //load AMS SEO class
-$SEO_handler = xoops_getmodulehandler('seo', 'AMS');
+$SEO_handler = xoops_getModuleHandler('seo', 'AMS');
 
 //if process form submitted
 if (isset($_POST['submit'])) {

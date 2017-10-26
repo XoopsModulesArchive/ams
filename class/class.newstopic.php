@@ -131,13 +131,13 @@ class AmsTopic extends AmsXoopsTopic
             if (false != $checkRight) {
                 global $xoopsUser, $xoopsModule;
                 if (!isset($xoopsModule) || $xoopsModule->getVar('dirname') != "AMS") {
-                    $module_handler = xoops_gethandler('module');
+                    $module_handler = xoops_getHandler('module');
                     $newsModule = $module_handler->getByDirname('AMS');
                 } else {
                     $newsModule = $xoopsModule;
                 }
                 $groups = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-                $gperm_handler = xoops_gethandler('groupperm');
+                $gperm_handler = xoops_getHandler('groupperm');
                 $topics = $gperm_handler->getItemIds($permission, $groups, $newsModule->getVar('mid'));
                 if (count($topics) == 0) {
                     return array();

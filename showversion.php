@@ -50,7 +50,7 @@ $myts = MyTextSanitizer::getInstance();
 
 $article = new AmsStory();
 $article->getNewsVersion($storyid, $version, $revision, $revisionminor);
-$gperm_handler = xoops_gethandler('groupperm');
+$gperm_handler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {

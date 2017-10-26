@@ -27,7 +27,7 @@ if ( $article->expired() != 0 && $article->expired() < time() ) {
     exit();
 }
 */
-$gperm_handler = xoops_gethandler('groupperm');
+$gperm_handler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
@@ -43,7 +43,7 @@ if (!$gperm_handler->checkRight("ams_audience", $article->audienceid, $groups, $
 $sfiles->updateCounter();
 $url=XOOPS_UPLOAD_URL.'/'.$sfiles->getDownloadname();
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
-    Header("Location: $url");
+    header("Location: $url");
 }
 echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL=".$myts->htmlSpecialChars($url)."\"></meta></head><body></body></html>";
 exit();

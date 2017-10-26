@@ -137,7 +137,7 @@ if ($approveprivilege) {
     //Publish in home?
     //TODO: Check that pubinhome is 0 = no and 1 = yes (currently vice versa)
     $sform->addElement(new XoopsFormRadioYN(_AMS_AM_PUBINHOME, 'ihome', $story->ihome(), _NO, _YES));
-    $audience_handler = xoops_getmodulehandler('audience', 'AMS');
+    $audience_handler = xoops_getModuleHandler('audience', 'AMS');
     $audiences = $audience_handler->getAllAudiences();
     $audience_select = new XoopsFormSelect(_AMS_NW_AUDIENCE, 'audience', $story->audienceid);
     if (is_array($audiences) && count($audiences) > 0) {
