@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,38 +24,38 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-function ams_search($queryarray, $andor, $limit, $offset, $userid, $storyid = false){
-	global $xoopsDB;
-	$sql = "SELECT n.storyid,uid,title,updated FROM ".$xoopsDB->prefix("ams_article")." n, ".$xoopsDB->prefix("ams_text")." t WHERE t.storyid=n.storyid AND t.current=1 AND published>0 AND published<=".time()."";
-	if ( $userid != 0 ) {
-		$sql .= " AND uid=".$userid." ";
-	}
-	if (false != $storyid) {
-	    $sql .= " AND n.storyid != ".intval($storyid);
-	}
-	// because count() returns 1 even if a supplied variable
-	// is not an array, we must check if $querryarray is really an array
-	if ( is_array($queryarray) && $count = count($queryarray) ) {
-		$sql .= " AND ((hometext LIKE '%$queryarray[0]%' OR bodytext LIKE '%$queryarray[0]%' OR title LIKE '%$queryarray[0]%' OR n.storyid=".intval($queryarray[0]).")";
-		for($i=1;$i<$count;$i++){
-			$sql .= " $andor ";
-			$sql .= "(hometext LIKE '%$queryarray[$i]%' OR bodytext LIKE '%$queryarray[$i]%' OR title LIKE '%$queryarray[$i]%' OR n.storyid=".intval($queryarray[0]).")";
-		}
-		$sql .= ") ";
-	}
-	$sql .= " ORDER BY created DESC";
-	$result = $xoopsDB->query($sql,$limit,$offset);
-	$ret = array();
-	$i = 0;
- 	while($myrow = $xoopsDB->fetchArray($result)){
-		$ret[$i]['image'] = "images/articles.gif";
-		$ret[$i]['link'] = "article.php?storyid=".$myrow['storyid']."";
-		$ret[$i]['title'] = $myrow['title'];
-		$ret[$i]['time'] = $myrow['updated'];
-		$ret[$i]['uid'] = $myrow['uid'];
-		$ret[$i]['id'] = $myrow['storyid'];
-		$i++;
-	}
-	return $ret;
+function ams_search($queryarray, $andor, $limit, $offset, $userid, $storyid = false)
+{
+    global $xoopsDB;
+    $sql = "SELECT n.storyid,uid,title,updated FROM ".$xoopsDB->prefix("ams_article")." n, ".$xoopsDB->prefix("ams_text")." t WHERE t.storyid=n.storyid AND t.current=1 AND published>0 AND published<=".time()."";
+    if ($userid != 0) {
+        $sql .= " AND uid=".$userid." ";
+    }
+    if (false != $storyid) {
+        $sql .= " AND n.storyid != ".intval($storyid);
+    }
+    // because count() returns 1 even if a supplied variable
+    // is not an array, we must check if $querryarray is really an array
+    if (is_array($queryarray) && $count = count($queryarray)) {
+        $sql .= " AND ((hometext LIKE '%$queryarray[0]%' OR bodytext LIKE '%$queryarray[0]%' OR title LIKE '%$queryarray[0]%' OR n.storyid=".intval($queryarray[0]).")";
+        for ($i=1;$i<$count;$i++) {
+            $sql .= " $andor ";
+            $sql .= "(hometext LIKE '%$queryarray[$i]%' OR bodytext LIKE '%$queryarray[$i]%' OR title LIKE '%$queryarray[$i]%' OR n.storyid=".intval($queryarray[0]).")";
+        }
+        $sql .= ") ";
+    }
+    $sql .= " ORDER BY created DESC";
+    $result = $xoopsDB->query($sql, $limit, $offset);
+    $ret = array();
+    $i = 0;
+    while ($myrow = $xoopsDB->fetchArray($result)) {
+        $ret[$i]['image'] = "assets/images/articles.gif";
+        $ret[$i]['link'] = "article.php?storyid=".$myrow['storyid']."";
+        $ret[$i]['title'] = $myrow['title'];
+        $ret[$i]['time'] = $myrow['updated'];
+        $ret[$i]['uid'] = $myrow['uid'];
+        $ret[$i]['id'] = $myrow['storyid'];
+        $i++;
+    }
+    return $ret;
 }
-?>

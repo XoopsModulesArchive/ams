@@ -25,21 +25,19 @@
 //  ------------------------------------------------------------------------ //
 /**
  * Image selection field
- * 
- * @author	Jan Keller Pedersen	<mithrandir@xoops.org>
- * @copyright	copyright (c) 2000-2005 XOOPS.org
- * 
+ *
+ * @author    Jan Keller Pedersen <mithrandir@xoops.org>
+ * @copyright copyright (c) 2000-2005 XOOPS.org
+ *
  * @package     Cappello
  * @subpackage  form
  */
 class XoopsFormImageSelect extends XoopsFormElementTray
 {
-
-	function XoopsFormImageSelect($caption, $name, $value=0, $size, $maxlength)
-	{
-		$this->XoopsFormElementTray($caption, '&nbsp;');
-		$this->addElement(new XoopsFormText('', $name, $size, $maxlength, $value));
-		$this->addElement(new XoopsFormLabel('', "<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL."/imagemanager.php?target=".$name."\",\"imgmanager\",400,430);' src='".XOOPS_URL."/images/image.gif' alt='image' />"));
-	}
+    public function __construct($caption, $name, $value = 0, $size, $maxlength)
+    {
+        parent::__construct($caption, '&nbsp;');
+        $this->addElement(new XoopsFormText('', $name, $size, $maxlength, $value));
+        $this->addElement(new XoopsFormLabel('', "<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL."/imagemanager.php?target=".$name."\",\"imgmanager\",400,430);' src='".XOOPS_URL."/assets/images/image.gif' alt='image' />"));
+    }
 }
-?>

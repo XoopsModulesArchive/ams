@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -43,4 +42,3 @@ $cancel_button->setExtra('onclick="javascript:history.go(-1);"');
 $submit_tray->addElement($cancel_button);
 $sform->addelement($submit_tray);
 $sform->display();
-?>

@@ -1,20 +1,25 @@
-<?php 
+<?php
 if (!class_exists('IdgObjectHandler')) {
     include_once XOOPS_ROOT_PATH."/modules/AMS/class/idgobject.php";
 }
-class AmsAudience extends XoopsObject {
-    function AmsAudience() {
+class AmsAudience extends XoopsObject
+{
+    public function __construct()
+    {
         $this->initVar('audienceid', XOBJ_DTYPE_INT);
         $this->initVar('audience', XOBJ_DTYPE_TXTBOX);
     }
 }
 
-class AMSAudienceHandler extends IdgObjectHandler {
-    function AMSAudienceHandler(&$db) {
-        $this->IdgObjectHandler($db, 'ams_audience', 'AmsAudience', 'audienceid');
+class AMSAudienceHandler extends IdgObjectHandler
+{
+    public function __construct($db)
+    {
+        parent::__construct($db, 'ams_audience', 'AmsAudience', 'audienceid');
     }
-    
-    function delete(&$aud, $newaudid) {
+
+    public function deleteReplace($aud, $newaudid)
+    {
         if ($aud->getVar('audienceid') == 1) {
             return false;
         }
@@ -24,12 +29,14 @@ class AMSAudienceHandler extends IdgObjectHandler {
         }
         return parent::delete($aud);
     }
-    
-    function getAllAudiences() {
+
+    public function getAllAudiences()
+    {
         return $this->getObjects(null, true);
     }
-    
-    function getStoryCountByAudience($audience) {
+
+    public function getStoryCountByAudience($audience)
+    {
         $sql = "SELECT COUNT(*) FROM ".$this->db->prefix("ams_article")." WHERE audienceid=".$audience->getVar('audienceid');
         if ($result = $this->db->query($sql)) {
             list($count) = $this->db->fetchRow($result);
@@ -38,5 +45,3 @@ class AMSAudienceHandler extends IdgObjectHandler {
         return false;
     }
 }
-
-?>

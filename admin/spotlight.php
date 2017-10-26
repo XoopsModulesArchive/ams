@@ -23,34 +23,33 @@
 // along with this program; if not, write to the Free Software              //
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------ //
-include '../../../include/cp_header.php';
-include_once "functions.php"; 
-xoops_cp_header();
+require dirname(__FILE__) . '/admin_header.php';
 
-adminmenu(4);
+$moduleAdmin = \Xmf\Module\Admin::getInstance();
+$moduleAdmin->displayNavigation('spotlight.php');
 
-$spotlight_handler =& xoops_getmodulehandler('spotlight', $xoopsModule->getVar('dirname'));
+$spotlight_handler = xoops_getmodulehandler('spotlight', $xoopsModule->getVar('dirname'));
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
 
 switch ($op) {
     case "list":
     default:
-        $block_handler =& xoops_gethandler('block');
+        $block_handler = xoops_gethandler('block');
         $spotlightBlock = $block_handler->getObjects(new Criteria('b.func_file', "ams_spotlight.php"));
         $spotlightBlock = isset($spotlightBlock[0]) ? $spotlightBlock[0] : null;
         $block = $spotlight_handler->getSpotlightBlock(false);
         $spotlights = isset($block['spotlights']) ? $block['spotlights'] : array();
         $output = "<div align='right'>
-                        <a href='spotlight.php?op=add'><img src='../images/new.png' />"._AMS_AM_SPOT_ADD."</a>";
+                        <a href='spotlight.php?op=add'><img src='../assets/images/new.png' />"._AMS_AM_SPOT_ADD."</a>";
         if (is_object($spotlightBlock)) {
             $output .= "<br />
-                        <a href='".XOOPS_URL."/modules/system/admin.php?fct=blocksadmin&op=edit&bid=".$spotlightBlock->getVar('bid')."'><img src='../images/edit.png' />"._AMS_AM_SPOT_EDITBLOCK."</a>";
+                        <a href='".XOOPS_URL."/modules/system/admin.php?fct=blocksadmin&op=edit&bid=".$spotlightBlock->getVar('bid')."'><img src='../assets/images/edit.png' />"._AMS_AM_SPOT_EDITBLOCK."</a>";
         }
         $output .= "</div>";
-        
+
         $output .= "<div><form name='spotform' id='spotform' action='spotlight.php' method='POST'>";
         $output .= "<table>";
-        
+
         $output .= "<tr><th>"._AMS_AM_SPOT_NAME."</th><th></th><th>"._AMS_AM_SPOT_IMAGE."</th><th>"._AMS_AM_SPOT_WEIGHT."</th><th>"._AMS_AM_SPOT_DISPLAY."</th><th>"._AMS_AM_ACTION."</th>";
         include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
         $minis = 0;
@@ -63,8 +62,7 @@ switch ($op) {
                 $display_select = new XoopsFormRadioYN('', 'display['.$spotlights[$i]['spotid'].']', $spotlights[$i]['display']);
                 if (isset($class) && $class == 'odd') {
                     $class = 'even';
-                }
-                else {
+                } else {
                     $class = 'odd';
                 }
                 $output .= "<tr class='".$class."'>";
@@ -92,25 +90,24 @@ switch ($op) {
         $output .= "</table></form></div>";
         echo $output;
         break;
-        
+
     case "add":
-        $spotlight =& $spotlight_handler->create();
-        $form =& $spotlight->getForm();
+        $spotlight = $spotlight_handler->create();
+        $form = $spotlight->getForm();
         $form->display();
         break;
-        
+
     case "edit":
-        $spot =& $spotlight_handler->get($_REQUEST['id']);
-        $form =& $spot->getForm();
+        $spot = $spotlight_handler->get($_REQUEST['id']);
+        $form = $spot->getForm();
         $form->display();
         break;
-        
+
     case "save":
         if (isset($_REQUEST['id'])) {
-            $spot =& $spotlight_handler->get($_REQUEST['id']);
-        }
-        else {
-            $spot =& $spotlight_handler->create();
+            $spot = $spotlight_handler->get($_REQUEST['id']);
+        } else {
+            $spot = $spotlight_handler->create();
         }
         $spot->setVar('showimage', $_REQUEST['showimage']);
         $spot->setVar('image', $_REQUEST['image']);
@@ -125,45 +122,42 @@ switch ($op) {
                 $spot->setVar('topicid', 0);
                 $spot->setVar('storyid', 0);
                 break;
-                
+
             case 2:
                 $spot->setVar('topicid', $_REQUEST['topicid']);
                 break;
-                
+
             case 3:
                 $spot->setVar('storyid', $_REQUEST['storyid']);
                 break;
         }
         if ($spotlight_handler->insert($spot)) {
             redirect_header('spotlight.php', 3, _AMS_AM_SPOT_SAVESUCCESS);
-        }
-        else {
+        } else {
             echo $spot->getHtmlErrors();
-            $form =& $spot->getForm();
+            $form = $spot->getForm();
             $form->display();
         }
         break;
-        
+
     case "delete":
         if (isset($_REQUEST['ok']) && intval($_REQUEST['ok']) === 1) {
-            $spot =& $spotlight_handler->get($_REQUEST['id']);
+            $spot = $spotlight_handler->get($_REQUEST['id']);
             if ($spotlight_handler->delete($spot)) {
                 redirect_header('spotlight.php', 3, _AMS_AM_SPOT_DELETESUCCESS);
-            }
-            else {
+            } else {
                 echo $spot->getHtmlErrors();
             }
-        }
-        else {
+        } else {
             xoops_confirm(array('ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'), 'spotlight.php', _AMS_AM_RUSUREDELSPOTLIGHT);
         }
         break;
-        
+
     case "reorder":
         if (!isset($_POST['weight']) || !is_array($_POST['weight']) || count($_POST['weight'] == 0)) {
             header("location:spotlight.php");
         }
-        $criteria = new Criteria('spotlightid', "(".implode(',', array_keys($_POST['weight']) ).")", 'IN');
+        $criteria = new Criteria('spotlightid', "(".implode(',', array_keys($_POST['weight'])).")", 'IN');
         $spots = $spotlight_handler->getObjects($criteria, true);
 
         foreach ($_POST['weight'] as $id => $weight) {
@@ -175,12 +169,10 @@ switch ($op) {
         }
         if ($errors) {
             header('Location: spotlight.php');
-        }
-        else {
+        } else {
             header('Location: spotlight.php');
         }
         break;
 }
 
-xoops_cp_footer();
-?>
+require dirname(__FILE__) . '/admin_footer.php';

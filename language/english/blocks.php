@@ -1,14 +1,13 @@
 <?php
-// $Id$
-define("_AMS_MB_NEWS_NOTYET","There isn't a Biggest Story for Today, yet.");
-define("_AMS_MB_NEWS_TMRSI","Today's most read article is:");
-define("_AMS_MB_NEWS_ORDER","Order By");
-define("_AMS_MB_NEWS_DATE","Published Date");
-define("_AMS_MB_NEWS_HITS","Number of Hits");
-define("_AMS_MB_NEWS_DISP","Display");
-define("_AMS_MB_NEWS_ARTCLS","articles");
-define("_AMS_MB_NEWS_CHARS","Length of the title");
-define("_AMS_MB_NEWS_LENGTH"," characters");
+define("_AMS_MB_NEWS_NOTYET", "There isn't a Biggest Story for Today, yet.");
+define("_AMS_MB_NEWS_TMRSI", "Today's most read article is:");
+define("_AMS_MB_NEWS_ORDER", "Order By");
+define("_AMS_MB_NEWS_DATE", "Published Date");
+define("_AMS_MB_NEWS_HITS", "Number of Hits");
+define("_AMS_MB_NEWS_DISP", "Display");
+define("_AMS_MB_NEWS_ARTCLS", "articles");
+define("_AMS_MB_NEWS_CHARS", "Length of the title");
+define("_AMS_MB_NEWS_LENGTH", " characters");
 define("_AMS_MB_TITLE", "Title");
 define("_AMS_MB_POSTED", "Posted");
 define("_AMS_MB_POSTER", "Author");
@@ -41,4 +40,3 @@ define("_AMS_MB_READMORE", "Read More");
 
 define("_AMS_MB_SPOTLIGHT_TEMPLATE", "Spotlight Template");
 define("_AMS_MB_SPOTLIGHT_TEMPLATE_DESC", "Template to use in the Spotlight Block");
-?>

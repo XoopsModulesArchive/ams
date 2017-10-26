@@ -8,4 +8,3 @@ $block['spotlights'][0] = $block['spotlights'][1];
 $block['spotlights'][1] = $temp;
 // clean up
 unset($temp);
-?>

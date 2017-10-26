@@ -1,5 +1,4 @@
 <?php
-// $Id$
 // ------------------------------------------------------------------------ //
 // XOOPS - PHP Content Management System            				        //
 // Copyright (c) 2000 XOOPS.org                           					//
@@ -24,46 +23,43 @@
 // along with this program; if not, write to the Free Software              //
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------ //
-include '../../../include/cp_header.php';
+include __DIR__ . '/admin_header.php';
 include_once XOOPS_ROOT_PATH . "/modules/AMS/class/class.newstopic.php";
 include_once XOOPS_ROOT_PATH . "/class/xoopslists.php";
 include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
-include_once "functions.php";
 
-xoops_cp_header();
-
-adminmenu(3);
+$moduleAdmin = \Xmf\Module\Admin::getInstance();
+$moduleAdmin->displayNavigation('groupperms.php');
 
 $module_id = $xoopsModule->getVar('mid');
 $xt = new AmsTopic($xoopsDB -> prefix("ams_topics"));
 $allTopics = $xt->getAllTopics();
 $totaltopics = count($allTopics);
 if ($totaltopics > 0) {
-	//Approver Form
-	$approveform = new XoopsGroupPermForm(_AMS_AM_APPROVEFORM, $module_id, "ams_approve", _AMS_AM_APPROVEFORM_DESC);
+    //Approver Form
+    $approveform = new XoopsGroupPermForm(_AMS_AM_APPROVEFORM, $module_id, "ams_approve", _AMS_AM_APPROVEFORM_DESC);
 
-	//Submitter Form
-	$submitform = new XoopsGroupPermForm(_AMS_AM_SUBMITFORM, $module_id, "ams_submit", _AMS_AM_SUBMITFORM_DESC);
+    //Submitter Form
+    $submitform = new XoopsGroupPermForm(_AMS_AM_SUBMITFORM, $module_id, "ams_submit", _AMS_AM_SUBMITFORM_DESC);
 
-	//Viewer Form
-	$viewform = new XoopsGroupPermForm(_AMS_AM_VIEWFORM, $module_id, "ams_view", _AMS_AM_VIEWFORM_DESC);
+    //Viewer Form
+    $viewform = new XoopsGroupPermForm(_AMS_AM_VIEWFORM, $module_id, "ams_view", _AMS_AM_VIEWFORM_DESC);
 
 
-	foreach ($allTopics as $topic_id => $topic) {
-	    $approveform->addItem($topic_id, $topic->topic_title(), $topic->topic_pid());
-	    $submitform->addItem($topic_id, $topic->topic_title(), $topic->topic_pid());
-	    $viewform->addItem($topic_id, $topic->topic_title(), $topic->topic_pid());
-	}
+    foreach ($allTopics as $topic_id => $topic) {
+        $approveform->addItem($topic_id, $topic->topic_title(), $topic->topic_pid());
+        $submitform->addItem($topic_id, $topic->topic_title(), $topic->topic_pid());
+        $viewform->addItem($topic_id, $topic->topic_title(), $topic->topic_pid());
+    }
 
-	echo $approveform->render();
-	unset ($approveform);
+    echo $approveform->render();
+    unset($approveform);
 
-	echo $submitform->render();
-	unset ($submitform);
+    echo $submitform->render();
+    unset($submitform);
 
-	echo $viewform->render();
-	unset ($viewform);
+    echo $viewform->render();
+    unset($viewform);
 }
 
 xoops_cp_footer();
-?>

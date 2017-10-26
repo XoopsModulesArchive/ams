@@ -28,8 +28,8 @@ include "../../mainfile.php";
 $lid = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
 $rev = isset($_GET['rev']) ? true : false;
 
-$linkHandler =& xoops_getmodulehandler('link', 'AMS');
-$link =& $linkHandler->get($lid);
+$linkHandler = xoops_getmodulehandler('link', 'AMS');
+$link = $linkHandler->get($lid);
 $link->increment();
 if ($rev) {
     header('location: '.XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname').'/article.php?storyid='.$link->getVar('storyid'));
@@ -38,15 +38,15 @@ if ($rev) {
 
 if ($link->getVar('link_module') > 0) {
     if ($link->getVar('link_module') != $xoopsModule->getVar('mid')) {
-        $module_handler =& xoops_gethandler('module');
-        $module =& $module_handler->get($link->getVar('link_module'));
-    }
-    else {
-        $module =& $xoopsModule;
+        $module_handler = xoops_gethandler('module');
+        $module = $module_handler->get($link->getVar('link_module'));
+        if (!is_object($module)) {
+            $module = $xoopsModule; // this is an error condition
+        }
+    } else {
+        $module = $xoopsModule;
     }
     header('location: '.XOOPS_URL.'/modules/'.$module->getVar('dirname').'/'.$link->getVar('link_link'));
-}
-else {
+} else {
     header('location: '.$link->getVar('link_link'));
 }
-?>

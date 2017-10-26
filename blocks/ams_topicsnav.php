@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,23 +24,24 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-function b_ams_topicsnav_show($options) {
+function b_ams_topicsnav_show($options)
+{
     include_once(XOOPS_ROOT_PATH."/modules/AMS/class/class.newstopic.php");
-	global $xoopsDB, $xoopsUser;
-	$block = array();
-	$topics = AmsTopic::getAllTopics($options[0]);
-	foreach ($topics as $topic) {
-	    $block['topics'][] = array('id' => $topic->topic_id, 'title' => $topic->topic_title());
-	}	
-	return $block;
+    global $xoopsDB, $xoopsUser;
+    $block = array();
+    $topics = AmsTopic::getAllTopics($options[0]);
+    foreach ($topics as $topic) {
+        $block['topics'][] = array('id' => $topic->topic_id, 'title' => $topic->topic_title());
+    }
+    return $block;
 }
 
-function b_ams_topicsnav_edit($options) {
-    include_once (XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+function b_ams_topicsnav_edit($options)
+{
+    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
     $form = new XoopsFormElementTray('', '<br/>');
     $restrict_select = new XoopsFormRadioYN(_AMS_MB_NEWS_RESTRICTTOPICS, 'options[0]', $options[0]);
     $form->addElement($restrict_select);
-    
-	return $form->render();
+
+    return $form->render();
 }
-?>

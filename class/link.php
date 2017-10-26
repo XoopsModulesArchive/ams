@@ -26,12 +26,14 @@
 if (!class_exists('IdgObjectHandler')) {
     include_once XOOPS_ROOT_PATH."/modules/AMS/class/idgobject.php";
 }
-class Link extends XoopsObject {
-    var $table;
-    var $db;
-    
-    function Link($id = null) {
-        $this->db =& XoopsDatabaseFactory::getDatabaseConnection();
+class Link extends XoopsObject
+{
+    public $table;
+    public $db;
+
+    public function __construct($id = null)
+    {
+        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
         $this->initVar('linkid', XOBJ_DTYPE_INT);
         $this->initVar('storyid', XOBJ_DTYPE_INT);
         $this->initVar('link_module', XOBJ_DTYPE_INT);
@@ -44,31 +46,34 @@ class Link extends XoopsObject {
             $this->get($id);
         }
     }
-    
-    function get($id) {
+
+    public function get($id)
+    {
         $sql = "SELECT * FROM ".$this->table." WHERE linkid = ".intval($id)." LIMIT 1";
         $result = $this->db->query($sql);
         $row = $this->db->fetchArray($result);
-        $this->assignVars($row);            
+        $this->assignVars($row);
     }
-    
+
     /**
     * Increment Link counter
     *
     * @return bool
     */
-    function increment() {
+    public function increment()
+    {
         $sql = "UPDATE ".$this->table." SET link_counter=link_counter+1 WHERE linkid=".intval($this->getVar('linkid'));
         return $this->db->queryF($sql);
     }
-        
 }
 
-class AMSLinkHandler extends IdgObjectHandler {
-    function AMSLinkHandler(&$db) {
-        $this->IdgObjectHandler($db, 'ams_link', 'Link', 'linkid');
+class AMSLinkHandler extends IdgObjectHandler
+{
+    public function __construct($db)
+    {
+        parent::__construct($db, 'ams_link', 'Link', 'linkid');
     }
-    
+
     /**
     * get array of links by story
     *
@@ -76,56 +81,53 @@ class AMSLinkHandler extends IdgObjectHandler {
     *
     * @return array
     */
-    function &getByStory($storyid) {
+    public function &getByStory($storyid)
+    {
         global $xoopsModule;
         $ret = array();
-	    $module_handler =& xoops_gethandler('module');
-	    $link = "article.php?storyid=".intval($storyid);
-	    $myts = MyTextSanitizer::getInstance();
-	    
-	    if ($xoopsModule->getVar('dirname') != "AMS") {
-	        $newsmodule =& $module_handler->getByDirname('AMS');
-	    }
-	    else {
-	        $newsmodule =& $xoopsModule;
-	    }
-	    $sql = "SELECT n.title, n.storyid, l.* FROM ".$this->table." l, ".$this->db->prefix('ams_article')." n WHERE n.storyid=l.storyid AND ((link_link='$link' AND link_module=".$newsmodule->mid().") OR (l.storyid = ".intval($storyid)."))";
-	    $directresult = $this->db->query($sql);
-	    //$moduleids[$newsmodule->getVar('mid')] = $newsmodule->getVar('mid');
-	    while ($row = $this->db->fetchArray($directresult)) {
-	        if ($row['storyid'] == $storyid) {
-	            if ($row['link_module'] > -1) {
-	                $moduleids[$row['link_module']] = $row['link_module'];
-	                $row['target'] = "_self";
-	            }
-	            else {
-	                $row['target'] = "_blank";
-	            }
-	            $row['link_title'] = $myts->htmlSpecialChars($row['link_title']);
-	            $row['hits'] = $row['link_counter'];
-	            $ret[$row['link_position']][] = $row;
-	        }
-	        else {
-	            $row['link_module'] = $newsmodule->getVar('mid');
-	            $row['link_link'] = 'article.php?storyid='.$row['storyid'];
-	            $row['link_title'] = $myts->htmlSpecialChars($row['title']);
-	            $row['target'] = "_self";
-	            $row['hits'] = $row['link_counter'];
-	            // Backlink, so set position to recommended reading
-	            $ret['bottom'][] = $row;
-	        }
-	    }
-	    if (isset($moduleids)) {
-	        $moduleids = "(".implode(',', array_keys($moduleids)).")";
-	        $modules = $module_handler->getList(new Criteria('mid', $moduleids, "IN"));
-	    }
-	    $modules[$newsmodule->getVar('mid')] = $newsmodule->getVar('name');
-	    foreach ($ret as $position => $links) {
-	        foreach ($links as $key => $link) {
-	            $ret[$position][$key]['link_module'] = ($link['link_module'] > -1) ? $modules[$link['link_module']] : _AMS_NW_EXTERNALLINK;
-	        }
-	    }
-	    return $ret;
+        $module_handler = xoops_gethandler('module');
+        $link = "article.php?storyid=".intval($storyid);
+        $myts = MyTextSanitizer::getInstance();
+
+        if ($xoopsModule->getVar('dirname') != "AMS") {
+            $newsmodule = $module_handler->getByDirname('AMS');
+        } else {
+            $newsmodule = $xoopsModule;
+        }
+        $sql = "SELECT n.title, n.storyid, l.* FROM ".$this->table." l, ".$this->db->prefix('ams_article')." n WHERE n.storyid=l.storyid AND ((link_link='$link' AND link_module=".$newsmodule->mid().") OR (l.storyid = ".intval($storyid)."))";
+        $directresult = $this->db->query($sql);
+        //$moduleids[$newsmodule->getVar('mid')] = $newsmodule->getVar('mid');
+        while ($row = $this->db->fetchArray($directresult)) {
+            if ($row['storyid'] == $storyid) {
+                if ($row['link_module'] > -1) {
+                    $moduleids[$row['link_module']] = $row['link_module'];
+                    $row['target'] = "_self";
+                } else {
+                    $row['target'] = "_blank";
+                }
+                $row['link_title'] = $myts->htmlSpecialChars($row['link_title']);
+                $row['hits'] = $row['link_counter'];
+                $ret[$row['link_position']][] = $row;
+            } else {
+                $row['link_module'] = $newsmodule->getVar('mid');
+                $row['link_link'] = 'article.php?storyid='.$row['storyid'];
+                $row['link_title'] = $myts->htmlSpecialChars($row['title']);
+                $row['target'] = "_self";
+                $row['hits'] = $row['link_counter'];
+                // Backlink, so set position to recommended reading
+                $ret['bottom'][] = $row;
+            }
+        }
+        if (isset($moduleids)) {
+            $moduleids = "(".implode(',', array_keys($moduleids)).")";
+            $modules = $module_handler->getList(new Criteria('mid', $moduleids, "IN"));
+        }
+        $modules[$newsmodule->getVar('mid')] = $newsmodule->getVar('name');
+        foreach ($ret as $position => $links) {
+            foreach ($links as $key => $link) {
+                $ret[$position][$key]['link_module'] = ($link['link_module'] > -1) ? $modules[$link['link_module']] : _AMS_NW_EXTERNALLINK;
+            }
+        }
+        return $ret;
     }
 }
-?>
