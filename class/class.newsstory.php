@@ -161,7 +161,7 @@ class AmsStory extends AmsXoopsStory
     }
 
 // rag - added $orderdir
-    static public function getAllPublished($limit=0, $start=0, $checkRight = false, $topic=0, $ihome=0, $asobject=true, $order = 'published', $ids = false, $orderdir = 'DESC')
+    public static function getAllPublished($limit=0, $start=0, $checkRight = false, $topic=0, $ihome=0, $asobject=true, $order = 'published', $ids = false, $orderdir = 'DESC')
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $myts = MyTextSanitizer::getInstance();
@@ -215,7 +215,7 @@ class AmsStory extends AmsXoopsStory
     * @param boolean $asobject true will return the stories as an array of objects, false will return storyid => title
     * @param boolean $checkRight whether to check the user's rights to topics
     */
-    static public function getAllSubmitted($limit=0, $asobject=true, $checkRight = false)
+    public static function getAllSubmitted($limit=0, $asobject=true, $checkRight = false)
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $myts = MyTextSanitizer::getInstance();
@@ -283,7 +283,7 @@ class AmsStory extends AmsXoopsStory
         return $count;
     }
 
-    static public function countPublishedByTopic($topicid=0, $checkRight = false)
+    public static function countPublishedByTopic($topicid=0, $checkRight = false)
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = "SELECT COUNT(*) FROM ".$db->prefix("ams_article")." WHERE published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
@@ -311,7 +311,7 @@ class AmsStory extends AmsXoopsStory
         return $count;
     }
 
-    static public function countPublishedOrderedByTopic($topicid=0, $checkRight = false)
+    public static function countPublishedOrderedByTopic($topicid=0, $checkRight = false)
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = "SELECT topicid, COUNT(*) FROM ".$db->prefix("ams_article")." WHERE published > 0 AND published <= ".time()." AND (expired = 0 OR expired > ".time().")";
@@ -948,7 +948,7 @@ class AmsStory extends AmsXoopsStory
     /**
     * Static method
     */
-    static public function getAllNews($limit, $start = 0, $criteria = null)
+    public static function getAllNews($limit, $start = 0, $criteria = null)
     {
         $ret = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
@@ -990,7 +990,7 @@ class AmsStory extends AmsXoopsStory
     /**
     * Static method to get version counts for selected articles
     */
-    static public function getVersionCounts($storyids = array())
+    public static function getVersionCounts($storyids = array())
     {
         if ($storyids == array()) {
             return false;
