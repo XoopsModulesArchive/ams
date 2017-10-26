@@ -44,7 +44,7 @@ $gperm_handler = xoops_getHandler('groupperm');
 $perm_itemid = isset($_POST['topic_id']) ? intval($_POST['topic_id']) : 0;
 
 //If no access
-if (!$gperm_handler->checkRight("ams_submit", $perm_itemid, $groups, $module_id)) {
+if (!$gperm_handler->checkRight('ams_submit', $perm_itemid, $groups, $module_id)) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
 }
 
@@ -53,7 +53,7 @@ $myts = MyTextSanitizer::getInstance();
 
 //If approve privileges
 $approveprivilege = 0;
-if ($xoopsUser && $gperm_handler->checkRight("ams_approve", $perm_itemid, $groups, $module_id)) {
+if ($xoopsUser && $gperm_handler->checkRight('ams_approve', $perm_itemid, $groups, $module_id)) {
     $approveprivilege = 1;
 }
 
@@ -85,7 +85,7 @@ if (isset($_REQUEST['preview'])) {
     } elseif ($approveprivilege && (('override_ok' == $_REQUEST['op']))) {
         $op = 'override_ok';
     } else {
-        redirect_header(XOOPS_URL."/modules/AMS/index.php", 0, _NOPERM);
+        redirect_header(XOOPS_URL . '/modules/AMS/index.php', 0, _NOPERM);
         exit();
     }
     if (isset($_REQUEST['storyid'])) {
@@ -94,7 +94,7 @@ if (isset($_REQUEST['preview'])) {
 }
 
 switch ($op) {
-    case "delete":
+    case 'delete':
 
         if (!empty($_POST['ok'])) {
             if (empty($_POST['storyid'])) {
@@ -120,7 +120,7 @@ switch ($op) {
 
             //include_once '../../include/cp_header.php';
             //xoops_cp_header();
-            echo "<h4>" . _AMS_AM_CONFIG . "</h4>";
+            echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
             xoops_confirm(array( 'op' => 'delete', 'storyid' => $_REQUEST['storyid'], 'ok' => 1 ), 'submit.php', _AMS_AM_RUSUREDEL);
         }
         break;
@@ -133,10 +133,10 @@ switch ($op) {
         $storyid = $_REQUEST['storyid'];
         $story = new AmsStory($storyid);
 
-        echo $story->getPath(true)." > "._EDIT." ".$story->title();
+        echo $story->getPath(true) . ' > ' . _EDIT . ' ' . $story->title();
 
         echo"<table width='100%' border='0' cellspacing='1' class='outer'><tr><td class=\"odd\">";
-        echo "<h4>" . _AMS_AM_EDITARTICLE . "</h4>";
+        echo '<h4>' . _AMS_AM_EDITARTICLE . '</h4>';
 
         if ($story->published() > 0) {
             $story->setApproved(1);
@@ -147,12 +147,12 @@ switch ($op) {
         $type = $story -> type();
         $story->uname();
         $author = $story->uname;
-        include "include/storyform.inc.php";
-        echo"</td></tr></table>";
+        include 'include/storyform.inc.php';
+        echo '</td></tr></table>';
         break;
 
-case "preview":
-    $xt = new AmsTopic($xoopsDB->prefix("ams_topics"), $_POST['topic_id']);
+case 'preview':
+    $xt = new AmsTopic($xoopsDB->prefix('ams_topics'), $_POST['topic_id']);
     //$hometext = $_POST['hometext'];
     //$bodytext = $_POST['bodytext'];
 
@@ -200,26 +200,26 @@ case "preview":
     }
     //Display breadcrumbs
     if ($edit) {
-        echo $story->getPath(true)." > "._EDIT." ".$story->title();
+        echo $story->getPath(true) . ' > ' . _EDIT . ' ' . $story->title();
     }
 
     //Display post preview
-    $p_title = $story->title("Preview");
-    $p_hometext = $story->hometext("Preview");
-    $p_hometext .= "<br />".$story->bodytext("Preview");
+    $p_title = $story->title('Preview');
+    $p_hometext = $story->hometext('Preview');
+    $p_hometext .= '<br />' . $story->bodytext('Preview');
     $topversion = (0 == $story->revision && 0 == $story->revisionminor) ? 1 : 0;
-    $topicalign = isset($story->topicalign) ? 'align="'.$story->topicalign().'"' : "";
+    $topicalign = isset($story->topicalign) ? 'align="'.$story->topicalign().'"' : '';
     $p_hometext = (('' != $xt->topic_imgurl()) && $story->topicdisplay()) ? '<img src="assets/images/topics/' . $xt->topic_imgurl() . '" ' . $story->topicalign() . ' alt="" />' . $p_hometext : $p_hometext;
 
     //Added  in AMS 2.50 Final. replace deprecated themecenterposts function
-    if (file_exists(XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php")) {
-        if (!@include_once XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php") {
-            include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+    if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php')) {
+        if (!@include_once XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') {
+            include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         }
     } else {
-        include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     }
-    $pform = new XoopsThemeForm($p_title, "previewform", XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname').'/submit.php');
+    $pform = new XoopsThemeForm($p_title, 'previewform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
     $pform->display();
     print "$p_hometext";
 
@@ -230,7 +230,7 @@ case "preview":
     include 'include/storyform.inc.php';
     break;
 
-case "post":
+case 'post':
     //$hometext = $_POST['hometext'];
     //$bodytext = $_POST['bodytext'];
     $nohtml_db = 1;
@@ -368,7 +368,7 @@ case "post":
                 $sfiles = new sFiles();
                 $destname=$sfiles->createUploadName(XOOPS_UPLOAD_PATH, $fldname);
                 // Actually : Web pictures (png, gif, jpeg), zip, doc, xls, pdf, gtar, tar, txt, tiff, htm, xml, ico,swf flv, mp3, bmp, ra, mov, swc. swf not allow by xoops, not AMS
-                $permittedtypes=explode(";", ams_getmoduleoption('mimetypes'));
+                $permittedtypes=explode(';', ams_getmoduleoption('mimetypes'));
                 $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
                 $uploader->setTargetFileName($destname);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -388,7 +388,7 @@ case "post":
                 } else {
                     if (!$_FILES[$fldname]['tmp_name']) {
                         echo $uploader->getErrors();
-                        echo "Or file size too big"; //Add additional comment since the original error message not so accurate. TODO : add this into language
+                        echo 'Or file size too big'; //Add additional comment since the original error message not so accurate. TODO : add this into language
                     } else {
                         echo $uploader->getErrors();
                     }
@@ -406,7 +406,7 @@ case "post":
     if (!isset($message)) {
         $message = _AMS_NW_THANKS;
     }
-    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, $message);
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, $message);
     break;
 
     case _AMS_NW_OVERRIDE:
@@ -422,15 +422,15 @@ case "post":
        $story = new AmsStory($storyid);
         $story->setChange($change);
 
-       $message = "";
+       $message = '';
        $story->calculateVersion();
-       $message .= _AMS_NW_TRYINGTOSAVE." ".$story->version.".".$story->revision.".".$story->revisionminor." <br />";
+       $message .= _AMS_NW_TRYINGTOSAVE . ' ' . $story->version . '.' . $story->revision . '.' . $story->revisionminor . ' <br />';
        $higher_versions = $story->getVersions(true);
        if (count($higher_versions) > 0) {
            $message .= sprintf(_AMS_NW_VERSIONSEXIST, count($higher_versions));
-           $message .= "<br />";
+           $message .= '<br />';
            foreach ($higher_versions as $key => $version) {
-               $message .= $version['version'].".".$version['revision'].".".$version['revisionminor']."<br />";
+               $message .= $version['version'] . '.' . $version['revision'] . '.' . $version['revisionminor'] . '<br />';
            }
        }
        $message .= _AMS_NW_AREYOUSUREOVERRIDE;
@@ -449,7 +449,7 @@ case "post":
        $story->setBodytext($bodytext);
        $story->calculateVersion();
        if ($story->overrideVersion()) {
-           $message = sprintf(_AMS_NW_VERSIONUPDATED, $story->version.".".$story->revision.".".$story->revisionminor);
+           $message = sprintf(_AMS_NW_VERSIONUPDATED, $story->version . '.' . $story->revision . '.' . $story->revisionminor);
        } else {
            $message = $story->renderErrors();
        }
@@ -471,7 +471,7 @@ case "post":
         $story->setChange($change);
        if ($story->calculateVersion(true)) {
            if ($story->updateVersion()) {
-               $message = sprintf(_AMS_NW_VERSIONUPDATED, $story->version.".".$story->revision.".".$story->revisionminor);
+               $message = sprintf(_AMS_NW_VERSIONUPDATED, $story->version . '.' . $story->revision . '.' . $story->revisionminor);
                //redirect_header('article.php?storyid='.$story->storyid(), 3, $message);
                //exit();
            } else {
@@ -504,7 +504,7 @@ case "post":
             $published = 0;
             $audience = 0;
         }
-        $banner = "";
+        $banner = '';
         $edit = false;
         include 'include/storyform.inc.php';
         break;

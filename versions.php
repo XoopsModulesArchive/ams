@@ -1,6 +1,6 @@
 <?php
 
-include("../../mainfile.php");
+include('../../mainfile.php');
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
 if (!isset($_POST['submit'])) {
     if (!isset($_GET['storyid'])) {
@@ -8,15 +8,15 @@ if (!isset($_POST['submit'])) {
         exit();
     }
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
-    $xoopsOption['template_main'] = "ams_version.html";
-    include_once XOOPS_ROOT_PATH."/header.php";
+    $xoopsOption['template_main'] = 'ams_version.html';
+    include_once XOOPS_ROOT_PATH . '/header.php';
     $story = new AmsStory(intval($_GET['storyid']));
     $gperm_handler = xoops_getHandler('groupperm');
-    if (!$xoopsUser || !$gperm_handler->checkRight("ams_approve", $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+    if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
         redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
         exit();
     }
-    $xoopsTpl->assign('breadcrumb', $story->getPath(true)." > "._AMS_NW_VERSION);
+    $xoopsTpl->assign('breadcrumb', $story->getPath(true) . ' > ' . _AMS_NW_VERSION);
     $xoopsTpl->assign('lang_go', _GO);
     $xoopsTpl->assign('lang_on', _ON);
     $xoopsTpl->assign('lang_printerpage', _AMS_NW_PRINTERFRIENDLY);
@@ -28,14 +28,14 @@ if (!isset($_POST['submit'])) {
     $xoopsTpl->assign('story', $story->toArray(true, false, 0));
 } else {
     switch ($_POST['op']) {
-        case "setversion":
+        case 'setversion':
             $story = new AmsStory(intval($_POST['storyid']));
             $gperm_handler = xoops_getHandler('groupperm');
-            if (!$xoopsUser || !$gperm_handler->checkRight("ams_approve", $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+            if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
                 exit();
             }
-            $version_array = explode(".", $_POST['version']);
+            $version_array = explode('.', $_POST['version']);
             if (!isset($version_array[2])) {
                 $version_array[2] = 0;
             }
@@ -47,44 +47,48 @@ if (!isset($_POST['submit'])) {
             }
             break;
 
-        case "delversions":
+        case 'delversions':
             $story = new AmsStory(intval($_POST['storyid']));
             $gperm_handler = xoops_getHandler('groupperm');
-            if (!$xoopsUser || !$gperm_handler->checkRight("ams_approve", $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+            if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
                 exit();
             }
             if (!empty($_POST['ok'])) {
-                include_once XOOPS_ROOT_PATH."/header.php";
+                include_once XOOPS_ROOT_PATH . '/header.php';
                 $story->delversions($_POST['version'], $_POST['revision'], $_POST['revisionminor']);
-                redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, sprintf(_AMS_NW_VERSIONUPDATED, $_POST['version'].".".$_POST['revision'].".".$_POST['revisionminor']));
+                redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, sprintf(_AMS_NW_VERSIONUPDATED, $_POST['version'] . '.'
+                                                                                                                                  . $_POST['revision'] . '.'
+                                                                                                                                  . $_POST['revisionminor']));
             } else {
-                $version_array = explode(".", $_POST['version']);
+                $version_array = explode('.', $_POST['version']);
                 if (!isset($version_array[2])) {
                     $version_array[2] = 0;
                 }
-                include_once XOOPS_ROOT_PATH."/header.php";
+                include_once XOOPS_ROOT_PATH . '/header.php';
                 xoops_confirm(array('op' => 'delversions', 'submit' => 1, 'ok' => 1, 'storyid' => $_POST['storyid'], 'version' => $version_array[0], 'revision' => $version_array[1], 'revisionminor' => $version_array[2]), 'versions.php', _AMS_NW_RUSUREDELVERSIONS);
             }
             break;
 
-        case "delallversions":
+        case 'delallversions':
             $story = new AmsStory(intval($_POST['storyid']));
             $gperm_handler = xoops_getHandler('groupperm');
-            if (!$xoopsUser || !$gperm_handler->checkRight("ams_approve", $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
+            if (!$xoopsUser || !$gperm_handler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
                 redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, _NOPERM);
                 exit();
             }
             if (!empty($_POST['ok'])) {
-                include_once XOOPS_ROOT_PATH."/header.php";
+                include_once XOOPS_ROOT_PATH . '/header.php';
                 $story->delallversions($_POST['version'], $_POST['revision'], $_POST['revisionminor']);
-                redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, sprintf(_AMS_NW_VERSIONUPDATED, $_POST['version'].".".$_POST['revision'].".".$_POST['revisionminor']));
+                redirect_header(XOOPS_URL.'/modules/AMS/article.php?storyid='.$story->storyid, 3, sprintf(_AMS_NW_VERSIONUPDATED, $_POST['version'] . '.'
+                                                                                                                                  . $_POST['revision'] . '.'
+                                                                                                                                  . $_POST['revisionminor']));
             } else {
-                $version_array = explode(".", $_POST['version']);
+                $version_array = explode('.', $_POST['version']);
                 if (!isset($version_array[2])) {
                     $version_array[2] = 0;
                 }
-                include_once XOOPS_ROOT_PATH."/header.php";
+                include_once XOOPS_ROOT_PATH . '/header.php';
                 xoops_confirm(array('op' => 'delallversions', 'submit' => 1, 'ok' => 1, 'storyid' => $_POST['storyid'], 'version' => $version_array[0], 'revision' => $version_array[1], 'revisionminor' => $version_array[2]), 'versions.php', _AMS_NW_RUSUREDELALLVERSIONS);
             }
             break;

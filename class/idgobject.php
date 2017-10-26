@@ -195,7 +195,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     {
         if ($limit > 0 || $start > 0) {
             if (null == $criteria) {
-                $criteria = new Criteria($this->keyName, -1, "!=");
+                $criteria = new Criteria($this->keyName, -1, '!=');
             }
             $criteria->setLimit($limit);
             $criteria->setStart($start);
@@ -212,12 +212,12 @@ class IdgObjectHandler extends XoopsObjectHandler
      */
      public function getCount($criteria = null)
      {
-         $field = "";
+         $field = '';
          $groupby = false;
          if (isset($criteria) && is_subclass_of($criteria, 'criteriaelement')) {
              if ("" != $criteria->groupby) {
                  $groupby = true;
-                 $field = $criteria->groupby.", "; //Not entirely secure unless you KNOW that no criteria's groupby clause is going to be mis-used
+                 $field = $criteria->groupby . ', '; //Not entirely secure unless you KNOW that no criteria's groupby clause is going to be mis-used
              }
          }
          $sql = 'SELECT '.$field.'COUNT(*) FROM '.$this->table;
@@ -254,7 +254,7 @@ class IdgObjectHandler extends XoopsObjectHandler
      {
          $force = false;
 
-         $sql = sprintf("DELETE FROM %s WHERE %s = %u", $this->table, $this->keyName, $obj->getVar($this->keyName));
+         $sql = sprintf('DELETE FROM %s WHERE %s = %u', $this->table, $this->keyName, $obj->getVar($this->keyName));
          if (false != $force) {
              $result = $this->db->queryF($sql);
          } else {
@@ -285,7 +285,7 @@ class IdgObjectHandler extends XoopsObjectHandler
         * @TODO: Change to if (!(class_exists($this->className) && $obj instanceof $this->className)) when going fully PHP5
         */
              if (!is_a($obj, $this->className)) {
-                 $obj->setErrors(get_class($obj)." Differs from ".$this->className);
+                 $obj->setErrors(get_class($obj) . ' Differs from ' . $this->className);
                  return false;
              }
              if (!$obj->isDirty()) {
@@ -307,20 +307,23 @@ class IdgObjectHandler extends XoopsObjectHandler
              if ($cleanvars[$this->keyName] < 1) {
                  $cleanvars[$this->keyName] = $this->db->genId($this->table.'_'.$this->keyName.'_seq');
              }
-             $sql = "INSERT INTO ".$this->table." (".implode(',', array_keys($cleanvars)).") VALUES (".implode(',', array_values($cleanvars)) .")";
+             $sql = 'INSERT INTO '
+                    . $this->table . ' ('
+                    . implode(',', array_keys($cleanvars)) . ') VALUES ('
+                    . implode(',', array_values($cleanvars)) . ')';
          } else {
-             $sql = "UPDATE ".$this->table." SET";
+             $sql = 'UPDATE ' . $this->table . ' SET';
              foreach ($cleanvars as $key => $value) {
                  if ($key == $this->keyName) {
                      continue;
                  }
                  if (isset($notfirst)) {
-                     $sql .= ",";
+                     $sql .= ',';
                  }
-                 $sql .= " ".$key." = ".$value;
+                 $sql .= ' ' . $key . ' = ' . $value;
                  $notfirst = true;
              }
-             $sql .= " WHERE ".$this->keyName." = ".$obj->getVar($this->keyName);
+             $sql .= ' WHERE ' . $this->keyName . ' = ' . $obj->getVar($this->keyName);
          }
         //echo "<script type=\"text/javascript\">alert(\"$sql\");</script>";
         if (false != $force) {

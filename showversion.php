@@ -24,9 +24,9 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include "../../mainfile.php";
+include '../../mainfile.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
-include_once(XOOPS_ROOT_PATH."/class/template.php");
+include_once(XOOPS_ROOT_PATH . '/class/template.php');
 $xoopsOption['theme_use_smarty'] = 1;
 $xoopsTpl = new XoopsTpl();
 $xoopsTpl->xoops_setCaching(0);
@@ -40,7 +40,7 @@ $version = (isset($_GET['version'])) ? intval($_GET['version']) : 0;
 $revision = (isset($_GET['revision'])) ? intval($_GET['revision']) : 0;
 $revisionminor = (isset($_GET['revisionminor'])) ? intval($_GET['revisionminor']) : 0;
 if (!$storyid || !$version) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 
@@ -56,7 +56,7 @@ if (is_object($xoopsUser)) {
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+if (!$gperm_handler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
     exit();
 }
@@ -67,7 +67,7 @@ include_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray(true, false, -1));
 $banner = $myts->displayTarea($article->getBanner(), 1);
 if (!$banner || "" == $banner) {
-    $banner = " ";
+    $banner = ' ';
 }
 $xoopsTpl->assign('articlebanner', $banner);
 if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
@@ -84,6 +84,6 @@ $xoopsTpl->assign('lang_reads', _READS);
 $xoopsTpl->assign('showfull', true);
 $xoopsTpl->assign('admin', false);
 $xoopsTpl->assign('xoops_sitename', $myts->htmlSpecialChars($article->title()));
-$xoopsTpl->assign('xoops_pagetitle', " v.".$article->version());
+$xoopsTpl->assign('xoops_pagetitle', ' v.' . $article->version());
 
 include_once XOOPS_ROOT_PATH.'/footer.php';

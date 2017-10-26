@@ -1,12 +1,12 @@
 <?php
-include "../../mainfile.php";
+include '../../mainfile.php';
 include_once 'class/class.sfiles.php';
 include_once 'class/class.newsstory.php';
 
 $myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $fileid = (isset($_GET['fileid'])) ? intval($_GET['fileid']) : 0;
 if (empty($fileid)) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, _ERRORS);
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _ERRORS);
     exit();
 }
 $sfiles = new sFiles($fileid);
@@ -33,7 +33,7 @@ if (is_object($xoopsUser)) {
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-if (!$gperm_handler->checkRight("ams_audience", $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
+if (!$gperm_handler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
     exit();
 }
@@ -45,7 +45,7 @@ $url=XOOPS_UPLOAD_URL.'/'.$sfiles->getDownloadname();
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
     header("Location: $url");
 }
-echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL=".$myts->htmlSpecialChars($url)."\"></meta></head><body></body></html>";
+echo '<html><head><meta http-equiv="Refresh" content="0; URL=' . $myts->htmlSpecialChars($url) . '"></meta></head><body></body></html>';
 exit();
 
 

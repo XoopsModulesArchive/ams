@@ -24,9 +24,9 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-include "../../mainfile.php";
-include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
-include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.sfiles.php";
+include '../../mainfile.php';
+include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
+include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.sfiles.php';
 if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php')) {
     include_once XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php';
 } else {
@@ -39,7 +39,7 @@ if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'
 $storyid = (isset($_GET['storyid'])) ? $_GET['storyid'] : 0;
 $storyid = intval($storyid);
 if (empty($storyid)) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 
@@ -61,14 +61,14 @@ if (is_object($xoopsUser)) {
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-    if (!$gperm_handler->checkRight("ams_view", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-        if (!$gperm_handler->checkRight("ams_submit", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+if (!$gperm_handler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gperm_handler->checkRight('ams_view', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+        if (!$gperm_handler->checkRight('ams_submit', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
             redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
             exit();
         }
     }
-    if (!$gperm_handler->checkRight("ams_audience", $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gperm_handler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, sprintf(_AMS_NW_NOTALLOWEDAUDIENCE, $article->audience));
         exit();
     }
@@ -90,7 +90,7 @@ include_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray($admin, true, $storypage));
 $artbanner = $article->getBanner();
 if ("" == $artbanner) {
-    $artbanner = " ";
+    $artbanner = ' ';
 }
 $xoopsTpl->assign('articlebanner', $myts->displayTarea($artbanner, 1));
 $showcomments = (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) ? 1 : 0;

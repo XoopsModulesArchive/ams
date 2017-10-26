@@ -26,7 +26,7 @@
 
 function b_ams_spotlight_show($options)
 {
-    include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
     global $xoopsModule;
     if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
         $mod_handler = xoops_getHandler('module');
@@ -72,14 +72,14 @@ function b_ams_spotlight_show($options)
 
 function b_ams_spotlight_edit($options)
 {
-    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
-    include_once XOOPS_ROOT_PATH."/modules/AMS/include/functions.inc.php";
+    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/include/functions.inc.php';
 
     global $xoopsModule;
     AMS_updateCache();
     if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
         $module_handler = xoops_getHandler('module');
-        $module = $module_handler->getByDirname("AMS");
+        $module = $module_handler->getByDirname('AMS');
     } else {
         $module = $xoopsModule;
     }
@@ -102,13 +102,15 @@ function b_ams_spotlight_edit($options)
     //spotlight template selection
     $template_select = new XoopsFormSelect(_AMS_MB_SPOTLIGHT_TEMPLATE, 'options[2]', $options[2]);
     $template_select->addOptionArray($templates_list);
-    $template_select->setExtra("onchange='showImgSelected(\"template_preview\", \"options[2]\", \"" . '/modules/AMS/assets/images/spotlight_preview' . "\", \".jpg\", \"" . XOOPS_URL . "\")'");
+    $template_select->setExtra("onchange='showImgSelected(\"template_preview\", \"options[2]\", \"" . '/modules/AMS/assets/images/spotlight_preview' . '", ".jpg", "'
+                               . XOOPS_URL . "\")'");
     $template_select->setDescription(_AMS_MB_SPOTLIGHT_TEMPLATE_DESC);
     $form->addElement($template_select);
 
     //spotlight preview image
-    $imgpath=sprintf('', "modules/AMS/assets/images/spotlight_preview/");
-    $form -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . "/modules/AMS/assets/images/spotlight_preview/".$options[2].".jpg' name='template_preview' id='template_preview' alt='' />"));
+    $imgpath=sprintf('', 'modules/AMS/assets/images/spotlight_preview/');
+    $form -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . '/modules/AMS/assets/images/spotlight_preview/'
+                                               . $options[2] . ".jpg' name='template_preview' id='template_preview' alt='' />"));
 
 
     return $form->render();

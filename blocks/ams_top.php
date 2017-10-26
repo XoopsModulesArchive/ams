@@ -27,7 +27,7 @@
 function b_ams_top_show($options)
 {
     $myts = MyTextSanitizer::getInstance();
-    include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
     $block = array();
     if (!isset($options[4]) || 0 == $options[4] || $options[4] == array(0)) {
         $stories = AmsStory::getAllPublished($options[1], 0, false, 0, 1, true, $options[0]);
@@ -42,16 +42,16 @@ function b_ams_top_show($options)
     }
     foreach ($stories as $key => $story) {
         switch ($options[0]) {
-            case "rating":
+            case 'rating':
                 $stat = $story->rating;
                 break;
 
-            case "counter":
+            case 'counter':
                 $stat = $story->counter();
                 break;
 
-            case "published":
-                $stat = formatTimestamp($story->published(), "s");
+            case 'published':
+                $stat = formatTimestamp($story->published(), 's');
                 break;
         }
         $news = array();
@@ -62,14 +62,14 @@ function b_ams_top_show($options)
         $html = $story->nohtml ? 0 : 1;
         $news['title'] = $title;
         $news['id'] = $story->storyid();
-        $news['date'] = formatTimestamp($story->published(), "s");
+        $news['date'] = formatTimestamp($story->published(), 's');
         $news['hits'] = $stat;
         $news['friendlyurl'] = $story->friendlyurl;
         $news['friendlyurl_enable'] = $story->friendlyurl_enable;
         if ($options[3] > 0) {
             $news['teaser'] = xoops_substr($myts->displayTarea($story->hometext, $html), 0, $options[3]-1);
         } else {
-            $news['teaser'] = "";
+            $news['teaser'] = '';
         }
         $block['stories'][] = $news;
     }
@@ -79,7 +79,7 @@ function b_ams_top_show($options)
 function b_ams_top_edit($options)
 {
     global $xoopsDB;
-    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
     $form = new XoopsFormElementTray('', '<br/><br />');
 
     $order_select = new XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);
@@ -88,9 +88,9 @@ function b_ams_top_edit($options)
     $order_select->addOption('rating', _AMS_MB_NEWS_RATING);
     $form->addElement($order_select);
 
-    $form->addElement(new XoopsFormText(_AMS_MB_NEWS_DISP." x "._AMS_MB_NEWS_ARTCLS, 'options[1]', 10, 10, $options[1]));
+    $form->addElement(new XoopsFormText(_AMS_MB_NEWS_DISP . ' x ' . _AMS_MB_NEWS_ARTCLS, 'options[1]', 10, 10, $options[1]));
 
-    $form->addElement(new XoopsFormText(_AMS_MB_NEWS_CHARS." x "._AMS_MB_NEWS_LENGTH, 'options[2]', 10, 10, $options[2]));
+    $form->addElement(new XoopsFormText(_AMS_MB_NEWS_CHARS . ' x ' . _AMS_MB_NEWS_LENGTH, 'options[2]', 10, 10, $options[2]));
 
     $form->addElement(new XoopsFormText(_AMS_MB_NEWS_TEASER, 'options[3]', 10, 10, $options[3]));
 
@@ -106,8 +106,8 @@ function b_ams_top_edit($options)
 
     $topics_select = new XoopsFormSelect(_AMS_MB_TOPIC, 'options[4]', $topics, 7, true);
 
-    include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newstopic.php";
-    $xt = new AmsTopic($xoopsDB->prefix("ams_topics"));
+    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newstopic.php';
+    $xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
     $alltopics = $xt->getAllTopics();
     $topics_select->addOption(0, _AMS_MB_NEWS_ALLTOPICS);
 

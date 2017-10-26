@@ -26,7 +26,7 @@
 
 function b_ams_topicsnav_show($options)
 {
-    include_once(XOOPS_ROOT_PATH."/modules/AMS/class/class.newstopic.php");
+    include_once(XOOPS_ROOT_PATH . '/modules/AMS/class/class.newstopic.php');
     global $xoopsDB, $xoopsUser;
     $block = array();
     $topics = AmsTopic::getAllTopics($options[0]);
@@ -38,7 +38,7 @@ function b_ams_topicsnav_show($options)
 
 function b_ams_topicsnav_edit($options)
 {
-    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
     $form = new XoopsFormElementTray('', '<br/>');
     $restrict_select = new XoopsFormRadioYN(_AMS_MB_NEWS_RESTRICTTOPICS, 'options[0]', $options[0]);
     $form->addElement($restrict_select);

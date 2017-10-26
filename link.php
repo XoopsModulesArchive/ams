@@ -24,8 +24,8 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-$xoopsOption['pagetype'] = "search";
-include "../../mainfile.php";
+$xoopsOption['pagetype'] = 'search';
+include '../../mainfile.php';
 if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php')) {
     include_once XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php';
 } else {
@@ -37,20 +37,20 @@ if (!$xoopsUser) {
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 $storyid = (isset($_POST['storyid'])) ? intval($_POST['storyid']) : (isset($_GET['storyid']) ? intval($_GET['storyid']) : 0);
 if (!$storyid) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php", 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 $article = new AmsStory($storyid);
 if ($xoopsUser->getVar('uid') != $article->uid()) {
     $gperm_handler = xoops_getHandler('groupperm');
     $groups = $xoopsUser->getGroups();
-    if (!$gperm_handler->checkRight("ams_approve", $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gperm_handler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
         redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
         exit();
     }
 }
 
-$op = (isset($_POST['op'])) ? $_POST['op'] : "default";
+$op = (isset($_POST['op'])) ? $_POST['op'] : 'default';
 $myts = MyTextSanitizer::getInstance();
 
 $xoopsConfigSearch = $config_handler->getConfigsByCat(XOOPS_CONF_SEARCH);
@@ -61,7 +61,7 @@ include_once XOOPS_ROOT_PATH.'/header.php';
 $username = (isset($_POST['username']) && "" != $_POST['username']) ? $_POST['username'] : '';
 $username = $myts->addSlashes($username);
 $queries = array();
-$andor = isset($_POST['andor']) ? $_POST['andor'] : "AND";
+$andor = isset($_POST['andor']) ? $_POST['andor'] : 'AND';
 
 switch ($op) {
     case 'default':
@@ -185,7 +185,7 @@ switch ($op) {
             $xoopsTpl->assign('message', $article->renderErrors());
         }
     } else {
-        $xoopsTpl->assign('message', "No link selected");
+        $xoopsTpl->assign('message', 'No link selected');
     }
     break;
 }
@@ -195,7 +195,7 @@ $search_form->assign($xoopsTpl);
 if (count($existing_links)>0) {
     $xoopsTpl->assign('related', $existing_links);
 }
-$xoopsTpl->assign('breadcrumb', $article->getPath(true)." > "._AMS_NW_MANAGELINK);
+$xoopsTpl->assign('breadcrumb', $article->getPath(true) . ' > ' . _AMS_NW_MANAGELINK);
 $xoopsTpl->assign('story', $article->toArray());
 $xoopsTpl->assign('lang_on', _ON);
 $xoopsTpl->assign('lang_postedby', _POSTEDBY);

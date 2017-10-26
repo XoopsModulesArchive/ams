@@ -73,10 +73,10 @@ if (1 == $xoopsModuleConfig['displaynav']) {
     $xoopsTpl->assign('displaynav', true);
     $xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
     $allTopics = $xt->getAllTopics(true);
-    include_once(XOOPS_ROOT_PATH."/class/tree.php");
-    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+    include_once(XOOPS_ROOT_PATH . '/class/tree.php');
+    include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
     $topic_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
-    $topic_form = new XoopsThemeForm('', "topic_form", "index.php", "get");
+    $topic_form = new XoopsThemeForm('', 'topic_form', 'index.php', 'get');
     $topic_form->addElement($topic_tree->makeSelectElement('storytopic', 'topic_title', '-', $xoopsOption['storytopic'], true));
     // Make number options
     $i = 1;
@@ -114,7 +114,7 @@ if ($showclassic) {
             $uids[$thisstory->uid()] = $thisstory->uid();
         }
         $member_handler = xoops_getHandler('member');
-        $user_arr = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
+        $user_arr = $member_handler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($sarray as $storyid => $thisstory) {
             $stories[] = $thisstory->toArray(false, false, 0, $user_arr);
         }
@@ -144,8 +144,8 @@ if ($showclassic) {
         $xoopsTpl->assign('breadcrumb', false);
     }
 } else {
-    include_once(XOOPS_ROOT_PATH."/class/tree.php");
-    $xt = new AmsTopic($xoopsDB -> prefix("ams_topics"));
+    include_once(XOOPS_ROOT_PATH . '/class/tree.php');
+    $xt = new AmsTopic($xoopsDB -> prefix('ams_topics'));
     $allTopics = $xt->getAllTopics($xoopsModuleConfig['restrictindex']);
     $topic_obj_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
     $alltopics = $topic_obj_tree->getFirstChild(0);
@@ -166,7 +166,7 @@ if ($showclassic) {
     }
     if (count($uids) > 0) {
         $member_handler = xoops_getHandler('member');
-        $user_arr = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_keys($uids)).")", 'IN'), true);
+        $user_arr = $member_handler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($alltopics as $topicid => $topic) {
             $topicstories = array();
             foreach ($allstories[$topicid] as $thisstory) {

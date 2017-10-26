@@ -30,7 +30,7 @@ function ams_notify_iteminfo($category, $item_id)
     //$pathparts = explode("/", dirname(__FILE__));
     //$moduleDirName = $pathparts[array_search('modules', $pathparts)+1];
 
-    $moduleDirName = "AMS";
+    $moduleDirName = 'AMS';
     if ('global' == $category) {
         $item['name'] = '';
         $item['url'] = '';

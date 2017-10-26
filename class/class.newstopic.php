@@ -32,7 +32,7 @@ include_once XOOPS_ROOT_PATH.'/class/tree.php';
 
 class AmsTopic extends AmsXoopsTopic
 {
-    public $banner = "";
+    public $banner = '';
     public $banner_inherit;
     public $forum_id;
     public $weight = 1;
@@ -57,7 +57,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public function getAllTopicsCount()
     {
-        $sql = "SELECT count(topic_id) as cpt FROM ".$this->table;
+        $sql = 'SELECT count(topic_id) as cpt FROM ' . $this->table;
         $array = $this->db->fetchArray($this->db->query($sql));
         return($array['cpt']);
     }
@@ -65,7 +65,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public function getTopic($topicid)
     {
-        $sql = "SELECT * FROM ".$this->table." WHERE topic_id=".$topicid."";
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE topic_id=' . $topicid . '';
         $array = $this->db->fetchArray($this->db->query($sql));
         $this->makeTopic($array);
     }
@@ -80,8 +80,8 @@ class AmsTopic extends AmsXoopsTopic
     public function store()
     {
         $myts = MyTextSanitizer::getInstance();
-        $title = "";
-        $imgurl = "";
+        $title = '';
+        $imgurl = '';
         $insert=false;
         if (isset($this->topic_title) && "" != $this->topic_title) {
             $title = $myts->addSlashes($this->topic_title);
@@ -94,7 +94,7 @@ class AmsTopic extends AmsXoopsTopic
         }
         if (empty($this->topic_id)) {
             $insert=true;
-            $this->topic_id = $this->db->genId($this->table."_topic_id_seq");
+            $this->topic_id = $this->db->genId($this->table . '_topic_id_seq');
             $sql = sprintf("INSERT INTO %s (topic_id, topic_pid, topic_imgurl, topic_title, banner, banner_inherit, forum_id, weight) VALUES (%u, %u, '%s', '%s', '%s', %u, %u, %u)", $this->table, $this->topic_id, $this->topic_pid, $imgurl, $title, $myts->addSlashes($this->banner), $this->banner_inherit, $this->forum_id, $this->weight);
         } else {
             $sql = sprintf("UPDATE %s SET topic_pid = %u, topic_imgurl = '%s', topic_title = '%s', banner='%s', banner_inherit=%u, forum_id=%u, weight=%u WHERE topic_id = %u", $this->table, $this->topic_pid, $imgurl, $title, $myts->addSlashes($this->banner), $this->banner_inherit, $this->forum_id, $this->weight, $this->topic_id);
@@ -121,13 +121,13 @@ class AmsTopic extends AmsXoopsTopic
         return $parent_topic->getBanner();
     }
 
-    public static function getAllTopics($checkRight = false, $permission = "ams_view")
+    public static function getAllTopics($checkRight = false, $permission = 'ams_view')
     {
         static $topics_arr = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $table = $db->prefix('ams_topics');
         if ((!isset($topics_arr['checked']) && false != $checkRight) || (!isset($topics_arr['unchecked']) && false == $checkRight)) {
-            $sql = "SELECT * FROM ".$table;
+            $sql = 'SELECT * FROM ' . $table;
             if (false != $checkRight) {
                 global $xoopsUser, $xoopsModule;
                 if (!isset($xoopsModule) || "AMS" != $xoopsModule->getVar('dirname')) {
@@ -143,9 +143,9 @@ class AmsTopic extends AmsXoopsTopic
                     return array();
                 }
                 $topics = implode(',', $topics);
-                $sql .= " WHERE topic_id IN (".$topics.")";
+                $sql .= ' WHERE topic_id IN (' . $topics . ')';
             }
-            $sql .= " ORDER BY weight";
+            $sql .= ' ORDER BY weight';
             $result = $db->query($sql);
             while ($array = $db->fetchArray($result)) {
                 $topic = new AmsTopic($table);
@@ -166,10 +166,10 @@ class AmsTopic extends AmsXoopsTopic
         static $authors = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         if (0 == count($authors)) {
-            $sql = "SELECT DISTINCT u.uid, u.uname, u.name FROM ".$db->prefix('users')." u, ".$db->prefix('ams_text')." t
-                WHERE u.uid = t.uid";
+            $sql = 'SELECT DISTINCT u.uid, u.uname, u.name FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('ams_text') . ' t
+                WHERE u.uid = t.uid';
             if (false != $byName) {
-                $sql .= " ORDER BY uname ASC";
+                $sql .= ' ORDER BY uname ASC';
             }
             $result = $db->query($sql);
             while ($array = $db->fetchArray($result)) {
@@ -183,11 +183,11 @@ class AmsTopic extends AmsXoopsTopic
         return $authors;
     }
 
-    public function getTopicPath($withAllLink = false, $separation=" > ", $addIndex=true)
+    public function getTopicPath($withAllLink = false, $separation= ' > ', $addIndex=true)
     {
-        $filename = "index.php";
+        $filename = 'index.php';
         if ($withAllLink) {
-            $ret = "<a href='" . XOOPS_URL . "/modules/AMS/".$filename."?storytopic=" . $this->topic_id() . "'>" . $this->topic_title() . "</a>";
+            $ret = "<a href='" . XOOPS_URL . '/modules/AMS/' . $filename . '?storytopic=' . $this->topic_id() . "'>" . $this->topic_title() . '</a>';
         } else {
             $ret = $this->topic_title();
         }
@@ -198,7 +198,9 @@ class AmsTopic extends AmsXoopsTopic
             $ret = $this->getTopicPath($withAllLink, $separation, $addIndex) . $separation .$ret;
         } else {
             if ($addIndex) {
-                $ret = "<a href='".XOOPS_URL."/modules/AMS/".$filename."'>".$GLOBALS['xoopsModuleConfig']['index_name']."</a>". $separation .$ret;
+                $ret = "<a href='".XOOPS_URL . '/modules/AMS/'
+                       . $filename . "'>" . $GLOBALS['xoopsModuleConfig']['index_name'] . '</a>'
+                       . $separation . $ret;
             }
         }
         return $ret;

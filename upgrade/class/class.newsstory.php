@@ -24,7 +24,7 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------- //
 
-include_once XOOPS_ROOT_PATH."/class/xoopsstory.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopsstory.php';
 include_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
 
 class OldNewsStory extends XoopsStory
@@ -41,7 +41,7 @@ class OldNewsStory extends XoopsStory
     {
         $ret = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = "SELECT * FROM ".$db->prefix("stories");
+        $sql = 'SELECT * FROM ' . $db->prefix('stories');
         $result = $db->query($sql);
         while ($myrow = $db->fetchArray($result)) {
             $ret[] = new OldNewsStory($myrow);
@@ -53,16 +53,19 @@ class OldNewsStory extends XoopsStory
     {
         $myts = MyTextSanitizer::getInstance();
         $error = false;
-        $sql = "INSERT INTO ".$this->db->prefix('ams_article')."
-	            VALUES (".$this->storyid.", '".$this->title."', ".$this->created.", ".$this->published.",
-		                ".$this->expired.", '".$this->hostname."', ".$this->nohtml.", ".$this->nosmiley.", ".$this->counter.",
-		                ".$this->topicid.", ".$this->ihome.", ".$this->notifypub.", '".$this->story_type."', ".$this->topicdisplay.",
-		                '".$this->topicalign."', ".$this->comments.", 0, '', 1)";
+        $sql = 'INSERT INTO ' . $this->db->prefix('ams_article') . '
+	            VALUES (' . $this->storyid . ", '" . $this->title . "', " . $this->created . ', ' . $this->published . ',
+		                ' . $this->expired . ", '" . $this->hostname . "', " . $this->nohtml . ', ' . $this->nosmiley . ', ' . $this->counter . ',
+		                ' . $this->topicid . ', ' . $this->ihome . ', ' . $this->notifypub . ", '" . $this->story_type . "', " . $this->topicdisplay . ",
+		                '" . $this->topicalign . "', " . $this->comments . ", 0, '', 1)";
         if (!$this->db->query($sql)) {
             $error = true;
         }
-        $sql2 = "INSERT INTO ".$this->db->prefix('ams_text')."
-	             VALUES (".$this->storyid.", 1, 0, 0, ".$this->uid.", '".$this->hometext."', '".$this->bodytext."', 1, ".$this->created.")";
+        $sql2 = 'INSERT INTO '
+                . $this->db->prefix('ams_text') . '
+	             VALUES ('
+                . $this->storyid . ', 1, 0, 0, '
+                . $this->uid . ", '" . $this->hometext . "', '" . $this->bodytext . "', 1, " . $this->created . ')';
         if (!$this->db->query($sql2)) {
             $error = true;
         }
@@ -72,8 +75,8 @@ class OldNewsStory extends XoopsStory
     public function importFiles()
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = "INSERT INTO ".$db->prefix('ams_files')."
-	            SELECT * FROM ".$db->prefix('stories_files')."";
+        $sql = 'INSERT INTO ' . $db->prefix('ams_files') . '
+	            SELECT * FROM ' . $db->prefix('stories_files') . '';
         return $db->query($sql);
     }
 

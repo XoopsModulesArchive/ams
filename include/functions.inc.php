@@ -28,8 +28,8 @@
 //  Project: Article Management System (AMS)                                           //
 //  ------------------------------------------------------------------------ //
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 //create in AMS 2.50 but for future CLONEABLE ability
 function AMS_setcookie($name, $string = '', $expire = 0)
@@ -38,9 +38,9 @@ function AMS_setcookie($name, $string = '', $expire = 0)
     if (is_array($string)) {
         $value = array();
         foreach ($string as $key => $val) {
-            $value[]=$key."|".$val;
+            $value[]= $key . '|' . $val;
         }
-        $string = implode(",", $value);
+        $string = implode(',', $value);
     }
     setcookie($AMSCookie['prefix'].$name, $string, intval($expire), $AMSCookie['path'], $AMSCookie['domain'], $AMSCookie['secure']);
 }
@@ -51,11 +51,11 @@ function AMS_getcookie($name, $isArray = false)
     global $AMSCookie;
     $value = !empty($_COOKIE[$AMSCookie['prefix'].$name]) ? $_COOKIE[$AMSCookie['prefix'].$name] : null;
     if ($isArray) {
-        $_value = ($value)?explode(",", $value):array();
+        $_value = ($value)?explode(',', $value):array();
         $value = array();
         if (count($_value)>0) {
             foreach ($_value as $string) {
-                $sep = strpos($string, "|");
+                $sep = strpos($string, '|');
                 if (false === $sep) {
                     $value[]=$string;
                 } else {
@@ -190,28 +190,100 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
 
     // avoid problem caused by rawurlencode which convert % to %25
     //                 Tab     Space      !        "        #        %        &        '        (        )        ,        /        :        ;        <        =        >        ?        @        [        \        ]        ^        {        |        }        ~       .
-    $pattern = array("/%2509/", "/%2520/", "/%2521/", "/%2522/", "/%2523/", "/%2525/", "/%2526/", "/%2527/", "/%2528/", "/%2529/", "/%252C/", "/%252F/", "/%253A/", "/%253B/", "/%253C/", "/%253D/", "/%253E/", "/%253F/", "/%2540/", "/%255B/", "/%255C/", "/%255D/", "/%255E/", "/%257B/", "/%257C/", "/%257D/", "/%257E/");
-    $rep_pat = array(  "-"  ,   "-"  ,   ""   ,   ""   ,   ""   , "-" ,   ""   ,   "-"  ,   ""   ,   ""   ,   ""   ,   "-"  ,   ""   ,   ""   ,   ""   ,   "-"  ,   ""   ,   ""   , "-at-" ,   ""   ,   "-"   ,  ""   ,   "-"  ,   ""   ,   "-"  ,   ""   ,   "-"  );
+    $pattern = array(
+        '/%2509/',
+        '/%2520/',
+        '/%2521/',
+        '/%2522/',
+        '/%2523/',
+        '/%2525/',
+        '/%2526/',
+        '/%2527/',
+        '/%2528/',
+        '/%2529/',
+        '/%252C/',
+        '/%252F/',
+        '/%253A/',
+        '/%253B/',
+        '/%253C/',
+        '/%253D/',
+        '/%253E/',
+        '/%253F/',
+        '/%2540/',
+        '/%255B/',
+        '/%255C/',
+        '/%255D/',
+        '/%255E/',
+        '/%257B/',
+        '/%257C/',
+        '/%257D/',
+        '/%257E/'
+    );
+    $rep_pat = array('-', '-', '', '', '', '-', '', '-', '', '', '', '-', '', '', '', '-', '', '', '-at-', '', '-', '', '-', '', '-', '', '-');
     $title   = preg_replace($pattern, $rep_pat, $title);
 
     // Transformation des ponctuations
     //                 Tab     Space      !        "        #        %        &        '        (        )        ,        /        :        ;        <        =        >        ?        @        [        \        ]        ^        {        |        }        ~       .
-    $pattern = array("/%09/", "/%20/", "/%21/", "/%22/", "/%23/", "/%25/", "/%26/", "/%27/", "/%28/", "/%29/", "/%2C/", "/%2F/", "/%3A/", "/%3B/", "/%3C/", "/%3D/", "/%3E/", "/%3F/", "/%40/", "/%5B/", "/%5C/", "/%5D/", "/%5E/", "/%7B/", "/%7C/", "/%7D/", "/%7E/", "/\./");
-    $rep_pat = array(  "-"  ,   "-"  ,   ""   ,   ""   ,   ""   , "-" ,   ""   ,   "-"  ,   ""   ,   ""   ,   ""   ,   "-"  ,   ""   ,   ""   ,   ""   ,   "-"  ,   ""   ,   ""   , "-at-" ,   ""   ,   "-"   ,  ""   ,   "-"  ,   ""   ,   "-"  ,   ""   ,   "-"  ,  ""  );
+    $pattern = array(
+        '/%09/',
+        '/%20/',
+        '/%21/',
+        '/%22/',
+        '/%23/',
+        '/%25/',
+        '/%26/',
+        '/%27/',
+        '/%28/',
+        '/%29/',
+        '/%2C/',
+        '/%2F/',
+        '/%3A/',
+        '/%3B/',
+        '/%3C/',
+        '/%3D/',
+        '/%3E/',
+        '/%3F/',
+        '/%40/',
+        '/%5B/',
+        '/%5C/',
+        '/%5D/',
+        '/%5E/',
+        '/%7B/',
+        '/%7C/',
+        '/%7D/',
+        '/%7E/', "/\./");
+    $rep_pat = array('-', '-', '', '', '', '-', '', '-', '', '', '', '-', '', '', '', '-', '', '', '-at-', '', '-', '', '-', '', '-', '', '-', '');
     $title   = preg_replace($pattern, $rep_pat, $title);
 
     // Transformation des caract�res accentu�s
     //                  �        �        �        �        �        �        �        �        �        �        �        �        �        �        �
-    $pattern = array("/%B0/", "/%E8/", "/%E9/", "/%EA/", "/%EB/", "/%E7/", "/%E0/", "/%E2/", "/%E4/", "/%EE/", "/%EF/", "/%F9/", "/%FC/", "/%FB/", "/%F4/", "/%F6/");
-    $rep_pat = array(  "-", "e"  ,   "e"  ,   "e"  ,   "e"  ,   "c"  ,   "a"  ,   "a"  ,   "a"  ,   "i"  ,   "i"  ,   "u"  ,   "u"  ,   "u"  ,   "o"  ,   "o"  );
+    $pattern = array(
+        '/%B0/',
+        '/%E8/',
+        '/%E9/',
+        '/%EA/',
+        '/%EB/',
+        '/%E7/',
+        '/%E0/',
+        '/%E2/',
+        '/%E4/',
+        '/%EE/',
+        '/%EF/',
+        '/%F9/',
+        '/%FC/',
+        '/%FB/',
+        '/%F4/',
+        '/%F6/'
+    );
+    $rep_pat = array('-', 'e', 'e', 'e', 'e', 'c', 'a', 'a', 'a', 'i', 'i', 'u', 'u', 'u', 'o', 'o');
     $title   = preg_replace($pattern, $rep_pat, $title);
 
 
 
-    $pattern = array("/--/");
-    $rep_pat = array("-");
+    $pattern = array('/--/');
+    $rep_pat = array('-');
     $maxloop=0;      // avoid unlimited loop & possibility for DDOS attack
-    while ((preg_match("/--+/", $title) > 0) && ($maxloop < 100)) {
+    while ((preg_match('/--+/', $title) > 0) && ($maxloop < 100)) {
         $title   = preg_replace($pattern, $rep_pat, $title); //remove multiple '-'
         $maxloop += 1;
     }
@@ -219,7 +291,7 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
     if (sizeof($title) > 0) {
         //remove trailing dash
         $pattern = "/\-$/";
-        $rep_pat = "";
+        $rep_pat = '';
         $title = preg_replace($pattern, $rep_pat, $title);
 
         $title .= '-op' .$op. 'id' .$id. 'pg' .$pg. '.htm';
@@ -236,12 +308,12 @@ function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
     if (!(false == $urltemplate)) { //if friendly url is enabled
          //remove prefix slash
         $pattern = "/^\//";
-        $rep_pat = "";
+        $rep_pat = '';
         $topic = preg_replace($pattern, $rep_pat, $topic);
 
          //remove trailing slash
         $pattern = "/\/$/";
-        $rep_pat = "";
+        $rep_pat = '';
         $urltemplate = preg_replace($pattern, $rep_pat, $urltemplate);
 
         //Create link based on URL template
@@ -250,7 +322,7 @@ function AMS_SEO_genURL($title, $audience='', $topic='', $op=0, $id=0, $pg=0)
         $urltemplate   = preg_replace($pattern, $rep_pat, $urltemplate);
 
 
-        return $urltemplate. "/" .AMS_SEO_title($title, $op, $id, $pg) ; //return url if friendlyurl is enabled
+        return $urltemplate . '/' . AMS_SEO_title($title, $op, $id, $pg) ; //return url if friendlyurl is enabled
     } else {
         return false; //return false if friendlyurl is disabled
     }
@@ -298,7 +370,7 @@ function ams_getmoduleoption($option, $repmodule='AMS')
 function ams_isaudiencesetup($mid)
 {
     global $xoopsDB;
-    $sql = "SELECT COUNT(*) FROM ".$xoopsDB->prefix('group_permission')." WHERE gperm_modid=".$mid." AND gperm_name='ams_audience'";
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('group_permission') . ' WHERE gperm_modid=' . $mid . " AND gperm_name='ams_audience'";
     $result=$xoopsDB->query($sql);
     $count=$xoopsDB->fetchRow($result);
     if ($count[0] > 0) {

@@ -32,31 +32,37 @@ $spotlight_handler = xoops_getModuleHandler('spotlight', $xoopsModule->getVar('d
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
 
 switch ($op) {
-    case "list":
+    case 'list':
     default:
         $block_handler = xoops_getHandler('block');
-        $spotlightBlock = $block_handler->getObjects(new Criteria('b.func_file', "ams_spotlight.php"));
+        $spotlightBlock = $block_handler->getObjects(new Criteria('b.func_file', 'ams_spotlight.php'));
         $spotlightBlock = isset($spotlightBlock[0]) ? $spotlightBlock[0] : null;
         $block = $spotlight_handler->getSpotlightBlock(false);
         $spotlights = isset($block['spotlights']) ? $block['spotlights'] : array();
         $output = "<div align='right'>
-                        <a href='spotlight.php?op=add'><img src='../assets/images/new.png' />"._AMS_AM_SPOT_ADD."</a>";
+                        <a href='spotlight.php?op=add'><img src='../assets/images/new.png' />"._AMS_AM_SPOT_ADD . '</a>';
         if (is_object($spotlightBlock)) {
             $output .= "<br />
-                        <a href='".XOOPS_URL."/modules/system/admin.php?fct=blocksadmin&op=edit&bid=".$spotlightBlock->getVar('bid')."'><img src='../assets/images/edit.png' />"._AMS_AM_SPOT_EDITBLOCK."</a>";
+                        <a href='".XOOPS_URL . '/modules/system/admin.php?fct=blocksadmin&op=edit&bid='
+                       . $spotlightBlock->getVar('bid') . "'><img src='../assets/images/edit.png' />" . _AMS_AM_SPOT_EDITBLOCK . '</a>';
         }
-        $output .= "</div>";
+        $output .= '</div>';
 
         $output .= "<div><form name='spotform' id='spotform' action='spotlight.php' method='POST'>";
-        $output .= "<table>";
+        $output .= '<table>';
 
-        $output .= "<tr><th>"._AMS_AM_SPOT_NAME."</th><th></th><th>"._AMS_AM_SPOT_IMAGE."</th><th>"._AMS_AM_SPOT_WEIGHT."</th><th>"._AMS_AM_SPOT_DISPLAY."</th><th>"._AMS_AM_ACTION."</th>";
-        include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+        $output .= '<tr><th>'
+                   . _AMS_AM_SPOT_NAME . '</th><th></th><th>'
+                   . _AMS_AM_SPOT_IMAGE . '</th><th>'
+                   . _AMS_AM_SPOT_WEIGHT . '</th><th>'
+                   . _AMS_AM_SPOT_DISPLAY . '</th><th>'
+                   . _AMS_AM_ACTION . '</th>';
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         $minis = 0;
         if (count($spotlights) > 0) {
             foreach (array_keys($spotlights) as $i) {
                 if (1 == $spotlights[$i]['autoteaser']) {
-                    $spotlights[$i]['text'] = "[auto]".$spotlights[$i]['text'];
+                    $spotlights[$i]['text'] = '[auto]' . $spotlights[$i]['text'];
                 }
                 $weight_select = new XoopsFormText('', 'weight['.$spotlights[$i]['spotid'].']', 10, 10, $spotlights[$i]['weight']);
                 $display_select = new XoopsFormRadioYN('', 'display['.$spotlights[$i]['spotid'].']', $spotlights[$i]['display']);
@@ -67,14 +73,14 @@ switch ($op) {
                 }
                 $output .= "<tr class='".$class."'>";
                 $minis++;
-                $output .= "<td>".$spotlights[$i]['title']."</td>";
-                $output .= "<td>".$spotlights[$i]['text']."</td>";
-                $output .= "<td>".$spotlights[$i]['image'] ."</td>";
-                $output .= "<td>". $weight_select->render()."</td>";
-                $output .= "<td>". $display_select->render()."</td>";
-                $output .= "<td><a href='spotlight.php?op=edit&amp;id=".$spotlights[$i]['spotid']."'>". _AMS_AM_EDIT."</a>";
-                $output .= "&nbsp;<a href='spotlight.php?op=delete&amp;id=".$spotlights[$i]['spotid']."'>"._AMS_AM_DELETE."</a></td>";
-                $output .= "</tr>";
+                $output .= '<td>' . $spotlights[$i]['title'] . '</td>';
+                $output .= '<td>' . $spotlights[$i]['text'] . '</td>';
+                $output .= '<td>' . $spotlights[$i]['image'] . '</td>';
+                $output .= '<td>' . $weight_select->render() . '</td>';
+                $output .= '<td>' . $display_select->render() . '</td>';
+                $output .= "<td><a href='spotlight.php?op=edit&amp;id=".$spotlights[$i]['spotid']."'>". _AMS_AM_EDIT . '</a>';
+                $output .= "&nbsp;<a href='spotlight.php?op=delete&amp;id=".$spotlights[$i]['spotid']."'>"._AMS_AM_DELETE . '</a></td>';
+                $output .= '</tr>';
                 unset($weight_select);
                 unset($display_select);
             }
@@ -87,23 +93,23 @@ switch ($op) {
                         </td>
                         <td></td>
                     </tr>";
-        $output .= "</table></form></div>";
+        $output .= '</table></form></div>';
         echo $output;
         break;
 
-    case "add":
+    case 'add':
         $spotlight = $spotlight_handler->create();
         $form = $spotlight->getForm();
         $form->display();
         break;
 
-    case "edit":
+    case 'edit':
         $spot = $spotlight_handler->get($_REQUEST['id']);
         $form = $spot->getForm();
         $form->display();
         break;
 
-    case "save":
+    case 'save':
         if (isset($_REQUEST['id'])) {
             $spot = $spotlight_handler->get($_REQUEST['id']);
         } else {
@@ -140,7 +146,7 @@ switch ($op) {
         }
         break;
 
-    case "delete":
+    case 'delete':
         if (isset($_REQUEST['ok']) && 1 === intval($_REQUEST['ok'])) {
             $spot = $spotlight_handler->get($_REQUEST['id']);
             if ($spotlight_handler->delete($spot)) {
@@ -153,11 +159,11 @@ switch ($op) {
         }
         break;
 
-    case "reorder":
+    case 'reorder':
         if (!isset($_POST['weight']) || !is_array($_POST['weight']) || count(0 == $_POST['weight'])) {
-            header("location:spotlight.php");
+            header('location:spotlight.php');
         }
-        $criteria = new Criteria('spotlightid', "(".implode(',', array_keys($_POST['weight'])).")", 'IN');
+        $criteria = new Criteria('spotlightid', '(' . implode(',', array_keys($_POST['weight'])) . ')', 'IN');
         $spots = $spotlight_handler->getObjects($criteria, true);
 
         foreach ($_POST['weight'] as $id => $weight) {

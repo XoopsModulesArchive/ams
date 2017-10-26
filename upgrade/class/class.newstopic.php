@@ -24,7 +24,7 @@ class OldNewsTopic
     {
         $ret = array();
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = "SELECT * FROM ".$db->prefix('topics');
+        $sql = 'SELECT * FROM ' . $db->prefix('topics');
         $result = $db->query($sql);
         while ($row = $db->fetchArray($result)) {
             $ret[] = new OldNewsTopic($row);
@@ -35,9 +35,12 @@ class OldNewsTopic
     public function upgrade()
     {
         $myts = MyTextSanitizer::getInstance();
-        $sql = "INSERT INTO ".$this->db->prefix('ams_topics')."
+        $sql = 'INSERT INTO '
+               . $this->db->prefix('ams_topics') . '
                 (topic_id, topic_pid, topic_imgurl, topic_title)
-	            VALUES (".$this->topic_id.", ".$this->topic_pid.", '".$this->topic_imgurl."', '".$myts->addSlashes($this->topic_title)."')";
+	            VALUES ('
+               . $this->topic_id . ', '
+               . $this->topic_pid . ", '" . $this->topic_imgurl . "', '" . $myts->addSlashes($this->topic_title) . "')";
         return $this->db->query($sql);
     }
 
@@ -54,13 +57,13 @@ class OldNewsTopic
             $gperm_items[$i]->setNew();
             $gperm_items[$i]->setVar('gperm_modid', $amsmid);
             switch ($gperm_items[$i]->getVar('gperm_name')) {
-                case "news_approve":
+                case 'news_approve':
                    $gperm_items[$i]->setVar('gperm_name', 'ams_approve');
                    break;
-                case "news_submit":
+                case 'news_submit':
                    $gperm_items[$i]->setVar('gperm_name', 'ams_submit');
                    break;
-                case "news_view":
+                case 'news_view':
                    $gperm_items[$i]->setVar('gperm_name', 'ams_view');
                    break;
             }

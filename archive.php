@@ -44,12 +44,12 @@ $frommonth = (isset($_GET['month'])) ? intval($_GET['month']) : 0;
 
 $pgtitle='';
 if (0 != $fromyear && 0 != $frommonth) {
-    $pgtitle=sprintf(" - %d - %d", $fromyear, $frommonth);
+    $pgtitle=sprintf(' - %d - %d', $fromyear, $frommonth);
 }
 $myts = MyTextSanitizer::getInstance();
 $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($xoopsModule->name()) . ' - ' . $myts->htmlSpecialChars(_AMS_NW_NEWSARCHIVES) . $pgtitle);
 
-$useroffset = "";
+$useroffset = '';
 if (is_object($xoopsUser)) {
     $timezone = $xoopsUser->timezone();
     if (isset($timezone)) {
@@ -58,7 +58,10 @@ if (is_object($xoopsUser)) {
         $useroffset = $xoopsConfig['default_TZ'];
     }
 }
-$result = $xoopsDB->query("SELECT published FROM ".$xoopsDB->prefix("ams_article")." WHERE published>0 AND published<=".time()." AND expired <= ".time()." ORDER BY published DESC");
+$result = $xoopsDB->query('SELECT published FROM '
+                          . $xoopsDB->prefix('ams_article') . ' WHERE published>0 AND published<='
+                          . time() . ' AND expired <= '
+                          . time() . ' ORDER BY published DESC');
 if (!$result) {
     exit();
 } else {
@@ -66,8 +69,8 @@ if (!$result) {
     $months = array();
     $i = 0;
     while (list($time) = $xoopsDB->fetchRow($result)) {
-        $time = formatTimestamp($time, "mysql", $useroffset);
-        if (preg_match("/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/", $time, $datetime)) {
+        $time = formatTimestamp($time, 'mysql', $useroffset);
+        if (preg_match('/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', $time, $datetime)) {
             $this_year  = intval($datetime[1]);
             $this_month = intval($datetime[2]);
             if (empty($lastyear)) {
@@ -112,15 +115,15 @@ if (0 != $fromyear && 0 != $frommonth) {
     $monthstart = mktime(0 - $timeoffset, 0, 0, $frommonth, 1, $fromyear);
     $monthend = mktime(23 - $timeoffset, 59, 59, $frommonth + 1, 0, $fromyear);
     $monthend = ($monthend > time()) ? time() : $monthend;
-    $sql = "SELECT * FROM ".$xoopsDB->prefix("ams_article")." WHERE published >= $monthstart and published <= $monthend ORDER by published DESC";
+    $sql = 'SELECT * FROM ' . $xoopsDB->prefix('ams_article') . " WHERE published >= $monthstart and published <= $monthend ORDER by published DESC";
     $result = $xoopsDB->query($sql);
     $count = 0;
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $article = new AmsStory($myrow);
         $story = array();
-        $story['title'] = "<a href='index.php?storytopic=".$article->topicid()."'>".$article->topic_title()."</a>: <a href='article.php?storyid=".$article->storyid()."'>".$article->title()."</a>";
+        $story['title'] = "<a href='index.php?storytopic=".$article->topicid()."'>".$article->topic_title()."</a>: <a href='article.php?storyid=".$article->storyid()."'>".$article->title() . '</a>';
         $story['counter'] = $article->counter();
-        $story['date'] = formatTimestamp($article->published(), "m", $useroffset);
+        $story['date'] = formatTimestamp($article->published(), 'm', $useroffset);
         $story['print_link'] = 'print.php?storyid='.$article->storyid();
         $story['mail_link'] = 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/article.php?storyid='.$article->storyid();
         $xoopsTpl->append('stories', $story);
@@ -133,4 +136,4 @@ if (0 != $fromyear && 0 != $frommonth) {
     $xoopsTpl->assign('show_articles', false);
 }
 $xoopsTpl->assign('lang_newsarchives', _AMS_NW_NEWSARCHIVES);
-include XOOPS_ROOT_PATH."/footer.php";
+include XOOPS_ROOT_PATH . '/footer.php';

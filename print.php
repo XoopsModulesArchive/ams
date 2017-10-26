@@ -27,7 +27,7 @@ include '../../mainfile.php';
 
 $storyid = isset($_GET['storyid']) ? intval($_GET['storyid']) : 0;
 if (empty($storyid)) {
-    redirect_header(XOOPS_URL."/modules/AMS/index.php");
+    redirect_header(XOOPS_URL . '/modules/AMS/index.php');
 }
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/class/class.newsstory.php';
 
@@ -43,9 +43,9 @@ function PrintPage($storyid)
     } else {
         $groups = XOOPS_GROUP_ANONYMOUS;
     }
-    if (!$gperm_handler->checkRight("ams_view", $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-        if (!$gperm_handler->checkRight("ams_submit", $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-            if (!$gperm_handler->checkRight("ams_approve", $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+    if (!$gperm_handler->checkRight('ams_view', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+        if (!$gperm_handler->checkRight('ams_submit', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
+            if (!$gperm_handler->checkRight('ams_approve', $story->topicid(), $groups, $xoopsModule->getVar('mid'))) {
                 redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
                 exit();
             }
@@ -68,7 +68,7 @@ function PrintPage($storyid)
         <small><b>'._AMS_NW_DATE.'</b>&nbsp;'.$datetime.' | <b>'._AMS_NW_TOPICC.'</b>&nbsp;'.$story->topic_title().'</small><br /><br /></td></tr>';
     echo '<tr valign="top" style="font:12px;"><td>'.$story->hometext().'<br />';
     $bodytext = $story->bodytext();
-    $bodytext = str_replace("[pagebreak]", "<br style=\"page-break-after:always;\">", $bodytext);
+    $bodytext = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $bodytext);
     if ('' != $bodytext) {
         echo $bodytext.'<br /><br />';
     }

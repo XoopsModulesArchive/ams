@@ -1,21 +1,21 @@
 <?php
 include '../../../include/cp_header.php';
 include_once 'class/class.newsstory.php';
-include_once "class/class.newstopic.php";
-include_once "class/newsupgrade.php";
+include_once 'class/class.newstopic.php';
+include_once 'class/newsupgrade.php';
 xoops_cp_header();
 set_magic_quotes_runtime(1);
 if (isset($_POST['submit'])) {
     switch ($_POST['submit']) {
-        case "Import":
+        case 'Import':
         //echo NewsUpgrade::prepare2upgrade();
         $topics = OldNewsTopic::getAllTopics();
         $error = 0;
         foreach ($topics as $topic) {
             if ($topic->upgrade()) {
-                echo $topic->topic_title." Inserted successfully<br />";
+                echo $topic->topic_title . ' Inserted successfully<br />';
             } else {
-                echo $topic->topic_title." NOT Inserted <br />";
+                echo $topic->topic_title . ' NOT Inserted <br />';
                 $error = 1;
             }
         }
@@ -23,9 +23,9 @@ if (isset($_POST['submit'])) {
             $stories = OldNewsStory::getAll();
             foreach ($stories as $story) {
                 if (!$story->upgrade()) {
-                    echo $story->title." Inserted successfully<br />";
+                    echo $story->title . ' Inserted successfully<br />';
                 } else {
-                    echo $story->title." NOT inserted <br />";
+                    echo $story->title . ' NOT inserted <br />';
                     $error = 1;
                 }
             }
@@ -36,36 +36,36 @@ if (isset($_POST['submit'])) {
             $newsModule = $mod_handler->getByDirname('news');
             if (is_object($newsModule) && $newsModule->getVar('version') > 110) {
                 if (!OldNewsStory::importFiles()) {
-                    echo "Error: Attachments NOT imported <br />";
+                    echo 'Error: Attachments NOT imported <br />';
                     $error = 1;
                 } else {
-                    echo "Attachments Imported <br />";
+                    echo 'Attachments Imported <br />';
                 }
             }
         }
         break;
 
-        case "Comments":
+        case 'Comments':
         if (OldNewsStory::moveComments()) {
-            echo "Comments Moved From News to AMS <br />";
+            echo 'Comments Moved From News to AMS <br />';
         } else {
-            echo "Error: Comments NOT moved <br />";
+            echo 'Error: Comments NOT moved <br />';
         }
         break;
 
-        case "Permissions":
+        case 'Permissions':
         $mod_handler = xoops_getHandler('module');
         $newsModule = $mod_handler->getByDirname('news');
         if ($newsModule->getVar('version') > 110) {
             if (OldNewsTopic::copyPermissions($newsModule->getVar('mid'))) {
-                echo "Permissions Copied <br />";
+                echo 'Permissions Copied <br />';
             } else {
-                echo "Error: Permissions NOT copied <br />";
+                echo 'Error: Permissions NOT copied <br />';
             }
         }
         break;
 
-        case "Update":
+        case 'Update':
         /*
         include_once XOOPS_ROOT_PATH."/modules/AMS/include/update.php";
         xoops_module_update_AMS($xoopsModule, 220); //invoke update procedure - the SQL will fail if already upgraded, but no harm should come to it.
@@ -82,7 +82,7 @@ if (isset($_POST['submit'])) {
         exit();
     }
 }
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $upgrade_form = new XoopsThemeForm('Upgrade', 'upgradeform', 'index.php');
 if (!isset($_POST['submit'])) {
     $upgrade_form->addElement(new XoopsFormButton('Import Articles and Topics from News module', 'submit', 'Import', 'submit'));

@@ -23,18 +23,18 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-include_once(XOOPS_ROOT_PATH."/class/tree.php");
+include_once(XOOPS_ROOT_PATH . '/class/tree.php');
 
-$fform = new XoopsThemeForm(_AMS_AM_FILTER, "filterform", 'articles.php');
+$fform = new XoopsThemeForm(_AMS_AM_FILTER, 'filterform', 'articles.php');
 $fform->setExtra('enctype="multipart/form-data"');
 
 $first_row = new XoopsFormElementTray(_OPTIONS);
 
 $first_row->addElement(new XoopsFormText(_AMS_AM_TITLE, 'title', 50, 80, $title));
 global $xoopsDB;
-$xt = new AmsTopic($xoopsDB->prefix("ams_topics"));
+$xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
 $alltopics = $xt->getAllTopics();
 $topic_obj_tree = new XoopsObjectTree($alltopics, 'topic_id', 'topic_pid');
 $first_row->addElement($topic_obj_tree->makeSelectElement('topicid', 'topic_title', '--', $topicid, true, 0, '', _AMS_AM_TOPIC));
@@ -58,7 +58,7 @@ $second_row->addElement($status_select);
 
 
 
-$order = (isset($order)) ? $order : "DESC";
+$order = (isset($order)) ? $order : 'DESC';
 $order_select = new XoopsFormSelect(_AMS_AM_ORDER, 'order', $order);
 $order_select->addOption('DESC', _DESCENDING);
 $order_select->addOption('ASC', _ASCENDING);

@@ -36,21 +36,21 @@ if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'
 }
 
 //Added AMS 2.50 for cookies manangement
-include_once XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/include/vars.inc.php";
-include_once XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/include/functions.inc.php";
-include_once(XOOPS_ROOT_PATH."/class/tree.php");
+include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/vars.inc.php';
+include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.inc.php';
+include_once(XOOPS_ROOT_PATH . '/class/tree.php');
 
 
 //Added AMS 2.50. Enable user selection Editor. Modify at AMS 3.0 to correctly detect XOOPS 2.3.x scheme
-if (true == $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_PATH . "/Frameworks/xoops22/class/xoopsformloader.php") || file_exists(XOOPS_ROOT_PATH . "/class/xoopsform/formselecteditor.php"))) {
+if (true == $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php'))) {
     if (isset($_REQUEST['seditor'])) {
         $editor= $_REQUEST['seditor'];
     } elseif (isset($_REQUEST['editor'])) {
         $editor= $_REQUEST['editor'];  //ICMS 1.2 workaround. the way ICM handle formselecteditor is wrong. Remove it if fixed
     }
     if (!empty($editor)) {
-        AMS_setcookie("cookie_editor", $editor);
-    } elseif (!$editor = AMS_getcookie("cookie_editor")) {
+        AMS_setcookie('cookie_editor', $editor);
+    } elseif (!$editor = AMS_getcookie('cookie_editor')) {
         if (empty($editor)) {
             $editor =$xoopsModuleConfig['editor'];
         }
@@ -64,56 +64,56 @@ if (true == $xoopsModuleConfig['editor_userchoice'] && (file_exists(XOOPS_ROOT_P
 //Added AMS 2.52. Fix famous BLANK page at submit form
 $wysiwyg_is_exist=0;
 //Include xoopsformloader using CBB Way if framework installed
-if (file_exists(XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php") || file_exists(XOOPS_ROOT_PATH."/class/xoopsform/formselecteditor.php") || file_exists(XOOPS_ROOT_PATH."/class/xoopsform/formeditor.php")) {
+if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php') || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php')) {
     //if phpp/xoopsforge/xoops2.3.x Framework installed. Support multipe wysiwyg editor (FCK, TinyMCE, Koivi etc)
-    if (!@include_once XOOPS_ROOT_PATH."/Frameworks/xoops22/class/xoopsformloader.php") {
-        include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+    if (!@include_once XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') {
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     }
 
     //ICMS 1.2 workaround. ICMS bugs not to include  formeditor.php in their xoopsformloader. Remove this when it fixed
     if (!(class_exists('XoopsFormEditor'))) {
-        if (file_exists(XOOPS_ROOT_PATH."/class/xoopsform/formeditor.php")) {
-            include_once XOOPS_ROOT_PATH."/class/xoopsform/formeditor.php";
+        if (file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php')) {
+            include_once XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php';
         }
     }
 
     $wysiwyg_is_exist=1;
-} elseif (file_exists(XOOPS_ROOT_PATH."/class/wysiwyg/formwysiwygtextarea.php") && 'koivi' == $editor) {
+} elseif (file_exists(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') && 'koivi' == $editor) {
     //if KOIVI installed manually in XOOPS 2.0.x
     $wysiwyg_is_exist=2;
-    include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-    include_once XOOPS_ROOT_PATH."/class/wysiwyg/formwysiwygtextarea.php";
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    include_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
 
-    if (file_exists(XOOPS_ROOT_PATH."/class/wysiwyg/language/".$xoopsConfig['language'].".php")) {
-        include_once XOOPS_ROOT_PATH."/class/wysiwyg/language/".$xoopsConfig['language'].".php";
+    if (file_exists(XOOPS_ROOT_PATH . '/class/wysiwyg/language/' . $xoopsConfig['language'] . '.php')) {
+        include_once XOOPS_ROOT_PATH . '/class/wysiwyg/language/' . $xoopsConfig['language'] . '.php';
     } else {
-        include_once XOOPS_ROOT_PATH."/class/wysiwyg/language/english.php";
+        include_once XOOPS_ROOT_PATH . '/class/wysiwyg/language/english.php';
     }
-} elseif (file_exists(XOOPS_ROOT_PATH."/class/xoopseditor/koivi/formwysiwygtextarea.php") && 'koivi' == $editor) {
+} elseif (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/formwysiwygtextarea.php') && 'koivi' == $editor) {
     //if XOOPS 2.2.x editor installed. Only KOIVI is supported
     $wysiwyg_is_exist=3;
-    include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-    include_once XOOPS_ROOT_PATH."/class/xoopseditor/koivi/formwysiwygtextarea.php";
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    include_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/formwysiwygtextarea.php';
 
-    if (file_exists(XOOPS_ROOT_PATH."/class/xoopseditor/koivi/language/".$xoopsConfig['language'].".php")) {
-        include_once XOOPS_ROOT_PATH."/class/xoopseditor/koivi/language/".$xoopsConfig['language'].".php";
+    if (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/' . $xoopsConfig['language'] . '.php')) {
+        include_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/' . $xoopsConfig['language'] . '.php';
     } else {
-        include_once XOOPS_ROOT_PATH."/class/xoopseditor/koivi/language/english.php";
+        include_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/english.php';
     }
 } else {
     // if none of editor installed
-    include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 }
 
-$sform = new XoopsThemeForm(_AMS_NW_SUBMITNEWS, "storyform", XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname').'/submit.php');
+$sform = new XoopsThemeForm(_AMS_NW_SUBMITNEWS, 'storyform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
 $sform->setExtra('enctype="multipart/form-data"');
 $sform->addElement(new XoopsFormText(_AMS_NW_TITLE, 'title', 50, 80, $story->title('Edit')), true);
 
 //Todo: Change to only display topics, which a user has submit privileges for
 if (!isset($xt)) {
-    $xt = new AmsTopic($xoopsDB->prefix("ams_topics"));
+    $xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
 }
-$alltopics = $xt->getAllTopics(true, "ams_submit");
+$alltopics = $xt->getAllTopics(true, 'ams_submit');
 if (0 == count($alltopics)) {
     redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _AMS_NW_NOTOPICS);
 }
@@ -157,7 +157,7 @@ else include_once ''.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")
 
 //Only enable editor selection if Framework is enabled
 if (1 == $wysiwyg_is_exist && true == $xoopsModuleConfig['editor_userchoice']) {
-    $sform->addElement(new XoopsFormSelectEditor($sform, "seditor", $editor, $story->nohtml(), $editor_select));
+    $sform->addElement(new XoopsFormSelectEditor($sform, 'seditor', $editor, $story->nohtml(), $editor_select));
 }
 
 //Change multiple WYSIWYG using CBB Way
@@ -219,7 +219,7 @@ if ($edit && (!isset($_GET['approve']))) {
     $change_radio->setDescription(_AMS_NW_VERSIONDESC);
     $change_radio->setValue(4);
     $sform->addElement($change_radio);
-    $sform->addElement(new XoopsFormRadioYN(_AMS_NW_SWITCHAUTHOR." (".$story->uname.")", 'newauthor', 0));
+    $sform->addElement(new XoopsFormRadioYN(_AMS_NW_SWITCHAUTHOR . ' (' . $story->uname . ')', 'newauthor', 0));
 }
 
 // Manage upload(s)
@@ -319,9 +319,9 @@ if ($story->storyid() > 0) {
 }
 if (!($story->type())) {
     if ($approveprivilege) {
-        $type = "admin";
+        $type = 'admin';
     } else {
-        $type = "user";
+        $type = 'user';
     }
 }
 $type_hidden = new XoopsFormHidden('type', $type);

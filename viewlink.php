@@ -23,7 +23,7 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include "../../mainfile.php";
+include '../../mainfile.php';
 
 $lid = isset($_GET['lid']) ? intval($_GET['lid']) : 0;
 $rev = isset($_GET['rev']) ? true : false;
