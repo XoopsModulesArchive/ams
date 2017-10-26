@@ -27,7 +27,7 @@
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 
 // create form
-$search_form = new XoopsThemeForm(_SR_SEARCH, "search_form", $_SERVER['PHP_SELF'], 'POST');
+$search_form = new XoopsThemeForm(_SR_SEARCH, "search_form", $_SERVER['PHP_SELF'], 'post', true);
 
 // create form elements
 $search_form->addElement(new XoopsFormText(_SR_KEYWORDS, "query", 30, 255, htmlspecialchars(stripslashes(implode(" ", $queries)), ENT_QUOTES)), true);

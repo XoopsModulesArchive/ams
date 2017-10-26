@@ -297,7 +297,7 @@ function topicsmanager()
         $forum = 0;
     }
 
-    $sform = new XoopsThemeForm($formlabel, "topicform", XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname').'/admin/index.php', 'post');
+    $sform = new XoopsThemeForm($formlabel, "topicform", XOOPS_URL.'/modules/'.$xoopsModule->getVar('dirname').'/admin/index.php', 'post', true);
     $sform->setExtra('enctype="multipart/form-data"');
     $sform->addElement(new XoopsFormText(_AMS_AM_TOPICNAME . ' ' . _AMS_AM_MAX40CHAR, 'topic_title', 40, 50, $topic_title), true);
     $sform->addElement(new XoopsFormHidden('op', $op), false);
@@ -723,7 +723,7 @@ function audienceForm($id = 0) {
         $groups = array();
     }
     include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-    $aform = new XoopsThemeForm(_AMS_AM_MANAGEAUDIENCES, "audienceform", 'index.php', 'post');
+    $aform = new XoopsThemeForm(_AMS_AM_MANAGEAUDIENCES, "audienceform", 'index.php', 'post', true);
     if ($id > 0) {
         $aform->addElement(new XoopsFormHidden('aid', $id));
     }
