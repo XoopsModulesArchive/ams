@@ -31,7 +31,7 @@ function b_ams_topics_show()
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/xoopstopic.php';
     $xt = new XoopsTopic($xoopsDB->prefix('ams_topics'));
     $jump = XOOPS_URL . '/modules/AMS/index.php?storytopic=';
-    $storytopic = !empty($storytopic) ? (int)$storytopic : 0;
+    $storytopic = !empty($storytopic) ? $storytopic : 0;
     ob_start();
     $xt->makeTopicSelBox(1, $storytopic, 'storytopic', 'location="' . $jump . '"+this.options[this.selectedIndex].value');
     $block['selectbox'] = ob_get_contents();

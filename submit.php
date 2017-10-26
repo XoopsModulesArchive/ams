@@ -284,7 +284,7 @@ case 'post':
     $story->setNotifyPub($notifypub);
     $story->setType($_POST['type']);
     // Set audience id to default
-    $story->audienceid = (int)1;
+    $story->audienceid = 1;
     if ($approveprivilege) {
         $approve = isset($_POST['approve']) ? $_POST['approve'] : 0;
         if (!empty($_POST['autodate'])) {
