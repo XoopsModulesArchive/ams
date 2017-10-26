@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,17 +24,17 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-function b_ams_topics_show() {
-	global $xoopsDB, $storytopic;
-	$block = array();
-	include_once XOOPS_ROOT_PATH."/class/xoopstopic.php";
-	$xt = new XoopsTopic($xoopsDB->prefix("ams_topics"));
-	$jump = XOOPS_URL."/modules/AMS/index.php?storytopic=";
-	$storytopic = !empty($storytopic) ? intval($storytopic) : 0;
-	ob_start();
-	$xt->makeTopicSelBox(1, $storytopic,"storytopic","location=\"".$jump."\"+this.options[this.selectedIndex].value");
-	$block['selectbox'] = ob_get_contents();
-	ob_end_clean();
-	return $block;
+function b_ams_topics_show()
+{
+    global $xoopsDB, $storytopic;
+    $block = array();
+    include_once XOOPS_ROOT_PATH."/modules/AMS/class/xoopstopic.php";
+    $xt = new XoopsTopic($xoopsDB->prefix("ams_topics"));
+    $jump = XOOPS_URL."/modules/AMS/index.php?storytopic=";
+    $storytopic = !empty($storytopic) ? intval($storytopic) : 0;
+    ob_start();
+    $xt->makeTopicSelBox(1, $storytopic, "storytopic", "location=\"".$jump."\"+this.options[this.selectedIndex].value");
+    $block['selectbox'] = ob_get_contents();
+    ob_end_clean();
+    return $block;
 }
-?>

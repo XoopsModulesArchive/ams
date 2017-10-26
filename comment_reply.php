@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -26,4 +25,3 @@
 //  ------------------------------------------------------------------------ //
 include '../../mainfile.php';
 include XOOPS_ROOT_PATH.'/include/comment_reply.php';
-?>

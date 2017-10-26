@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -25,7 +24,8 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-function b_ams_author_show($options) {
+function b_ams_author_show($options)
+{
     if (!isset($options[3])) {
         $options[3] = "average";
     }
@@ -38,27 +38,27 @@ function b_ams_author_show($options) {
     return $block;
 }
 
-function b_ams_author_edit($options) {
-    include_once (XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+function b_ams_author_edit($options)
+{
+    include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
     $form = new XoopsFormElementTray('', '<br/>');
-    
+
     $sort_select = new XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);
     $sort_select->addOption('count', _AMS_MB_NEWS_ARTCOUNT);
     $sort_select->addOption('read', _AMS_MB_NEWS_HITS);
     $sort_select->addOption('rating', _AMS_MB_NEWS_RATING);
     $form->addElement($sort_select);
-    
+
     $form->addElement(new XoopsFormText(_AMS_MB_NEWS_DISP, 'options[1]', 20, 15, $options[1]));
-    
+
     $name_select = new XoopsFormSelect(_AMS_MB_NEWS_DISPLAYNAME, 'options[2]', $options[2]);
     $name_select->addOption('uname', _AMS_MB_NEWS_USERNAME);
     $name_select->addOption('name', _AMS_MB_NEWS_REALNAME);
     $form->addElement($name_select);
-    
+
     $average_select = new XoopsFormSelect(_AMS_MB_NEWS_COMPUTING, 'options[3]', $options[3]);
     $average_select->addOption('average', _AMS_MB_NEWS_AVERAGE);
     $average_select->addOption('total', _AMS_MB_NEWS_TOTAL);
     $form->addElement($average_select);
     return $form->render();
 }
-?>

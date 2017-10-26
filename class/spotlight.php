@@ -23,12 +23,14 @@
 // along with this program; if not, write to the Free Software              //
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------ //
-if (!class_exists('IdgObjectHandler')) {
+if (!class_exists('IdgObjectHandler', false)) {
     include_once XOOPS_ROOT_PATH."/modules/AMS/class/idgobject.php";
 }
 
-class AmsSpotlight extends XoopsObject {
-    function AmsSpotlight() {
+class AmsSpotlight extends XoopsObject
+{
+    public function __construct()
+    {
         $this->initVar('spotlightid', XOBJ_DTYPE_INT);
         $this->initVar('showimage', XOBJ_DTYPE_INT, 1);
         $this->initVar('image', XOBJ_DTYPE_TXTBOX, "");
@@ -43,11 +45,12 @@ class AmsSpotlight extends XoopsObject {
     }
 
     /**
-	* Get a {@link XoopsForm} object for creating/editing Spotlight articles
-	*
-	* @return object
-	*/
-    function getForm($action = false) {
+    * Get a {@link XoopsForm} object for creating/editing Spotlight articles
+    *
+    * @return object
+    */
+    public function getForm($action = false)
+    {
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -70,16 +73,16 @@ class AmsSpotlight extends XoopsObject {
         $xt = new AmsTopic($GLOBALS['xoopsDB'] -> prefix("ams_topics"));
         $allTopics = $xt->getAllTopics();
         $topic_obj_tree = new XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
-        $topic_select = new XoopsFormLabel(_AMS_AM_TOPIC, $topic_obj_tree->makeSelBox('topicid', 'topic_title', '--', $this->getVar('topicid'), false));
+        $topic_select = $topic_obj_tree->makeSelectElement('topicid', 'topic_title', '--', $this->getVar('topicid'), false, 0, '', _AMS_AM_TOPIC);
         $topic_select->setDescription(_AMS_AM_SPOT_TOPIC_DESC);
-        
+
         $article_select = new XoopsFormSelect(_AMS_AM_ARTICLE, 'storyid', $this->getVar('storyid'));
         $article_select->addOptionArray(AmsStory::getAllPublished($GLOBALS['xoopsModuleConfig']['spotlight_art_num'], 0, false, 0, 1, false));
         $article_select->setDescription(_AMS_AM_SPOT_ARTICLE_DESC);
 
         $mode_tray = new XoopsFormElementTray(_AMS_AM_SPOT_MODE_SELECT);
         $mode_tray->addElement($mode_select);
-        
+
         $showimage_select = new XoopsFormRadio(_AMS_AM_SPOT_SHOWIMAGE, 'showimage', $this->getVar('showimage'));
         $showimage_select->addOption(0, _AMS_AM_SPOT_SPECIFYIMAGE);
         $showimage_select->addOption(1, _AMS_AM_SPOT_TOPICIMAGE);
@@ -116,7 +119,8 @@ class AmsSpotlight extends XoopsObject {
         return $form;
     }
 
-    function getImage($article) {
+    public function getImage($article)
+    {
         $myts = MyTextSanitizer::getInstance();
         if ($this->getVar('mode') == 4) {
             if ($this->getVar('image') == "") {
@@ -130,13 +134,13 @@ class AmsSpotlight extends XoopsObject {
         switch ($this->getVar('showimage')) {
             case 0:
                 return $myts->displayTarea($this->getVar('image', 'n'));
-               
+
             case 1:
                 return $article->imglink(false);
-                
+
             case 2:
                 return $article->imglink(true);
-                
+
             case 3:
                 return "";
         }
@@ -144,20 +148,22 @@ class AmsSpotlight extends XoopsObject {
     }
 }
 
-class AmsSpotlightHandler extends IdgObjectHandler {
-    function AmsSpotlightHandler(&$db) {
-        $this->IdgObjectHandler($db, 'ams_spotlight', 'AmsSpotlight', 'spotlightid');
+class AmsSpotlightHandler extends IdgObjectHandler
+{
+    public function __construct($db)
+    {
+        parent::__construct($db, 'ams_spotlight', 'AmsSpotlight', 'spotlightid');
     }
-    
-    function getSpotlightBlock($display_only = true) {
+
+    public function getSpotlightBlock($display_only = true)
+    {
         $myts = MyTextSanitizer::getInstance();
         include_once XOOPS_ROOT_PATH."/modules/AMS/class/class.newsstory.php";
         $block = array();
-    
+
         if ($display_only) {
             $criteria = new Criteria('display', 1);
-        }
-        else {
+        } else {
             $criteria = new Criteria('spotlightid', 0, ">");
         }
         $criteria->setSort('weight');
@@ -171,25 +177,25 @@ class AmsSpotlightHandler extends IdgObjectHandler {
                 // Latest Article
                 case 1:
                     $article_arr = AmsStory::getAllPublished(1, 0, false, 0, 1, true, 'published', $ids);
-                    $article =& $article_arr[0];
+                    $article = $article_arr[0];
                     if (!is_object($article)) {
                         continue;
                     }
                     $ids[$article->storyid()] = $article->storyid();
                     $uids[] = $article->uid();
                     break;
-                    
+
                 // Latest Article in Topic
                 case 2:
                     $article_arr = AmsStory::getAllPublished(1, 0, false, $spots[$i]->getVar('topicid'), 1, true, 'published', $ids);
-                    $article =& $article_arr[0];
+                    $article = $article_arr[0];
                     if (!is_object($article)) {
                         continue;
                     }
                     $ids[$article->storyid()] = $article->storyid();
                     $uids[] = $article->uid();
                     break;
-                    
+
                 // Specific Article
                 case 3:
                     $article = new AmsStory($spots[$i]->getVar('storyid'));
@@ -199,20 +205,20 @@ class AmsSpotlightHandler extends IdgObjectHandler {
                     $ids[$article->storyid()] = $article->storyid();
                     $uids[] = $article->uid();
                     break;
-                    
+
                 case 4:
                     $article = "";
             }
             $spotarticles[] = $article;
         }
-        $member_handler =& xoops_gethandler('member');
+        $member_handler = xoops_gethandler('member');
         $users = $member_handler->getUsers(new Criteria('uid', "(".implode(',', array_unique($uids)).")", 'IN'), true);
         foreach (array_keys($spotarticles) as $i) {
-            $article =& $spotarticles[$i];
+            $article = $spotarticles[$i];
             $image = $spots[$i]->getImage($article);
             if (is_object($article)) {
                 $article->uname($users);
-                
+
                 $teaser = $spots[$i]->getVar('autoteaser') != 1 ? $myts->displayTarea($spots[$i]->getVar('teaser', 'n'), 1) : ($spots[$i]->getVar('maxlength') > 0 ? xoops_substr($article->hometext(), 0, $spots[$i]->getVar('maxlength'), "") : $article->hometext());
                 $id = $article->storyid();
                 $title = $article->title();
@@ -221,10 +227,9 @@ class AmsSpotlightHandler extends IdgObjectHandler {
                 $posterid = $article->uid();
                 $posttime = formatTimestamp($article->published());
                 $custom = 0;
-				$friendlyurl_enable = $article->friendlyurl_enable;
-				$friendlyurl = $article->friendlyurl;
-            }
-            else {
+                $friendlyurl_enable = $article->friendlyurl_enable;
+                $friendlyurl = $article->friendlyurl;
+            } else {
                 $id = 0;
                 $title = "";
                 $hits = 0;
@@ -240,4 +245,3 @@ class AmsSpotlightHandler extends IdgObjectHandler {
         return $block;
     }
 }
-?>

@@ -1,3 +1,12 @@
+AMS Changel Log
+
+3.2 Alpha  unreleased
+==================================
+- Add preference options to allow alphabetical sort of articles
+- Modernize to 2.5.9, PHP 7 compatible, Xmf, some PSR2
+
+
+==================================
 NovaSmart Technology
 email: admin[at]novasmarttechnology.com
 web: www.novasmarttechnology.com
@@ -21,7 +30,7 @@ AMS v3.00 Final
 > Added - Friendly URL
 > Added - Add  POST NEW ARTICLE at admin menu (manage article) as per request from users
 > Added - Add  POST NEW ARTICLE at main article page as per request from users
-> Added - Allow to upload ppt/powerpoint 
+> Added - Allow to upload ppt/powerpoint
 > Fix Bug - XOOPS 2.2.x unable to load language file when SEF enabled
 > Fix Bug - Fix xoops editor selection disappear in XOOPS 2.3.x (only affect AMS v2.52)
 > Fix Bug - Remove unintended debug code (print "OK")
@@ -58,7 +67,7 @@ AMS v2.50 Final
 > Added - Spotlight block (left/center/right) template can be choose.
 > Added - Spotlight template can be added straight into template folder and auto detected when install/upgrade
 > Added - Spotlight templace can have additional php command (see example ams_block_spotlight_ams_right)
-> Added - Spotlight template can have preview. Just put into XOOPS/modules/AMS/images/spotlight_preview.
+> Added - Spotlight template can have preview. Just put into XOOPS/modules/AMS/assets/images/spotlight_preview.
 > Added - ImpressCMS support.
 > Added - FCKeditor, DHTML,HTMLArea,FCK,tinymce
 > Added - User can select their favourite editor at submit form
@@ -66,7 +75,7 @@ AMS v2.50 Final
 > Fix Bug - Submit return blank page if didn't install framework from phpp/xoopsforge.com
 > Fix Bug - Topic name with an ' (apostrophe) in it, cannot change the weight of that Topic
 > Fix Bug - After edit, article will disappear for 10 minute
-> Fixed bug - Republish article didn't reset expiration date 
+> Fixed bug - Republish article didn't reset expiration date
 
 language change:
 > Added - define("_AMS_MI_ABOUT", "About")

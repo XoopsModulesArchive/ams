@@ -1,5 +1,4 @@
 <?php
-// $Id$
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -39,4 +38,3 @@ $sform->addElement($rating_select, true);
 $sform->addElement(new XoopsFormButton('', 'submit', _AMS_NW_SUBMITRATING, 'submit'));
 
 $sform->assign($xoopsTpl);
-?>
