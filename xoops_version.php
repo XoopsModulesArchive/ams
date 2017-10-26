@@ -31,6 +31,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 $moduleDirName = basename(__DIR__);
 //Added AMS 2.50 Beta 2
 //Fetch AMS spotlight dynamically
+$spotlight_templates = $spotlight_templates_list = array();
 $spotlight_templates_list_count = 0;
 $path                           = XOOPS_ROOT_PATH . "/modules/$moduleDirName/templates";
 if ($handle = opendir($path)) {
@@ -232,7 +233,7 @@ $modversion['blocks'][$block_count]['name']        = _AMS_MI_NEWS_BNAME12;
 $modversion['blocks'][$block_count]['description'] = 'Spotlight articles';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_spotlight_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_spotlight_edit';
-$modversion['blocks'][$block_count]['options']     = '10|1|' . $spotlight_templates_list[0];
+$modversion['blocks'][$block_count]['options'] = '10|1|' . $spotlight_templates_list[0];
 $modversion['blocks'][$block_count]['template']    = 'ams_block_spotlight.tpl';
 
 $block_count++;
