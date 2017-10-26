@@ -2,7 +2,7 @@
 // Module Info
 
 // The name of this module
-define("_AMS_MI_NEWS_NAME", "Articles");
+define("_AMS_MI_NEWS_NAME", "AMS Articles");
 
 // A brief description of this module
 define("_AMS_MI_NEWS_DESC", "Creates a Slashdot-like article section, where users can post articles and comment.");
