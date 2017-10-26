@@ -114,4 +114,3 @@ if (!$tpl->is_cached($cache_file)) {
 
 }
 $tpl->display($cache_file);
-?>

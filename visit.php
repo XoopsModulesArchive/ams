@@ -47,7 +47,7 @@ if (!preg_match("/^ed2k*:\/\//i", $url)) {
 }
 echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL=".$myts->htmlSpecialChars($url)."\"></meta></head><body></body></html>";
 exit();
-?>
+
 
 
 
