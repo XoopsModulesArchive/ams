@@ -289,10 +289,10 @@ case "post":
         $approve = isset($_POST['approve']) ? $_POST['approve'] : 0;
         if (!empty($_POST['autodate'])) {
             $pubdate = strtotime($_POST['publish_date']['date']) + $_POST['publish_date']['time'];
-            $offset = $xoopsUser -> timezone() - $xoopsConfig['server_TZ'];
-            $pubdate = $pubdate - ($offset * 3600);
+            $offset  = $xoopsUser -> timezone() - $xoopsConfig['server_TZ'];
+            $pubdate -= ($offset * 3600);
             if ($pubdate-time() > 0 && $pubdate-time() < 600) { //fix bug article missing for 10 minute after republish
-               $pubdate=$pubdate-601; //set publish date backward 10 minute
+               $pubdate -= 601; //set publish date backward 10 minute
             }
 
             $story -> setPublished($pubdate);
@@ -301,8 +301,8 @@ case "post":
         }
         if (!empty($_POST['autoexpdate'])) {
             $expiry_date = strtotime($_POST['expiry_date']['date']) + $_POST['expiry_date']['time'];
-            $offset = $xoopsUser -> timezone() - $xoopsConfig['server_TZ'];
-            $expiry_date = $expiry_date - ($offset * 3600);
+            $offset      = $xoopsUser -> timezone() - $xoopsConfig['server_TZ'];
+            $expiry_date -= ($offset * 3600);
             $story -> setExpired($expiry_date);
         } else {
             $story->setExpired(0);

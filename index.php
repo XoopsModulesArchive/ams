@@ -85,7 +85,7 @@ if ($xoopsModuleConfig['displaynav'] == 1) {
         if ($i == 1) {
             $i = 5;
         } else {
-            $i = $i + 5;
+            $i += 5;
         }
     }
     $storynum_select = new XoopsFormSelect('', 'storynum', $xoopsOption['storynum']);

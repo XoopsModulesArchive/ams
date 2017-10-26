@@ -584,14 +584,14 @@ class AmsStory extends AmsXoopsStory
             return true;
         }
         if ($this->change == 1) {
-            $this->version = $this->version + 1;
-            $this->revision = 0;
+            $this->version       += 1;
+            $this->revision      = 0;
             $this->revisionminor = 0;
         } elseif ($this->change == 2) {
-            $this->revision = $this->revision + 1;
+            $this->revision      += 1;
             $this->revisionminor = 0;
         } elseif ($this->change == 3) {
-            $this->revisionminor = $this->revisionminor + 1;
+            $this->revisionminor += 1;
         }
         $sql = "SELECT COUNT(*) FROM ".$this->texttable." WHERE storyid=".$this->storyid." AND version=".$this->version." AND revision=".$this->revision." AND revisionminor=".$this->revisionminor;
         $result = $this->db->query($sql);

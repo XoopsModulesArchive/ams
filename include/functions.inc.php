@@ -213,7 +213,7 @@ function AMS_SEO_title($title='', $op=0, $id=0, $pg=0)
     $maxloop=0;      // avoid unlimited loop & possibility for DDOS attack
     while ((preg_match("/--+/", $title) > 0) && ($maxloop < 100)) {
         $title   = preg_replace($pattern, $rep_pat, $title); //remove multiple '-'
-        $maxloop=$maxloop+1;
+        $maxloop += 1;
     }
 
     if (sizeof($title) > 0) {
