@@ -20,7 +20,7 @@ if ('' != $_POST['submit'] && $storyid > 0) {
     redirect_header(XOOPS_URL . '/modules/AMS/article.php?storyid=' . $article->storyid(), 3, $ratemessage);
     exit();
 } else {
-    $GLOBALS['xoopsOption']['template_main'] = 'ams_ratearticle.html';
+    $GLOBALS['xoopsOption']['template_main'] = 'ams_ratearticle.tpl';
     include XOOPS_ROOT_PATH . '/header.php';
     include __DIR__ . '/include/ratingform.inc.php';
 }

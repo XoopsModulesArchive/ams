@@ -55,7 +55,7 @@ $myts = MyTextSanitizer::getInstance();
 
 $xoopsConfigSearch = $configHandler->getConfigsByCat(XOOPS_CONF_SEARCH);
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
-$GLOBALS['xoopsOption']['template_main'] = 'ams_searchform.html';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_searchform'CriteriaElement'';
 include_once XOOPS_ROOT_PATH.'/header.php';
 
 $username = (isset($_POST['username']) && '' != $_POST['username']) ? $_POST['username'] : '';

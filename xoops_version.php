@@ -38,7 +38,7 @@ if ($handle = opendir($path)) {
         //if not a folder...
         if (!is_dir($path . '/' . $file) && '.' !== $file && '..' !== $file) {
             //if it is spotlight templates..
-            if ('ams_block_spotlight' === substr($file, 0, 19) && '.html' === substr($file, strlen($file) - 5)) {
+            if ('ams_block_spotlight' === substr($file, 0, 19) && '.tpl' === substr($file, strlen($file) - 5)) {
                 $template_name_offset                                      = 20;
                 $template_name                                             = substr(
                     $file,
@@ -101,35 +101,35 @@ $modversion['developer_email']     = 'richard@geekwright.com';
 
 // Templates
 $template_count                                          = 1;
-$modversion['templates'][$template_count]['file']        = 'ams_item.html';
+$modversion['templates'][$template_count]['file']        = 'ams_item.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
-$modversion['templates'][$template_count]['file']        = 'ams_archive.html';
+$modversion['templates'][$template_count]['file']        = 'ams_archive.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
-$modversion['templates'][$template_count]['file']        = 'ams_article.html';
+$modversion['templates'][$template_count]['file']        = 'ams_article.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
-$modversion['templates'][$template_count]['file']        = 'ams_index.html';
+$modversion['templates'][$template_count]['file']        = 'ams_index.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
-$modversion['templates'][$template_count]['file']        = 'ams_by_topic.html';
+$modversion['templates'][$template_count]['file']        = 'ams_by_topic.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
-$modversion['templates'][$template_count]['file']        = 'ams_ratearticle.html';
+$modversion['templates'][$template_count]['file']        = 'ams_ratearticle.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
-$modversion['templates'][$template_count]['file']        = 'ams_version.html';
+$modversion['templates'][$template_count]['file']        = 'ams_version.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
-$modversion['templates'][$template_count]['file']        = 'ams_searchform.html';
+$modversion['templates'][$template_count]['file']        = 'ams_searchform.tpl';
 $modversion['templates'][$template_count]['description'] = '';
 $template_count++;
 
@@ -147,14 +147,14 @@ $modversion['blocks'][$block_count]['file']        = 'ams_topics.php';
 $modversion['blocks'][$block_count]['name']        = _AMS_MI_NEWS_BNAME1;
 $modversion['blocks'][$block_count]['description'] = 'Shows news topics';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_topics_show';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_topics.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_topics.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_bigstory.php';
 $modversion['blocks'][$block_count]['name']        = _AMS_MI_NEWS_BNAME3;
 $modversion['blocks'][$block_count]['description'] = 'Shows most read story of the day';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_bigstory_show';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_bigstory.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_bigstory.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_top.php';
@@ -163,7 +163,7 @@ $modversion['blocks'][$block_count]['description'] = 'Shows top read news articl
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_top_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_top_edit';
 $modversion['blocks'][$block_count]['options']     = 'counter|10|25|0';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_top.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_top.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_top.php';
@@ -172,14 +172,14 @@ $modversion['blocks'][$block_count]['description'] = 'Shows recent articles';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_top_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_top_edit';
 $modversion['blocks'][$block_count]['options']     = 'published|10|25|0';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_top.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_top.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_moderate.php';
 $modversion['blocks'][$block_count]['name']        = _AMS_MI_NEWS_BNAME6;
 $modversion['blocks'][$block_count]['description'] = 'Shows a block to moderate articles';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_topics_moderate';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_moderate.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_moderate.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_topicsnav.php';
@@ -188,7 +188,7 @@ $modversion['blocks'][$block_count]['description'] = 'Shows a block to navigate 
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_topicsnav_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_topicsnav_edit';
 $modversion['blocks'][$block_count]['options']     = 0;
-$modversion['blocks'][$block_count]['template']    = 'ams_block_topicnav.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_topicnav.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_author.php';
@@ -197,7 +197,7 @@ $modversion['blocks'][$block_count]['description'] = 'Shows top authors';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_author_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_author_edit';
 $modversion['blocks'][$block_count]['options']     = 'count|5|uname';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_authors.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_authors.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_author.php';
@@ -206,7 +206,7 @@ $modversion['blocks'][$block_count]['description'] = 'Shows top authors';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_author_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_author_edit';
 $modversion['blocks'][$block_count]['options']     = 'read|5|uname';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_authors.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_authors.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_author.php';
@@ -215,7 +215,7 @@ $modversion['blocks'][$block_count]['description'] = 'Shows top authors';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_author_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_author_edit';
 $modversion['blocks'][$block_count]['options']     = 'rating|5|uname';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_authors.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_authors.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_top.php';
@@ -224,7 +224,7 @@ $modversion['blocks'][$block_count]['description'] = 'Shows top rated articles';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_top_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_top_edit';
 $modversion['blocks'][$block_count]['options']     = 'rating|10|25|0';
-$modversion['blocks'][$block_count]['template']    = 'ams_block_top.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_top.tpl';
 $block_count++;
 
 $modversion['blocks'][$block_count]['file']        = 'ams_spotlight.php';
@@ -233,7 +233,7 @@ $modversion['blocks'][$block_count]['description'] = 'Spotlight articles';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_spotlight_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_spotlight_edit';
 $modversion['blocks'][$block_count]['options']     = '10|1|' . $spotlight_templates_list[0];
-$modversion['blocks'][$block_count]['template']    = 'ams_block_spotlight.html';
+$modversion['blocks'][$block_count]['template']    = 'ams_block_spotlight.tpl';
 
 $block_count++;
 

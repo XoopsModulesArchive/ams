@@ -38,5 +38,5 @@
 </table>
 
 <div style="text-align: right; margin: 10px;"><{$pagenav}></div>
-<{include file='db:system_notification_select.html'}>
+<{include file='db:system_notification_select.tpl'}>
 <br>

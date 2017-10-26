@@ -23,7 +23,7 @@
                         <input type="radio" name="version" value="<{$story.version}>.<{$story.revision}><{$story.revisionminor}>" checked="checked" />
                     </td>
                     <td>
-                        <div style="padding: 3px; margin-right:3px;"><{include file="db:ams_item.html" story=$story}></div>
+                        <div style="padding: 3px; margin-right:3px;"><{include file="db:ams_item.tpl" story=$story}></div>
                     </td>
                 <{/if}>
             </tr>

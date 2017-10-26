@@ -62,7 +62,7 @@ if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoo
 }
 
 
-$GLOBALS['xoopsOption']['template_main'] = 'ams_article.html';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_article'CriteriaElement'';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray(true, false, -1));
 $banner = $myts->displayTarea($article->getBanner(), 1);

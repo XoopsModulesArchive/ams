@@ -84,7 +84,7 @@ if (empty($_GET['com_id']) && 0 == $storypage) {
 if ($admin) {
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0;
 }
-$GLOBALS['xoopsOption']['template_main'] = 'ams_article.html';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_article'CriteriaElement'';
 include_once XOOPS_ROOT_PATH.'/header.php';
 
 $xoopsTpl->assign('story', $article->toArray($admin, true, $storypage));

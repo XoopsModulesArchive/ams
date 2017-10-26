@@ -31,9 +31,9 @@ include_once XOOPS_ROOT_PATH.'/class/template.php';
 $tpl = new XoopsTpl();
 $tpl->xoops_setCaching(2);
 $tpl->xoops_setCacheTime(3600);
-$cache_file='db:system_rss.html';
+$cache_file='db:system_rss.tpl';
 if (defined('XOOPS_CUBE_LEGACY') && (XOOPS_CUBE_LEGACY==true)) {
-    $cache_file='db:legacy_rss.html';
+    $cache_file='db:legacy_rss.tpl';
 }
 if (!$tpl->is_cached($cache_file)) {
     $tpl->assign('channel_title', xoops_utf8_encode(htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES)));
