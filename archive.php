@@ -29,7 +29,7 @@
 ######################################################################
 
 include __DIR__ . '/../../mainfile.php';
-$GLOBALS['xoopsOption']['template_main'] = 'ams_archive'CriteriaElement'';
+$GLOBALS['xoopsOption']['template_main'] = 'ams_archive.tpl';
 include XOOPS_ROOT_PATH.'/header.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
 include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php';
