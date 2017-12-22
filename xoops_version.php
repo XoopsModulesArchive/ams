@@ -39,7 +39,7 @@ if ($handle = opendir($path)) {
         //if not a folder...
         if (!is_dir($path . '/' . $file) && '.' !== $file && '..' !== $file) {
             //if it is spotlight templates..
-            if ('ams_block_spotlight' === substr($file, 0, 19) && '.tpl' === substr($file, strlen($file) - 5)) {
+            if ('ams_block_spotlight' === substr($file, 0, 19) && '.tpl' === substr($file, strlen($file) - 4)) {
                 $template_name_offset                                      = 20;
                 $template_name                                             = substr(
                     $file,
