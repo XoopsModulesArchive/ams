@@ -233,7 +233,7 @@ $modversion['blocks'][$block_count]['name']        = _AMS_MI_NEWS_BNAME12;
 $modversion['blocks'][$block_count]['description'] = 'Spotlight articles';
 $modversion['blocks'][$block_count]['show_func']   = 'b_ams_spotlight_show';
 $modversion['blocks'][$block_count]['edit_func']   = 'b_ams_spotlight_edit';
-$modversion['blocks'][$block_count]['options'] = '10|1|' . $spotlight_templates_list[0];
+$modversion['blocks'][$block_count]['options'] = '10|1|' . isset($spotlight_templates_list[0]) ?: 0;
 $modversion['blocks'][$block_count]['template']    = 'ams_block_spotlight.tpl';
 
 $block_count++;
